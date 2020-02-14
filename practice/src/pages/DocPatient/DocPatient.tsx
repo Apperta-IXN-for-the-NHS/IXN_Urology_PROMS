@@ -1,6 +1,6 @@
 import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../../components/ExploreContainer';
+import { IonHeader, IonPage, IonTitle, IonToolbar, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonGrid, IonRow, IonCol, IonContent } from '@ionic/react';
+
 import './DocPatient.css';
 
 const DocPatient: React.FC = () => {
@@ -8,7 +8,7 @@ const DocPatient: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Knowledge Bank</IonTitle>
+          <IonTitle>DoctorPatient</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -17,7 +17,71 @@ const DocPatient: React.FC = () => {
             <IonTitle size="large">Tab 2</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <ExploreContainer name="Knowledge Bank" />
+
+
+        <IonGrid>
+      <IonRow>
+        <IonCol size="6">        
+          <IonCard color="primary" type="button">
+          <IonCardHeader>
+            <IonCardSubtitle>Card Subtitle</IonCardSubtitle>
+            <IonCardTitle>Card Title</IonCardTitle>
+          </IonCardHeader>
+          <IonCardContent>
+            ExampleText
+          </IonCardContent>
+        </IonCard>
+        </IonCol>
+
+
+        <IonCol>        
+          <IonCard color="primary" type="button">
+            <IonCardHeader>
+              <IonCardSubtitle>Card Subtitle</IonCardSubtitle>
+              <IonCardTitle>Card Title</IonCardTitle>
+            </IonCardHeader>
+            <IonCardContent>
+              ExampleText
+            </IonCardContent>
+          </IonCard>
+        </IonCol>
+      
+      
+      </IonRow>
+
+      <IonRow>
+        <IonCol>
+          <IonCard color="primary" type="button">
+            <IonCardHeader>
+              <IonCardSubtitle>Card Subtitle</IonCardSubtitle>
+              <IonCardTitle>Card Title</IonCardTitle>
+            </IonCardHeader>
+            <IonCardContent>
+              ExampleText
+            </IonCardContent>
+          </IonCard>
+        </IonCol>
+
+
+        <IonCol>
+          <IonCard color="primary" type="button">
+            <IonCardHeader>
+              <IonCardSubtitle>Card Subtitle</IonCardSubtitle>
+              <IonCardTitle>Card Title</IonCardTitle>
+            </IonCardHeader>
+            <IonCardContent>
+              ExampleText
+            </IonCardContent>
+          </IonCard>
+        </IonCol>
+
+
+      </IonRow>
+      </IonGrid>
+
+
+
+
       </IonContent>
     </IonPage>
   );
