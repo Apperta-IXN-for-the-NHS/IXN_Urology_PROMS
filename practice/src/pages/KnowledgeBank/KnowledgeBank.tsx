@@ -1,23 +1,50 @@
-import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../../components/ExploreContainer';
-import './KnowledgeBank.css';
+import  React, { useState } from "react";
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+  IonSegment
+} from "@ionic/react";
+import "./KnowledgeBank.css";
+import Tab from "./Tab";
+import CardList, { Info } from "./CardList";
+import { analytics, fitness , eyedrop, reader} from "ionicons/icons";
+import { PathwayInfo, ManagementInfo, DiseaseInfo, TreatmentInfo } from "./Info";
 
-const KnowledgeBank: React.FC = () => {
+interface OwnProps {
+  history: any;
+}
+
+const KnowledgeBank: React.FC<OwnProps> = ({ history }) => {
+  const icons = [analytics, eyedrop, fitness, reader];
+  const tabs = ['Pathway', 'Disease', 'Treatement', 'Management'];
+  const [tab, setTab] = useState<"Pathway" | "Disease" | "Treatment" | "Management">("Pathway")
+  const tabToInfo = (tabName: string): Info[] => {
+    if (tabName === "Pathway") return PathwayInfo
+    if (tabName === "Disease") return DiseaseInfo
+    if (tabName === "Treatement") return TreatmentInfo
+    if (tabName === "Management") return ManagementInfo
+    return PathwayInfo;
+  }
+
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Info Bank</IonTitle>
+          <IonSegment color="primary" value={tab} onIonChange={e => setTab(e.detail.value as any)}>
+            {tabs.map((val, idx) => <Tab key={idx} label={val} icon={icons[idx]}/>)}
+          </IonSegment>
+        </IonToolbar>
+        <IonToolbar>
+          <IonTitle class="ion-text-center">
+            <h2>{tab}</h2>
+          </IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Tab 1</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <ExploreContainer name="Info Page" />
+        <CardList infoArray={tabToInfo(tab)} history={history} />
       </IonContent>
     </IonPage>
   );

@@ -15,6 +15,7 @@ import KnowledgeBank from './pages/KnowledgeBank/KnowledgeBank';
 import DocPatient from './pages/DocPatient/DocPatient';
 import Support from './pages/Support/Support';
 import Profile from './pages/Profile/Profile';
+import InfoPage from './pages/KnowledgeBank/InfoPage';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -47,6 +48,7 @@ const App: React.FC = () => (
           <Route path="/tab2" component={DocPatient} exact={true} />
           <Route path="/tab3" component={Support} />
           <Route path="/tab4" component={Profile} />
+          <Route path="/temp" component={InfoPage} />
           <Route path="/" render={() => <Redirect to="/tab1" />} exact={true} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
