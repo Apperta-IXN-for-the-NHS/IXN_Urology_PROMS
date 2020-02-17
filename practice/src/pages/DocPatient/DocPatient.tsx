@@ -1,87 +1,120 @@
-import React from 'react';
-import { IonHeader, IonPage, IonTitle, IonToolbar, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonGrid, IonRow, IonCol, IonContent } from '@ionic/react';
+import React from "react";
+import {
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonContent
+} from "@ionic/react";
 
-import './DocPatient.css';
+import "./DocPatient.css";
+import calImg from "../../assets/images/calendar.png";
+import letterImg from "../../assets/images/mail.png";
+import quesImg from "../../assets/images/ques.png";
+import sympImg from "../../assets/images/symptoms.png";
 
-const DocPatient: React.FC = () => {
+interface QuadProps {
+  title: string;
+  image: any;
+  link: string;
+  history: any;
+}
+
+const QuadCard: React.FC<QuadProps> = ({
+  title,
+  image,
+  history,
+  link
+}) => {
+  return (
+    <IonCol size="6">
+      <IonCard
+        className="doc"
+        onClick={e => {
+          e.preventDefault();
+          history.push(link);
+        }}
+      >
+        <IonCardHeader>
+          <br/>
+          <br/>
+          <img src={image} alt={title} />
+          <IonCardTitle className="ion-text-center">{<h4>{title}</h4>}</IonCardTitle>
+        </IonCardHeader>
+      </IonCard>
+    </IonCol>
+  );
+};
+
+interface DocPatientProps {
+  history: any;
+}
+
+const DocPatient: React.FC<DocPatientProps> = ({ history }) => {
+  let cardContent = [
+    [
+      {
+        title: "Letters",
+        image: letterImg,
+        description:
+          "Letters, documents and forms you have received regarding your treatment and diagnosis.",
+        link: "/letters"
+      },
+      {
+        title: "Questionaires",
+        image: quesImg,
+        description:
+          "Important Questionnaires to help assist your medical treatement.",
+        link: "/quest"
+      }
+    ],
+    [
+      {
+        title: "Symptom Logs",
+        image: sympImg,
+        description:
+          "Log information about your recent symptoms to give doctors more information about your wellbeing.",
+        link: "/symptoms"
+      },
+      {
+        title: "Calendar",
+        image: calImg,
+        description: "Input and organise all of your upcoming appointments",
+        link: "/calendar"
+      }
+    ]
+  ];
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>DoctorPatient</IonTitle>
-        </IonToolbar>
-      </IonHeader>
       <IonContent>
-        <IonHeader collapse="condense">
+        <IonHeader>
           <IonToolbar>
-            <IonTitle size="large">Tab 2</IonTitle>
+            <IonTitle className="ion-text-center doc">
+              Doctor & Patient
+            </IonTitle>
           </IonToolbar>
         </IonHeader>
-
-
         <IonGrid>
-      <IonRow>
-        <IonCol size="6">        
-          <IonCard color="primary" type="button">
-          <IonCardHeader>
-            <IonCardSubtitle>Card Subtitle</IonCardSubtitle>
-            <IonCardTitle>Card Title</IonCardTitle>
-          </IonCardHeader>
-          <IonCardContent>
-            ExampleText
-          </IonCardContent>
-        </IonCard>
-        </IonCol>
-
-
-        <IonCol>        
-          <IonCard color="primary" type="button">
-            <IonCardHeader>
-              <IonCardSubtitle>Card Subtitle</IonCardSubtitle>
-              <IonCardTitle>Card Title</IonCardTitle>
-            </IonCardHeader>
-            <IonCardContent>
-              ExampleText
-            </IonCardContent>
-          </IonCard>
-        </IonCol>
-      
-      
-      </IonRow>
-
-      <IonRow>
-        <IonCol>
-          <IonCard color="primary" type="button">
-            <IonCardHeader>
-              <IonCardSubtitle>Card Subtitle</IonCardSubtitle>
-              <IonCardTitle>Card Title</IonCardTitle>
-            </IonCardHeader>
-            <IonCardContent>
-              ExampleText
-            </IonCardContent>
-          </IonCard>
-        </IonCol>
-
-
-        <IonCol>
-          <IonCard color="primary" type="button">
-            <IonCardHeader>
-              <IonCardSubtitle>Card Subtitle</IonCardSubtitle>
-              <IonCardTitle>Card Title</IonCardTitle>
-            </IonCardHeader>
-            <IonCardContent>
-              ExampleText
-            </IonCardContent>
-          </IonCard>
-        </IonCol>
-
-
-      </IonRow>
-      </IonGrid>
-
-
-
-
+          {cardContent.map((content, idx) => (
+            <IonRow key={idx}>
+              {content.map((c, idx) => (
+                <QuadCard
+                  key={idx}
+                  title={c.title}
+                  image={c.image}
+                  link={c.link}
+                  history={history}
+                />
+              ))}
+            </IonRow>
+          ))}
+        </IonGrid>
       </IonContent>
     </IonPage>
   );

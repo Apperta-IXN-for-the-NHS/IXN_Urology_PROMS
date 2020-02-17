@@ -10,10 +10,14 @@ ion-content ion-toolbar {
     height: 50%;
   }
 
-ion-card{
+ion-card.doc{
         display: flex;
         flex-direction: column;
         width: 100% !important;
         height:100% !important;
         margin: 0 !important;
       }
+
+ion-title.doc{
+  font-size: x-large
+}

@@ -16,6 +16,10 @@ import DocPatient from './pages/DocPatient/DocPatient';
 import Support from './pages/Support/Support';
 import Profile from './pages/Profile/Profile';
 import InfoPage from './pages/KnowledgeBank/InfoPage';
+import Letters from './pages/DocPatient/Letters';
+import Questionaire from './pages/DocPatient/Questionaire';
+import Symptoms from './pages/DocPatient/Symptoms';
+import Calendar from './pages/DocPatient/Calendar';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -49,6 +53,10 @@ const App: React.FC = () => (
           <Route path="/tab3" component={Support} />
           <Route path="/tab4" component={Profile} />
           <Route path="/temp" component={InfoPage} />
+          <Route path="/letters" component={Letters} />
+          <Route path="/quest" component={Questionaire} />
+          <Route path="/symptoms" component={Symptoms} />
+          <Route path="/calendar" component={Calendar} />
           <Route path="/" render={() => <Redirect to="/tab1" />} exact={true} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
