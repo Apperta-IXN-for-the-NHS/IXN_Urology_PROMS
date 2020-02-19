@@ -14,10 +14,11 @@ const InfoCard: React.FC<InfoCardProps> = ({ history, title, link }) => {
         e.preventDefault();
         history.push(link);
       }}
-      color="primary"
     >
       <IonCardHeader>
-        <IonCardTitle class="ion-text-center"><h2>{title}</h2></IonCardTitle>
+        <IonCardTitle class="ion-text-center">
+          <h2>{title}</h2>
+        </IonCardTitle>
       </IonCardHeader>
     </IonCard>
   );
