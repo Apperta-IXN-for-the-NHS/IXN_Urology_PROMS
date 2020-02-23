@@ -42,6 +42,7 @@ import './theme/variables.css';
 
 /* Global CSS */
 import './global.css';
+import DateTimeExample from './pages/DocPatient/Dates';
 
 const App: React.FC = () => (
   <IonApp>
@@ -57,6 +58,7 @@ const App: React.FC = () => (
           <Route path="/quest" component={Questionaire} />
           <Route path="/symptoms" component={Symptoms} />
           <Route path="/calendar" component={Calendar} />
+          <Route path="/dates" component={DateTimeExample} />
           <Route path="/" render={() => <Redirect to="/tab1" />} exact={true} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">

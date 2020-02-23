@@ -14,6 +14,10 @@ import {
   IonFab,
   IonFabButton,
   IonIcon,
+  IonDatetime,
+  IonItem,
+  IonLabel,
+  IonInput,
   IonCardContent,
   IonModal
 } from "@ionic/react";
@@ -42,11 +46,20 @@ const AddSymptom: React.FC<AddSymptomProps> = ({ setModal, symptoms }) => {
   return (
     <IonHeader>
       <IonToolbar>
-        <IonTitle>Log a new Symptom</IonTitle>
+        <IonButtons>
+          <IonButton onClick={() => setModal(false)}>Close</IonButton>
+        </IonButtons>
       </IonToolbar>
-      <IonButtons>
-        <IonButton onClick={() => setModal(false)}>Close</IonButton>
-      </IonButtons>
+      <h2 className="ion-text-center">Log a new Symptom</h2>
+      <IonItem>
+        <IonLabel position="stacked">Symptom Title</IonLabel>
+        <IonInput type="text" autofocus></IonInput>
+      </IonItem>
+      <br/>
+      <IonItem>
+        <IonLabel position="stacked">Date Symptom Occurred</IonLabel>
+        <IonInput type="date" onIonChange={(e) => console.log(e.detail.value)}></IonInput>
+      </IonItem>
     </IonHeader>
   );
 };
