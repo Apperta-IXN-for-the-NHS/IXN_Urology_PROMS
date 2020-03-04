@@ -17,7 +17,7 @@ import Support from './pages/Support/Support';
 import Profile from './pages/Profile/Profile';
 import InfoPage from './pages/KnowledgeBank/InfoPage';
 import Letters from './pages/DocPatient/Letters';
-import Questionaire from './pages/DocPatient/Questionaire';
+import Questionaire, { QuestionairePage } from './pages/DocPatient/Questionaire';
 import Symptoms from './pages/DocPatient/Symptoms';
 import Calendar from './pages/DocPatient/Calendar';
 
@@ -42,7 +42,7 @@ import './theme/variables.css';
 
 /* Global CSS */
 import './global.css';
-import DateTimeExample from './pages/DocPatient/Dates';
+import { ItemSlidingExample } from './pages/DocPatient/Dates';
 
 const App: React.FC = () => (
   <IonApp>
@@ -58,7 +58,8 @@ const App: React.FC = () => (
           <Route path="/quest" component={Questionaire} />
           <Route path="/symptoms" component={Symptoms} />
           <Route path="/calendar" component={Calendar} />
-          <Route path="/dates" component={DateTimeExample} />
+          <Route path="/dates" component={ItemSlidingExample} />
+          <Route path="/ipss" component={QuestionairePage} />
           <Route path="/" render={() => <Redirect to="/tab1" />} exact={true} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">

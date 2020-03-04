@@ -1,23 +1,56 @@
-import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../../components/ExploreContainer';
-import './Support.css';
+import React from "react";
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonTitle,
+  IonToolbar,
+  IonSearchbar
+} from "@ionic/react";
+import ExploreContainer from "../../components/ExploreContainer";
+import { InfoCard } from "../KnowledgeBank/CardList";
+import "./Support.css";
 
-const Support: React.FC = () => {
+interface SupportProps {
+  history: any;
+}
+
+interface SupportCardProps {
+  title: string;
+}
+
+const SupportCard: React.FC<SupportCardProps> = ({ title }) => {
+  return (
+    <IonCard>
+      <IonCardHeader>
+        <IonCardTitle>{title}</IonCardTitle>
+      </IonCardHeader>
+    </IonCard>
+  );
+};
+
+const Support: React.FC<SupportProps> = ({ history }) => {
+  const cardInfo = [
+    { title: "Community" },
+    { title: "Counseling" },
+    { title: "Charities" },
+    { title: "Diet & Exercise" }
+  ];
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Support</IonTitle>
-        </IonToolbar>
-      </IonHeader>
       <IonContent>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Support</IonTitle>
+            <IonTitle className="ion-text-center">
+              <h2>Support</h2>
+            </IonTitle>
           </IonToolbar>
         </IonHeader>
-        <ExploreContainer name="Support page" />
+        <IonSearchbar />
+        {cardInfo.map((card, index) => (<SupportCard key={index} title={card.title}/>))}
       </IonContent>
     </IonPage>
   );

@@ -7,10 +7,6 @@ export let PathwayInfo = [
     {title: "Who will I see in the clinic?", link: "/temp"},
 ]
 
-// let PathwayContent = [
-//     {title: ""}
-// ]
-
 export let DiseaseInfo = [
     {title: "What is the prostate?", link: "/temp"},
     {title: "Symptoms", link: "/temp"},

@@ -7,7 +7,7 @@ interface InfoCardProps {
   link: string;
 }
 
-const InfoCard: React.FC<InfoCardProps> = ({ history, title, link }) => {
+export const InfoCard: React.FC<InfoCardProps> = ({ history, title, link }) => {
   return (
     <IonCard
       onClick={e => {
