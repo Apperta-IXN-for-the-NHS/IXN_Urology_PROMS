@@ -1,26 +1,30 @@
-import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../../components/ExploreContainer';
+import React, { useState }  from 'react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar} from '@ionic/react';
 import './Support.css';
+import CardList, { Info } from "./CardList_support";
+import { SupportInfo } from "./Info_support";
 
-const Support: React.FC = () => {
-  return (
+interface OwnProps {
+  history: any;
+}
+
+const KnowledgeBank: React.FC<OwnProps> = ({ history }) => {
+    return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Support</IonTitle>
+        </IonToolbar>
+        <IonToolbar>
+          <IonTitle class="ion-text-center">
+            <h2>Support</h2>
+          </IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Support</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <ExploreContainer name="Support page" />
+        <CardList infoArray={SupportInfo} history={history} />
       </IonContent>
     </IonPage>
   );
 };
 
-export default Support;
+export default KnowledgeBank;
