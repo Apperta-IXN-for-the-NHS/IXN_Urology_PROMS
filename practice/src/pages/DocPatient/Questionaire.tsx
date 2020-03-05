@@ -24,7 +24,7 @@ import {
 } from "@ionic/react";
 
 import { arrowForwardCircleSharp } from "ionicons/icons";
-import { queryHelpers } from "@testing-library/react";
+import { Cards } from "./QuestionnaireInfo";
 
 interface TitleCardProps {
   title: string;
@@ -64,27 +64,32 @@ const TitleCard: React.FC<TitleCardProps> = ({
   );
 };
 
-interface QuestionnairePageProps {
-  questions: String[];
+interface Content {
   title: string;
+  questions: string[];
+  answers: string[][];
+}
+
+interface QuestionnairePageProps {
+  // title: string;
+  contentArray: Content[];
 }
 
 export const QuestionairePage: React.FC<QuestionnairePageProps> = ({
-  questions,
-  title
+  contentArray
 }) => {
-  const qstns = [
-    "How badly are you suffering from X",
-    "How badly are you suffering from Y",
-    "How badly are you suffering from Z"
-  ];
-  const options = [
-    "Not at all",
-    "Less than 1 time in 5",
-    "More than half the time",
-    "Less than half the time",
-    "Almost always"
-  ];
+  // const qstns = [
+  //   "How badly are you suffering from X",
+  //   "How badly are you suffering from Y",
+  //   "How badly are you suffering from Z"
+  // ];
+  // const answers = [
+  //   "Not at all",
+  //   "Less than 1 time in 5",
+  //   "More than half the time",
+  //   "Less than half the time",
+  //   "Almost always"
+  // ];
   return (
     <IonPage>
       <IonHeader>
@@ -96,20 +101,17 @@ export const QuestionairePage: React.FC<QuestionnairePageProps> = ({
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <h2 className="ion-text-center">IPSS Questionaire</h2>
-        <IonSlides pager={true} ref={r => r?.slideNext}>
-          {qstns.map((info, index) => (
+        <h2 className="ion-text-center">Hi</h2>
+        <IonSlides pager={false} ref={r => r?.slideNext}>
+          {contentArray.map((info, index) => (
             <IonSlide>
               <IonCard>
                 <IonCardHeader>
-                  <IonCardTitle>{info}</IonCardTitle>
+                  <IonCardTitle>{info.questions}</IonCardTitle>
                 </IonCardHeader>
                 <IonCardContent>
                   <IonRadioGroup>
-                    {/* <IonListHeader>
-                      <IonLabel>{info}</IonLabel>
-                    </IonListHeader> */}
-                    {options.map((val, index) => (
+                    {info.answers.map((val, index) => (
                       <IonItem>
                         <IonLabel>{val}</IonLabel>
                         <IonRadio value={val} />
@@ -118,7 +120,7 @@ export const QuestionairePage: React.FC<QuestionnairePageProps> = ({
                   </IonRadioGroup>
                 </IonCardContent>
               </IonCard>
-            </IonSlide> 
+            </IonSlide>
           ))}
           {/* <IonButton onClick={(r) => {r.slideNext}}></IonButton>  */}
         </IonSlides>
@@ -143,12 +145,14 @@ const Questionaire: React.FC<QuestionaireProps> = ({ history }) => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <TitleCard
-          history={history}
-          title="IPSS"
-          desc="This questionnaire conatins important info regarding prostate cancer diagnosis"
-          link="/ipss"
-        ></TitleCard>
+        {Cards.map((cardInfo, index) => (
+          <TitleCard
+            history={history}
+            title={cardInfo.cardTitle}
+            desc={cardInfo.cardDesc}
+            link={cardInfo.link}
+          />
+        ))}
       </IonContent>
     </IonPage>
   );

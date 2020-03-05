@@ -9,15 +9,12 @@ import {
 } from "@ionic/react";
 import "./KnowledgeBank.css";
 import Tab from "./Tab";
-import CardList, { Info } from "./CardList";
+import CardList, { Info } from "../../components/common/CardList";
 import { analytics, fitness , eyedrop, reader} from "ionicons/icons";
 import { PathwayInfo, ManagementInfo, DiseaseInfo, TreatmentInfo } from "./Info";
 
-interface OwnProps {
-  history: any;
-}
 
-const KnowledgeBank: React.FC<OwnProps> = ({ history }) => {
+const KnowledgeBank: React.FC = () => {
   const icons = [analytics, eyedrop, fitness, reader];
   const tabs = ['Pathway', 'Disease', 'Treatement', 'Management'];
   const [tab, setTab] = useState<"Pathway" | "Disease" | "Treatment" | "Management">("Pathway")
@@ -44,7 +41,7 @@ const KnowledgeBank: React.FC<OwnProps> = ({ history }) => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <CardList infoArray={tabToInfo(tab)} history={history} />
+        <CardList infoArray={tabToInfo(tab)} />
       </IonContent>
     </IonPage>
   );

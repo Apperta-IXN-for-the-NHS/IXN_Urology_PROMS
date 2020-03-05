@@ -1,14 +1,12 @@
 import React, { useState }  from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar} from '@ionic/react';
 import './Support.css';
-import CardList, { Info } from "./CardList_support";
-import { SupportInfo } from "./Info_support";
+import CardList, { Info } from "../../components/common/CardList";
+import { SupportInfo } from "./Info";
 
-interface OwnProps {
-  history: any;
-}
 
-const Support: React.FC<OwnProps> = ({ history }) => {
+
+const Support: React.FC = () => {
     return (
     <IonPage>
       <IonHeader>
@@ -21,7 +19,7 @@ const Support: React.FC<OwnProps> = ({ history }) => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <CardList infoArray={SupportInfo} history={history} />
+        <CardList infoArray={SupportInfo} />
       </IonContent>
     </IonPage>
   );

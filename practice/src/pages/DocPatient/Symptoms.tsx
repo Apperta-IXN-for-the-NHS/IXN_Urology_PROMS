@@ -28,7 +28,7 @@ import {
 } from "@ionic/react";
 import { addOutline } from "ionicons/icons";
 import "./Symptoms.css";
-import CardList from "../KnowledgeBank/CardList";
+import CardList from "../../components/common/CardList";
 
 interface Symptom {
   title: string;
