@@ -15,9 +15,9 @@ import KnowledgeBank from './pages/KnowledgeBank/KnowledgeBank';
 import DocPatient from './pages/DocPatient/DocPatient';
 import Support from './pages/Support/Support';
 import Profile from './pages/Profile/Profile';
-import InfoPage from './pages/KnowledgeBank/InfoPage';
 import Letters from './pages/DocPatient/Letters';
-import Questionaire from './pages/DocPatient/Questionaire';
+import Questionaire, { QuestionairePage } from './pages/DocPatient/Questionaire';
+import { QuestContent } from './pages/DocPatient/QuestionnaireInfo';
 import Symptoms from './pages/DocPatient/Symptoms';
 import Calendar from './pages/DocPatient/Calendar';
 import History from './pages/Profile/History';
@@ -46,7 +46,7 @@ import './theme/variables.css';
 
 /* Global CSS */
 import './global.css';
-import DateTimeExample from './pages/DocPatient/Dates';
+import { ItemSlidingExample } from './pages/DocPatient/Dates';
 
 const App: React.FC = () => (
   <IonApp>
@@ -57,15 +57,15 @@ const App: React.FC = () => (
           <Route path="/tab2" component={DocPatient} exact={true} />
           <Route path="/tab3" component={Support} />
           <Route path="/tab4" component={Profile} />
-          <Route path="/temp" component={InfoPage} />
           <Route path="/letters" component={Letters} />
           <Route path="/quest" component={Questionaire} />
           <Route path="/symptoms" component={Symptoms} />
           <Route path="/calendar" component={Calendar} />
-          <Route path="/dates" component={DateTimeExample} />
           <Route path="/history" component={History} />
           <Route path="/contacts" component={Contacts} />
           <Route path="/settings" component={Settings} />
+          <Route path="/dates" component={ItemSlidingExample} />
+          <Route path="/ipss" render={() => <QuestionairePage contentArray={QuestContent}/>} />
           <Route path="/" render={() => <Redirect to="/tab1" />} exact={true} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">

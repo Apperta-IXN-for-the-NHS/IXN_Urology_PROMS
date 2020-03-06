@@ -1,211 +1,146 @@
-import React from "react";
-import { IonItem, IonLabel, IonDatetime, IonContent, IonInput } from "@ionic/react";
+import React from 'react';
+import { IonList, IonItemSliding, IonItem, IonLabel, IonItemOptions, IonItemOption, IonIcon, IonNote } from '@ionic/react';
 
-const customYearValues = [2020, 2016, 2008, 2004, 2000, 1996];
-
-const customDayShortNames = [
-  "s\u00f8n",
-  "man",
-  "tir",
-  "ons",
-  "tor",
-  "fre",
-  "l\u00f8r"
-];
-
-const DateTimeExample: React.FC = () => (
-  <IonContent>
-    {/*-- Default Input --*/}
-    <IonInput></IonInput>
-
-    {/*-- Input with value --*/}
-    <IonInput value="custom"></IonInput>
-
-    {/*-- Input with placeholder --*/}
-    <IonInput placeholder="Enter Input"></IonInput>
-
-    {/*-- Input with clear button when there is a value --*/}
-    <IonInput clearInput value="clear me"></IonInput>
-
-    {/*-- Number type input --*/}
-    <IonInput type="number" value="333"></IonInput>
-
-    {/*-- Disabled input --*/}
-    <IonInput value="Disabled" disabled></IonInput>
-
-    {/*-- Readonly input --*/}
-    <IonInput value="Readonly" readonly></IonInput>
-
-    {/*-- Inputs with labels --*/}
-    <IonItem>
-      <IonLabel>Default Label</IonLabel>
-      <IonInput></IonInput>
-    </IonItem>
+export const ItemSlidingExample: React.FC = () => (
+<IonList>
+  {/* Sliding item with text options on both sides */}
+  <IonItemSliding>
+    <IonItemOptions side="start">
+      <IonItemOption onClick={() => console.log('favorite clicked')}>Favorite</IonItemOption>
+      <IonItemOption color="danger" onClick={() => console.log('share clicked')}>Share</IonItemOption>
+    </IonItemOptions>
 
     <IonItem>
-      <IonLabel position="floating">Floating Label</IonLabel>
-      <IonInput></IonInput>
+      <IonLabel>Item Options</IonLabel>
     </IonItem>
 
-    <IonItem>
-      <IonLabel position="fixed">Fixed Label</IonLabel>
-      <IonInput></IonInput>
-    </IonItem>
+    <IonItemOptions side="end">
+      <IonItemOption onClick={() => console.log('unread clicked')}>Unread</IonItemOption>
+    </IonItemOptions>
+  </IonItemSliding>
+
+  {/* Sliding item with expandable options on both sides */}
+  <IonItemSliding>
+    <IonItemOptions side="start">
+      <IonItemOption color="danger" expandable>
+        Delete
+      </IonItemOption>
+    </IonItemOptions>
 
     <IonItem>
-      <IonLabel position="stacked">Stacked Label</IonLabel>
-      <IonInput></IonInput>
-    </IonItem>
-    <IonItem>
-      <IonLabel>MMMM</IonLabel>
-      <IonDatetime
-        displayFormat="MMMM"
-        value="2012-12-15T13:47:20.789"
-      ></IonDatetime>
+      <IonLabel>Expandable Options</IonLabel>
     </IonItem>
 
-    <IonItem>
-      <IonLabel>MM DD YY</IonLabel>
-      <IonDatetime
-        displayFormat="MM DD YY"
-        placeholder="Select Date"
-      ></IonDatetime>
+    <IonItemOptions side="end">
+      <IonItemOption color="tertiary" expandable>
+        Archive
+      </IonItemOption>
+    </IonItemOptions>
+  </IonItemSliding>
+
+  {/* Multi-line sliding item with icon options on both sides */}
+  <IonItemSliding id="item100">
+    <IonItem href="#">
+      <IonLabel>
+        <h2>HubStruck Notifications</h2>
+        <p>A new message in your network</p>
+        <p>Oceanic Next has joined your network</p>
+      </IonLabel>
+      <IonNote slot="end">
+        10:45 AM
+      </IonNote>
     </IonItem>
 
-    <IonItem>
-      <IonLabel>Disabled</IonLabel>
-      <IonDatetime
-        id="dynamicDisabled"
-        displayFormat="MM DD YY"
-        disabled
-        value="1994-12-15"
-      ></IonDatetime>
-    </IonItem>
+    <IonItemOptions side="start">
+      <IonItemOption>
+        <IonIcon slot="icon-only" name="heart"></IonIcon>
+      </IonItemOption>
+    </IonItemOptions>
 
-    <IonItem>
-      <IonLabel>YYYY</IonLabel>
-      <IonDatetime
-        pickerOptions={{
-          buttons: [
-            {
-              text: "Save",
-              handler: () => console.log("Clicked Save!")
-            },
-            {
-              text: "Log",
-              handler: () => {
-                console.log("Clicked Log. Do not Dismiss.");
-                return false;
-              }
-            }
-          ]
-        }}
-        placeholder="Custom Options"
-        displayFormat="YYYY"
-        min="1981"
-        max="2002"
-      ></IonDatetime>
-    </IonItem>
+    <IonItemOptions side="end">
+      <IonItemOption color="danger">
+        <IonIcon slot="icon-only" name="trash"></IonIcon>
+      </IonItemOption>
+      <IonItemOption>
+        <IonIcon slot="icon-only" name="star"></IonIcon>
+      </IonItemOption>
+    </IonItemOptions>
+  </IonItemSliding>
 
+  {/* Sliding item with icon start options on end side */}
+  <IonItemSliding>
     <IonItem>
-      <IonLabel position="stacked">MMMM YY</IonLabel>
-      <IonDatetime
-        displayFormat="MMMM YY"
-        min="1989-06-04"
-        max="2004-08-23"
-        value="1994-12-15T13:47:20.789"
-      ></IonDatetime>
+      <IonLabel>
+        Sliding Item, Icons Start
+      </IonLabel>
     </IonItem>
+    <IonItemOptions>
+      <IonItemOption color="primary">
+        <IonIcon slot="start" ios="ellipsis-horizontal" md="ellipsis-vertical"></IonIcon>
+        More
+      </IonItemOption>
+      <IonItemOption color="secondary">
+        <IonIcon slot="start" name="archive"></IonIcon>
+        Archive
+      </IonItemOption>
+    </IonItemOptions>
+  </IonItemSliding>
 
+  {/* Sliding item with icon end options on end side */}
+  <IonItemSliding>
     <IonItem>
-      <IonLabel position="floating">MM/DD/YYYY</IonLabel>
-      <IonDatetime
-        displayFormat="MM/DD/YYYY"
-        min="1994-03-14"
-        max="2012-12-09"
-        value="2002-09-23T15:03:46.789"
-      ></IonDatetime>
+      <IonLabel>
+        Sliding Item, Icons End
+      </IonLabel>
     </IonItem>
+    <IonItemOptions>
+      <IonItemOption color="primary">
+        <IonIcon slot="end" ios="ellipsis-horizontal" md="ellipsis-vertical"></IonIcon>
+        More
+      </IonItemOption>
+      <IonItemOption color="secondary">
+        <IonIcon slot="end" name="archive"></IonIcon>
+        Archive
+      </IonItemOption>
+    </IonItemOptions>
+  </IonItemSliding>
 
+  {/* Sliding item with icon top options on end side */}
+  <IonItemSliding>
     <IonItem>
-      <IonLabel position="floating">MM/DD/YYYY</IonLabel>
-      <IonDatetime
-        displayFormat="MM/DD/YYYY"
-        min="1994-03-14"
-        max="2012-12-09"
-      ></IonDatetime>
+      <IonLabel>
+        Sliding Item, Icons Top
+      </IonLabel>
     </IonItem>
+    <IonItemOptions>
+      <IonItemOption color="primary">
+        <IonIcon slot="top" ios="ellipsis-horizontal" md="ellipsis-vertical"></IonIcon>
+        More
+      </IonItemOption>
+      <IonItemOption color="secondary">
+        <IonIcon slot="top" name="archive"></IonIcon>
+        Archive
+      </IonItemOption>
+    </IonItemOptions>
+  </IonItemSliding>
 
+  {/* Sliding item with icon bottom options on end side */}
+  <IonItemSliding>
     <IonItem>
-      <IonLabel>DDD. MMM DD, YY (custom locale)</IonLabel>
-      <IonDatetime
-        value="1995-04-15"
-        min="1990-02"
-        max="2000"
-        dayShortNames={customDayShortNames}
-        displayFormat="DDD. MMM DD, YY"
-        monthShortNames="jan, feb, mar, apr, mai, jun, jul, aug, sep, okt, nov, des"
-      ></IonDatetime>
+      <IonLabel>
+        Sliding Item, Icons Bottom
+      </IonLabel>
     </IonItem>
-
-    <IonItem>
-      <IonLabel>D MMM YYYY H:mm</IonLabel>
-      <IonDatetime
-        displayFormat="D MMM YYYY H:mm"
-        min="1997"
-        max="2010"
-        value="2005-06-17T11:06Z"
-      ></IonDatetime>
-    </IonItem>
-
-    <IonItem>
-      <IonLabel>DDDD MMM D, YYYY</IonLabel>
-      <IonDatetime
-        displayFormat="DDDD MMM D, YYYY"
-        min="2005"
-        max="2016"
-        value="2008-09-02"
-      ></IonDatetime>
-    </IonItem>
-
-    <IonItem>
-      <IonLabel>HH:mm</IonLabel>
-      <IonDatetime displayFormat="HH:mm"></IonDatetime>
-    </IonItem>
-
-    <IonItem>
-      <IonLabel>h:mm a</IonLabel>
-      <IonDatetime displayFormat="h:mm a"></IonDatetime>
-    </IonItem>
-
-    <IonItem>
-      <IonLabel>hh:mm A (15 min steps)</IonLabel>
-      <IonDatetime
-        displayFormat="h:mm A"
-        minuteValues="0,15,30,45"
-      ></IonDatetime>
-    </IonItem>
-
-    <IonItem>
-      <IonLabel>Leap years, summer months</IonLabel>
-      <IonDatetime
-        displayFormat="MM/YYYY"
-        pickerFormat="MMMM YYYY"
-        monthValues="6,7,8"
-        yearValues={customYearValues}
-      ></IonDatetime>
-    </IonItem>
-
-    <IonItem>
-      <IonLabel>Specific days/months/years</IonLabel>
-      <IonDatetime
-        monthValues="6,7,8"
-        yearValues="2014,2015"
-        dayValues="01,02,03,04,05,06,08,09,10, 11, 12, 13, 14"
-        displayFormat="DD/MMM/YYYY"
-      ></IonDatetime>
-    </IonItem>
-  </IonContent>
+    <IonItemOptions>
+      <IonItemOption color="primary">
+        <IonIcon slot="bottom" ios="ellipsis-horizontal" md="ellipsis-vertical"></IonIcon>
+        More
+      </IonItemOption>
+      <IonItemOption color="secondary">
+        <IonIcon slot="bottom" name="archive"></IonIcon>
+        Archive
+      </IonItemOption>
+    </IonItemOptions>
+  </IonItemSliding>
+</IonList>
 );
-
-export default DateTimeExample;

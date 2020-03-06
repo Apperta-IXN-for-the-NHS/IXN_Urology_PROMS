@@ -1,33 +1,29 @@
 export let PathwayInfo = [
-    {title: "What is the RAPID clinic?", link: "/temp"},
-    {title: "What do I need to do before the appointment?", link: "/temp"},
-    {title: "What do I need to do before the appointment?", link: "/temp"},
-    {title: "What will I need to bring to the clinic?", link: "/temp"},
-    {title: "What can I expect from the clinic?", link: "/temp"},
-    {title: "Who will I see in the clinic?", link: "/temp"},
+    {title: "What is the RAPID clinic?", description: "text goes here"},
+    {title: "What do I need to do before the appointment?", description: "text goes here"},
+    {title: "What do I need to do before the appointment?", description: "text goes here"},
+    {title: "What will I need to bring to the clinic?", description: "text goes here"},
+    {title: "What can I expect from the clinic?", description: "text goes here"},
+    {title: "Who will I see in the clinic?", description: "text goes here"},
 ]
 
-// let PathwayContent = [
-//     {title: ""}
-// ]
-
 export let DiseaseInfo = [
-    {title: "What is the prostate?", link: "/temp"},
-    {title: "Symptoms", link: "/temp"},
-    {title: "What is prostate cancer?", link: "/temp"},
-    {title: "Who does it affect and why?", link: "/temp"}
+    {title: "What is the prostate?", description: "text goes here"},
+    {title: "Symptoms", description: "text goes here"},
+    {title: "What is prostate cancer?", description: "text goes here"},
+    {title: "Who does it affect and why?", description: "text goes here"}
 ]
 
 export let TreatmentInfo = [
-    {title: "What is an MRI", link: "/temp"},
-    {title: "Brachytherapy", link: "/temp"},
-    {title: "Radiotherapy", link: "/temp"},
-    {title: "What affects my treatement options?", link: "/temp"}
+    {title: "What is an MRI", description: "text goes here"},
+    {title: "Brachytherapy", description: "text goes here"},
+    {title: "Radiotherapy", description: "text goes here"},
+    {title: "What affects my treatement options?", description: "text goes here"}
 ]
 
 export let ManagementInfo = [
-    {title: "Managing with side effects", link: "/temp"},
-    {title: "Sexual problems", link: "/temp"},
-    {title: "Bone health", link: "/temp"},
-    {title: "Managing with fatigue", link: "/temp"}
+    {title: "Managing with side effects", description: "text goes here"},
+    {title: "Sexual problems", description: "text goes here"},
+    {title: "Bone health", description: "text goes here"},
+    {title: "Managing with fatigue", description: "text goes here"}
 ]

@@ -1,23 +1,25 @@
-import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../../components/ExploreContainer';
+import React, { useState }  from 'react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar} from '@ionic/react';
 import './Support.css';
+import CardList, { Info } from "../../components/common/CardList";
+import { SupportInfo } from "./Info";
+
+
 
 const Support: React.FC = () => {
-  return (
+    return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Support</IonTitle>
+        </IonToolbar>
+        <IonToolbar>
+          <IonTitle class="ion-text-center">
+            <h2>Support</h2>
+          </IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Support</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <ExploreContainer name="Support page" />
+        <CardList infoArray={SupportInfo} />
       </IonContent>
     </IonPage>
   );
