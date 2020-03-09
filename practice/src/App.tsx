@@ -17,7 +17,7 @@ import Support from './pages/Support/Support';
 import Profile from './pages/Profile/Profile';
 import Letters from './pages/DocPatient/Letters';
 import Questionaire, { QuestionairePage } from './pages/DocPatient/Questionaire';
-import { QuestContent } from './pages/DocPatient/QuestionnaireInfo';
+import { IPSS, IIEF, Feedback } from './pages/DocPatient/QuestionnaireInfo';
 import Symptoms from './pages/DocPatient/Symptoms';
 import Calendar from './pages/DocPatient/Calendar';
 
@@ -58,7 +58,9 @@ const App: React.FC = () => (
           <Route path="/symptoms" component={Symptoms} />
           <Route path="/calendar" component={Calendar} />
           <Route path="/dates" component={ItemSlidingExample} />
-          <Route path="/ipss" render={() => <QuestionairePage contentArray={QuestContent}/>} />
+          <Route path="/ipss" render={() => <QuestionairePage contentArray={IPSS}/>} />
+          <Route path="/iief" render={() => <QuestionairePage contentArray={IIEF}/>} />
+          <Route path="/feedback" render={() => <QuestionairePage contentArray={Feedback}/>} />
           <Route path="/" render={() => <Redirect to="/tab1" />} exact={true} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">

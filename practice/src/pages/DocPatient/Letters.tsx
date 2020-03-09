@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   IonHeader,
   IonPage,
   IonTitle,
   IonToolbar,
+  IonSearchbar,
   IonButtons,
   IonBackButton,
   IonContent
 } from "@ionic/react";
 
 const Letters: React.FC = () => {
+  const [searchText, setSearchText] = useState("");
   return (
     <IonPage>
       <IonHeader>
@@ -21,6 +23,11 @@ const Letters: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
+        <IonSearchbar
+          animated
+          placeholder="search letters"
+          showCancelButton="focus"
+        ></IonSearchbar>
       </IonContent>
     </IonPage>
   );

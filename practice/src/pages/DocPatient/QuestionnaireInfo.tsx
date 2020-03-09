@@ -1,4 +1,4 @@
-export let QuestContent = [
+export let IPSS = [
   {
     title: "IPSS",
     questions: [
@@ -29,12 +29,56 @@ export let QuestContent = [
         "Almost always"
       ]
     ]
-  },
+  }
+];
+
+export let Feedback = [
   {
-    title: "IIEF",
-    questions: ["Question One", "Question Two", "Question Three"],
+    title: "Feedback",
+    questions: [
+      "Question one goes here",
+      "Question two goes here",
+      "Question three goes here",
+    ],
     answers: [
-      ["Very low", "Low", "Moderate", "High", "Very High"],
+      [
+        "Answer one",
+        "Answer two",
+        "Answer three",
+        "Answer four",
+      ],
+      [
+        "Answer one",
+        "Answer two",
+        "Answer three",
+        "Answer four",
+      ],
+      [
+        "Answer one",
+        "Answer two",
+        "Answer three",
+        "Answer four",
+      ],
+    ]
+  }
+];
+
+export let IIEF = [
+  {
+    title: "Feedback",
+    questions: [
+      "Question one goes here",
+      "Question two goes here",
+      "Question three goes here",
+    ],
+    answers: [
+      [
+        "Very Low",
+        "Low",
+        "Moderate",
+        "High",
+        "Very High",
+      ],
       [
         "No sexual activity",
         "Almost never or never",
@@ -43,7 +87,12 @@ export let QuestContent = [
         "Most times",
         "Almast always or always"
       ],
-      ["Answer one", "Answer two", "Answer three", "Answer four"]
+      [
+        "Answer one",
+        "Answer two",
+        "Answer three",
+        "Answer four",
+      ],
     ]
   }
 ];
@@ -59,7 +108,7 @@ export let Cards = [
     cardTitle: "IIEF",
     cardDesc:
       "This questionnaire asks about your erection problems as a potential diagnostic tool for prostate cancer",
-    link: "/ieff"
+    link: "/iief"
   },
   {
     cardTitle: "App Feedback",
