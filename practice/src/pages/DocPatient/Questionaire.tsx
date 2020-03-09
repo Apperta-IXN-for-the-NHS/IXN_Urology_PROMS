@@ -25,6 +25,7 @@ import {
 
 import { arrowForwardCircleSharp } from "ionicons/icons";
 import { Cards } from "./QuestionnaireInfo";
+import { ReactComponent } from "*.svg";
 
 interface TitleCardProps {
   title: string;
@@ -71,25 +72,12 @@ interface Content {
 }
 
 interface QuestionnairePageProps {
-  // title: string;
   contentArray: Content[];
 }
 
 export const QuestionairePage: React.FC<QuestionnairePageProps> = ({
   contentArray
 }) => {
-  // const qstns = [
-  //   "How badly are you suffering from X",
-  //   "How badly are you suffering from Y",
-  //   "How badly are you suffering from Z"
-  // ];
-  // const answers = [
-  //   "Not at all",
-  //   "Less than 1 time in 5",
-  //   "More than half the time",
-  //   "Less than half the time",
-  //   "Almost always"
-  // ];
   return (
     <IonPage>
       <IonHeader>
@@ -100,31 +88,33 @@ export const QuestionairePage: React.FC<QuestionnairePageProps> = ({
           <IonTitle>Questionaires</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent>
-        <h2 className="ion-text-center">Hi</h2>
-        <IonSlides pager={false} ref={r => r?.slideNext}>
-          {contentArray.map((info, index) => (
-            <IonSlide>
-              <IonCard>
-                <IonCardHeader>
-                  <IonCardTitle>{info.questions}</IonCardTitle>
-                </IonCardHeader>
-                <IonCardContent>
-                  <IonRadioGroup>
-                    {info.answers.map((val, index) => (
-                      <IonItem>
-                        <IonLabel>{val}</IonLabel>
-                        <IonRadio value={val} />
-                      </IonItem>
-                    ))}
-                  </IonRadioGroup>
-                </IonCardContent>
-              </IonCard>
-            </IonSlide>
-          ))}
-          {/* <IonButton onClick={(r) => {r.slideNext}}></IonButton>  */}
-        </IonSlides>
-      </IonContent>
+      {contentArray.map((info, index) => (
+        <IonContent>
+          <h2 className="ion-text-center">{info.title}</h2>
+          <IonSlides pager={false}>
+            {info.questions.map((question, index) => (
+              <IonSlide>
+                <IonCard>
+                  <IonCardHeader>
+                    <IonCardTitle>{question}</IonCardTitle>
+                  </IonCardHeader>
+                  <IonCardContent>
+                    <IonRadioGroup>
+                      {info.answers[index].map((ans, index) => (
+                        <IonItem>
+                          <IonLabel>{ans}</IonLabel>
+                          <IonRadio value={ans} />
+                        </IonItem>
+                      ))}
+                    </IonRadioGroup>
+                  </IonCardContent>
+                </IonCard>
+              </IonSlide>
+            ))}
+            {/* <IonButton onClick={(r) => {r.slideNext}}></IonButton>  */}
+          </IonSlides>
+        </IonContent>
+      ))}
     </IonPage>
   );
 };
