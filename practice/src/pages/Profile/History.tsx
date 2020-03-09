@@ -209,7 +209,7 @@ const History: React.FC = () => {
         </IonModal>
         <h2 className="ion-text-center">My Medical History</h2>
         {history.length === 0 ? (
-          <p className="ion-text-center">
+          <p className="ion-padding" >
             You haven't logged any medical history yet. You can add your history using the button at the bottom of the screen.
           </p>
         ) : null}

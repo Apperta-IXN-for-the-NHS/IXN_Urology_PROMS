@@ -18,7 +18,9 @@ import {
 } from "@ionic/react";
 
 import { addOutline } from "ionicons/icons";
-import { IonList, IonItem, IonLabel,IonListHeader, IonInput, IonToggle, IonRadio, IonCheckbox, IonItemSliding, IonItemOption, IonItemOptions } from '@ionic/react';
+import { IonList, IonItem, IonLabel,IonListHeader, IonInput, IonToggle, IonRadio, IonCheckbox, IonItemSliding, IonItemOption, IonItemOptions, IonFooter } from '@ionic/react';
+
+
 
 interface Contacts {
   name: string;
@@ -145,7 +147,7 @@ const AddContact: React.FC<AddContactProps> = ({setModal, addContact}) => {
 
 const ContactsList: React.FC<ContactListProps> = ({ name, bio, email, phone, address}) => {
   return (
-    <IonList>
+    <IonList class="ion-padding">
         <IonItem>
           <IonAvatar slot="start">
           <IonIcon name="person-circle-outline"></IonIcon>
@@ -210,6 +212,7 @@ const Contacts: React.FC = () => {
               <IonIcon icon={addOutline}/>
             </IonFabButton>
         </IonFab>
+
         <IonModal isOpen={showModal}>
           <AddContact setModal={setModal} addContact={addContact}></AddContact>
         </IonModal>
@@ -218,8 +221,9 @@ const Contacts: React.FC = () => {
         Your Contacts
         </IonListHeader>
         </IonList>
+
         {contacts.length === 0 ? (
-          <p className="ion-text-center">
+          <p className="ion-padding">
             You haven't entered any contacts yet. You can add your first contact using the button at the bottom of the screen.
           </p>
         ) : null}

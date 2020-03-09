@@ -10,7 +10,7 @@ import {
   IonTabs
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { informationCircleOutline, peopleCircleOutline, heartCircleOutline, settings } from 'ionicons/icons';
+import { informationCircleOutline, peopleCircleOutline, heartCircleOutline, settings, person } from 'ionicons/icons';
 import KnowledgeBank from './pages/KnowledgeBank/KnowledgeBank';
 import DocPatient from './pages/DocPatient/DocPatient';
 import Support from './pages/Support/Support';
@@ -82,7 +82,7 @@ const App: React.FC = () => (
             <IonLabel>Support</IonLabel>
           </IonTabButton>
           <IonTabButton tab="tab4" href="/tab4">
-            <IonIcon icon={settings} />
+            <IonIcon icon={person} />
             <IonLabel>Profile</IonLabel>
           </IonTabButton>
         </IonTabBar>
