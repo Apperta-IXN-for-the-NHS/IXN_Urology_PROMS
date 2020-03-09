@@ -18,18 +18,44 @@ ion-card.display{
   
   ion-card.options{
     vertical-align: center !important;
-    display: flex;
-    flex-direction: column;
     width: 100% !important;
     height: 85% !important;
     margin: 0 !important;
-    --background: #005EB8;
     border-width: 1px;
+    --background: #337EC6;
     border-color: #337EC6;
-
-
   }
 
+  ion-card.doc {
+    display: flex;
+    flex-direction: column;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    border-width: 1px;
+    background-color: #005EB8;
+    background-image: linear-gradient(315deg, #005EB8 0%, #337EC6 74%);
+  }
+
+  ion-icon.header{
+      font-size: 45px;
+    }
+
+  ion-text.padding{
+    padding-left: 100rem;
+  }
+
+  ion-card.infocards{
+    border-width: 1px;
+    background-color: #005EB8;
+    background-image: linear-gradient(315deg, #005EB8 0%, #337EC6 74%);
+    height: 6rem;
+  }
+
+
+  ion-segment{
+    width: 100%;
+  }
 
   :root {
     --ion-color-new-mg: #768692;

@@ -22,7 +22,7 @@ const Profile: React.FC<Links> = ({
         <IonHeader class="ion-no-border" collapse="condense" translucent>
           <IonToolbar>
             <IonTitle class="ion-text-center">
-            <IonIcon color="nhsblue" size="large" icon={person} />
+            <IonIcon className="header" color="nhsblue" icon={person} />
             </IonTitle>
           </IonToolbar>
         </IonHeader>

@@ -11,10 +11,10 @@ export const InfoCard: React.FC<InfoCardProps> = ({ title, description }) => {
   const [showModal, setModal] = useState(false);
   return (
     <React.Fragment>
-      <IonCard onClick={() => setModal(true)}>
+      <IonCard className="infocards" onClick={() => setModal(true)}>
         <IonCardHeader>
-          <IonCardTitle class="ion-text-center">
-            <h2>{title}</h2>
+          <IonCardTitle color="nhswhite" class="ion-text-center">
+            <h3>{title}</h3>
           </IonCardTitle>
         </IonCardHeader>
       </IonCard>

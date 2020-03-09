@@ -10,7 +10,7 @@ import {
   IonTabs
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { informationCircleOutline, peopleCircleOutline, heartCircleOutline, settings, person } from 'ionicons/icons';
+import { informationCircleOutline, peopleCircleOutline, heartCircleOutline, person } from 'ionicons/icons';
 import KnowledgeBank from './pages/KnowledgeBank/KnowledgeBank';
 import DocPatient from './pages/DocPatient/DocPatient';
 import Support from './pages/Support/Support';

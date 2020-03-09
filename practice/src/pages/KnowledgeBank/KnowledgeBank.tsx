@@ -5,13 +5,16 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
-  IonSegment
+  IonSegment,
+  IonIcon,
+  IonSearchbar
 } from "@ionic/react";
 import "./KnowledgeBank.css";
 import Tab from "./Tab";
 import CardList, { Info } from "../../components/common/CardList";
 import { analytics, fitness , eyedrop, reader} from "ionicons/icons";
 import { PathwayInfo, ManagementInfo, DiseaseInfo, TreatmentInfo } from "./Info";
+import { informationCircleOutline } from 'ionicons/icons';
 
 
 const KnowledgeBank: React.FC = () => {
@@ -28,17 +31,28 @@ const KnowledgeBank: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader class="ion-no-border">
         <IonToolbar>
-          <IonSegment color="primary" value={tab} onIonChange={e => setTab(e.detail.value as any)}>
+        <IonTitle class="ion-text-center">
+            <IonIcon className="header" color="nhsblue" icon={informationCircleOutline} />
+        </IonTitle>
+        </IonToolbar>
+        <IonToolbar>
+          <IonSegment color="nhsblue" value={tab} onIonChange={e => setTab(e.detail.value as any)}>
             {tabs.map((val, idx) => <Tab key={idx} label={val} icon={icons[idx]}/>)}
           </IonSegment>
         </IonToolbar>
-        <IonToolbar>
+      </IonHeader>
+      <IonHeader>
+      <IonToolbar>
           <IonTitle class="ion-text-center">
-            <h2>{tab}</h2>
+            <h1>{tab}</h1>
           </IonTitle>
         </IonToolbar>
+
+        <IonToolbar>
+        <IonSearchbar></IonSearchbar>
+      </IonToolbar>
       </IonHeader>
       <IonContent>
         <CardList infoArray={tabToInfo(tab)} />

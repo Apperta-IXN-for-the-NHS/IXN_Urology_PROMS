@@ -10,7 +10,8 @@ import {
   IonGrid,
   IonRow,
   IonCol,
-  IonContent
+  IonContent,
+  IonIcon
 } from "@ionic/react";
 
 import "./DocPatient.css";
@@ -18,6 +19,8 @@ import calImg from "../../assets/images/calendar.png";
 import letterImg from "../../assets/images/mail.png";
 import quesImg from "../../assets/images/ques.png";
 import sympImg from "../../assets/images/symptoms.png";
+
+import { peopleCircleOutline } from 'ionicons/icons';
 
 interface QuadProps {
   title: string;
@@ -45,7 +48,7 @@ const QuadCard: React.FC<QuadProps> = ({
           <br/>
           <br/>
           <img src={image} alt={title} />
-          <IonCardTitle className="ion-text-center">{<h4>{title}</h4>}</IonCardTitle>
+          <IonCardTitle color="nhswhite" className="ion-text-center">{<h4>{title}</h4>}</IonCardTitle>
         </IonCardHeader>
       </IonCard>
     </IonCol>
@@ -93,10 +96,10 @@ const DocPatient: React.FC<DocPatientProps> = ({ history }) => {
   return (
     <IonPage>
       <IonContent>
-        <IonHeader>
-          <IonToolbar>
-            <IonTitle className="ion-text-center doc">
-              Doctor & Patient
+          <IonHeader class="ion-no-border" collapse="condense" translucent>
+            <IonToolbar>
+            <IonTitle class="ion-text-center">
+            <IonIcon className="header" color="nhsblue" icon={peopleCircleOutline} />
             </IonTitle>
           </IonToolbar>
         </IonHeader>
