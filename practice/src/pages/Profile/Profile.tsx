@@ -1,9 +1,10 @@
 import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import { IonGrid, IonRow, IonCol} from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, } from '@ionic/react';
+import { IonGrid, IonRow, IonCol, IonFab, IonTabButton, IonTabBar,IonFabButton, IonFabList } from '@ionic/react';
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonList, IonListHeader,  IonCardSubtitle, IonCardTitle, IonIcon, IonItem, IonLabel } from '@ionic/react';
 import { IonTextarea } from '@ionic/react';
 import './Profile.css';
+import { settings } from 'ionicons/icons';
 
 interface Links {
   history: any;
@@ -15,19 +16,33 @@ const Profile: React.FC<Links> = ({
 })  => {
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Profile</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-
-      <IonContent>
-
-        <IonHeader collapse="condense">
+        <IonHeader collapse="condense" translucent>
           <IonToolbar>
-            <IonTitle size="large">Profile</IonTitle>
+            <IonTitle size="large">
+              Profile
+            </IonTitle>
+            
+
           </IonToolbar>
         </IonHeader>
+
+        <IonContent>
+
+
+        <IonFab small horizontal="end" vertical="top" slot="fixed" edge>
+      <IonFabButton>
+      <IonIcon size= "large"icon={settings}></IonIcon>
+      </IonFabButton>
+      <IonFabList>
+          <IonFabButton color="light">
+            <IonIcon name="logo-facebook"></IonIcon>
+          </IonFabButton>
+          <IonFabButton color="light">
+            <IonIcon name="logo-twitter"></IonIcon>
+          </IonFabButton>
+        </IonFabList>
+    </IonFab>
+
 
         <IonGrid>
 
