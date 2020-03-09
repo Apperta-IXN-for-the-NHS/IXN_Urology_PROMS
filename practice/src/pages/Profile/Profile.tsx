@@ -16,20 +16,19 @@ const Profile: React.FC<Links> = ({
 })  => {
   return (
     <IonPage>
-        <IonHeader collapse="condense" translucent>
+        <IonHeader class="new" collapse="condense" translucent>
+
           <IonToolbar>
-            <IonTitle size="large">
+            <IonTitle class="new" size="large">
               Profile
             </IonTitle>
-            
-
           </IonToolbar>
         </IonHeader>
 
         <IonContent>
 
 
-        <IonFab small horizontal="end" vertical="top" slot="fixed" edge>
+        <IonFab horizontal="end" vertical="top" slot="fixed" edge>
       <IonFabButton>
       <IonIcon size= "large"icon={settings}></IonIcon>
       </IonFabButton>
@@ -44,7 +43,7 @@ const Profile: React.FC<Links> = ({
     </IonFab>
 
 
-        <IonGrid>
+        <IonGrid class="stdgrid">
 
           <IonRow className="display">
             <IonCol>

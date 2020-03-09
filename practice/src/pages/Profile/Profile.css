@@ -6,6 +6,13 @@ ion-row.display{
     height:30%;
 }
 
+ion-grid.stdgrid{
+    padding-top: 30px;
+}
+
+ion-title.new{
+    padding-top: 25px;
+}
 
 ion-row.bio{
     height:28%;
