@@ -20,6 +20,10 @@ import Questionaire, { QuestionairePage } from './pages/DocPatient/Questionaire'
 import { IPSS, IIEF, Feedback } from './pages/DocPatient/QuestionnaireInfo';
 import Symptoms from './pages/DocPatient/Symptoms';
 import Calendar from './pages/DocPatient/Calendar';
+import History from './pages/Profile/History';
+import Contacts from './pages/Profile/Contacts';
+import Settings from './pages/Profile/Settings';
+
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -57,6 +61,9 @@ const App: React.FC = () => (
           <Route path="/quest" component={Questionaire} />
           <Route path="/symptoms" component={Symptoms} />
           <Route path="/calendar" component={Calendar} />
+          <Route path="/history" component={History} />
+          <Route path="/contacts" component={Contacts} />
+          <Route path="/settings" component={Settings} />
           <Route path="/dates" component={ItemSlidingExample} />
           <Route path="/ipss" render={() => <QuestionairePage contentArray={IPSS}/>} />
           <Route path="/iief" render={() => <QuestionairePage contentArray={IIEF}/>} />

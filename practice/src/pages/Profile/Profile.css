@@ -1,3 +1,43 @@
 ion-content ion-toolbar {
     --background: translucent;
 }
+
+ion-row.display{
+    height:30%;
+}
+
+ion-grid.stdgrid{
+    padding-top: 30px;
+}
+
+ion-title.new{
+    padding-top: 25px;
+}
+
+ion-row.bio{
+    height:28%;
+}
+
+ion-row.options{
+    height:16%;
+    padding: 5;
+}
+
+ion-card.display{
+    display: flex;
+    flex-direction: column;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+  }
+
+
+  ion-card.options{
+    vertical-align: center !important;
+    display: flex;
+    flex-direction: column;
+    width: 100% !important;
+    height: 85% !important;
+    margin: 0 !important;
+  }
+
