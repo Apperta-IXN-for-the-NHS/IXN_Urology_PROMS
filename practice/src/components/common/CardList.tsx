@@ -14,7 +14,9 @@ export const InfoCard: React.FC<InfoCardProps> = ({ title, description }) => {
       <IonCard className="infocards" onClick={() => setModal(true)}>
         <IonCardHeader>
           <IonCardTitle color="nhswhite" class="ion-text-center">
-            <h3>{title}</h3>
+            <div>
+            <h4>{title}</h4>
+            </div>
           </IonCardTitle>
         </IonCardHeader>
       </IonCard>

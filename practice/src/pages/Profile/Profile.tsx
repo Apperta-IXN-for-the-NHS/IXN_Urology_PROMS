@@ -35,71 +35,51 @@ const Profile: React.FC<Links> = ({
             <br></br>
             <br></br>
               <IonCardHeader class="ion-padding-top">
-                <IonCardSubtitle>Your Profile</IonCardSubtitle>
-                <IonCardTitle>Frank Jones</IonCardTitle>
+                <IonCardSubtitle color="nhsblue">Your Profile</IonCardSubtitle>
+                <IonCardTitle color="nhsdarkgrey">Frank Jones</IonCardTitle>
               </IonCardHeader>
-
-
-
               <IonCardHeader class="ion-padding-top">
-                <IonCardSubtitle>Identification Number</IonCardSubtitle>
-                <IonCardTitle>010483729</IonCardTitle>
+                <IonCardSubtitle color="nhsblue">Identification Number</IonCardSubtitle>
+                <IonCardTitle color="nhsdarkgrey">010483729</IonCardTitle>
               </IonCardHeader>
-
-
+              <IonCardHeader class="ion-padding-top">
+                <IonCardSubtitle color="nhsblue">Hospital</IonCardSubtitle>
+                <IonCardTitle color="nhsdarkgrey">Royal Marsden</IonCardTitle>
+              </IonCardHeader>
             </IonCard>
             </IonCol>
           </IonRow>
-
-          <IonRow className="options">
-            <IonCol justify-content-center align-items-center>
-            <IonCard 
-            className="options" button
+          <IonItem className="highlight" 
+            button             
             onClick={e => {
             e.preventDefault();
             history.push("history");
             }}>
-              <IonCardHeader>
-                <IonCardTitle color="nhswhite" class="ion-text-center">History</IonCardTitle>
-              </IonCardHeader>
-            </IonCard>
-            </IonCol>
-          </IonRow>
-
-          <IonRow className="options">
-            <IonCol>
-            <IonCard 
-            className="options"
+            <IonLabel>
+              <h1 className="options">History</h1>
+            </IonLabel>
+          </IonItem>
+          <IonItem className="highlight" 
+            button
             onClick={e => {
-              e.preventDefault();
-              history.push("contacts");
-              }}>
-              <IonCardHeader>
-                <IonCardTitle color="nhswhite" class="ion-text-center">My Contacts</IonCardTitle>
-              </IonCardHeader>
-
-            </IonCard>
-            </IonCol>
-          </IonRow>
-
-
-          <IonRow className="options">
-            <IonCol>
-            <IonCard 
-            className="options" button
+            e.preventDefault();
+            history.push("contacts");
+            }}>
+            <IonLabel >
+              <h1 className="options">My Contacts</h1>
+            </IonLabel>
+          </IonItem>
+          <IonItem className="highlight" 
+            button
             onClick={e => {
               e.preventDefault();
               history.push("settings");
               }}>
-              <IonCardHeader>
-                <IonCardTitle color="nhswhite" class="ion-text-center">Settings</IonCardTitle>
-              </IonCardHeader>
-            </IonCard>
-            </IonCol>
-          </IonRow>
-
+            <IonLabel>
+              <h1 className="options">Setting</h1>
+            </IonLabel>
+          </IonItem>
         </IonGrid>
-
       </IonContent>
     </IonPage>
   );
