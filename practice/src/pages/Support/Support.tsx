@@ -28,7 +28,7 @@ const Support: React.FC = () => {
             <IonImg src={ProstateUK}>
               </IonImg>
           </IonThumbnail>
-          <IonLabel><h1>Prostate UK</h1>
+          <IonLabel><a href="https://prostatecanceruk.org/get-support/support-groups"><h1>Prostate UK</h1></a>
           <p>We want to stop prostate cancer being a killer. We fund groundbreaking research, drive improvements in treatment, and fight injustice in care.</p></IonLabel>
         </IonItem>
         <IonItem>
@@ -38,7 +38,7 @@ const Support: React.FC = () => {
 
           </IonThumbnail>
           <IonLabel>
-            <h1>Tackle Prostate Cancer</h1>
+          <a href="https://www.tackleprostate.org/"><h1>Tackle Prostate Cancer</h1></a>
             <p>Tackle Prostate Cancer is a leading charity tackling the real issues people face when they are diagnosed with prostate cancer, and helping people to cope with .</p>
           </IonLabel>
         </IonItem>
@@ -48,7 +48,7 @@ const Support: React.FC = () => {
             </IonImg>
           </IonThumbnail>
           <IonLabel>
-            <h1>MacMillan</h1>
+          <a href="https://www.macmillan.org.uk/"><h1>MacMillan</h1></a>
             <p>Whatever cancer throws your way, we're right there with you. We provide physical, emotional and financial support to help you live life as fully as you can.</p>
           </IonLabel>
         </IonItem>
@@ -62,5 +62,7 @@ const Support: React.FC = () => {
     </IonPage>
   );
 };
+
+
 
 export default Support;

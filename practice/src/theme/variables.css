@@ -76,13 +76,14 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-light-tint: #f5f6f9;
 }
 
-ion-card {
-  border-style: solid;
-  border-width: 1px;
-  border-color: #DFE2E5;
+ion-content {
+  --background: #F9FAFB !important;
 }
 
+ion-header {
+  --background: #F9FAFB !important;
+}
 
-ion-content {
+ion-toolbar {
   --background: #F9FAFB !important;
 }
