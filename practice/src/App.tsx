@@ -23,6 +23,8 @@ import Calendar from './pages/DocPatient/Calendar';
 import History from './pages/Profile/History';
 import Contacts from './pages/Profile/Contacts';
 import Settings from './pages/Profile/Settings';
+import Login from './pages/Login/Login';
+import Register from './pages/Login/Register';
 
 
 /* Core CSS required for Ionic components to work properly */
@@ -65,10 +67,12 @@ const App: React.FC = () => (
           <Route path="/contacts" component={Contacts} />
           <Route path="/settings" component={Settings} />
           <Route path="/dates" component={ItemSlidingExample} />
+          <Route path="/register" component={Register} />
+          <Route path="/login" component={Login} />
           <Route path="/ipss" render={() => <QuestionairePage contentArray={IPSS}/>} />
           <Route path="/iief" render={() => <QuestionairePage contentArray={IIEF}/>} />
           <Route path="/feedback" render={() => <QuestionairePage contentArray={Feedback}/>} />
-          <Route path="/" render={() => <Redirect to="/tab1" />} exact={true} />
+          <Route path="/" render={() => <Redirect to="/login" />} exact={true} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
           <IonTabButton tab="tab1" href="/tab1">

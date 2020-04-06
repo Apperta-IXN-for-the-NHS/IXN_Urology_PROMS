@@ -38,7 +38,13 @@ ion-card.display{
     border-width: 1px;
     background-color: #005EB8;
     background-image: linear-gradient(315deg, #005EB8 0%, #337EC6 74%);
-    height: 5rem;
+    height: 6rem;
+  }
+
+  ion-card.login{
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
   }
 
 
