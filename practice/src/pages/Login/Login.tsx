@@ -8,11 +8,15 @@ import { IonContent,
     IonLabel,
     IonList,
     IonInput,
-    IonText,
     IonButton,
-    IonCard
+    IonCard,
+    IonImg,
 
 } from '@ionic/react';
+
+import NHSlogo from "../../assets/images/NHS.png";
+
+
 
 interface Links {
     history: any;
@@ -31,7 +35,7 @@ const Login: React.FC<Links> = ({
           </IonToolbar>
         </IonHeader>
         <IonContent fullscreen>
-
+        <IonImg src={NHSlogo} />
         <IonCard className="login">
         <IonList lines="full" class="ion-no-margin ion-no-padding">
       <IonItem>
@@ -52,7 +56,7 @@ const Login: React.FC<Links> = ({
       history.push("tab1");
       }}>Login</IonButton>
 
-      <IonItem>
+      <IonItem lines="none">
           <IonLabel position="stacked">No Account? Register <a href="/register">here</a></IonLabel>
       </IonItem>
       </IonList>

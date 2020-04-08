@@ -148,3 +148,66 @@
     --color: white;
   }
 }
+
+
+/* display of info cards*/
+ion-card.infocards{
+  border-width: 1px;
+  background-color: #005EB8;
+  background-image: linear-gradient(315deg, #005EB8 0%, #337EC6 74%);
+  height: 6rem;
+}
+
+
+/* Importing NHS colours*/
+
+:root {
+  --ion-color-new-mg: #768692;
+  --ion-color-new-rgb-mg: 118,134,146;
+  --ion-color-new-contrast-mg: #ffffff;
+}
+
+.ion-color-nhsmidgrey {
+  --ion-color-base: var(--ion-color-new-mg);
+  --ion-color-base-rgb: var(--ion-color-new-rgb-mg);
+  --ion-color-contrast: var(--ion-color-new-contrast-mg);
+}
+
+
+:root {
+  --ion-color-new-b:  #005EB8;
+  --ion-color-new-rgb-b: 0,94,184;
+  --ion-color-new-contrast-b: #ffffff;
+}
+
+.ion-color-nhsblue {
+  --ion-color-base: var(--ion-color-new-b);
+  --ion-color-base-rgb: var(--ion-color-new-rgb-b);
+  --ion-color-contrast: var(--ion-color-new-contrast-b);
+}
+
+
+:root {
+  --ion-color-new-dg:  #425563;
+  --ion-color-new-rgb-dg: 66,85,99;
+  --ion-color-new-contrast-dg: #ffffff;
+}
+
+.ion-color-nhsdarkgrey {
+  --ion-color-base: var(--ion-color-new-dg);
+  --ion-color-base-rgb: var(--ion-color-new-rgb-dg);
+  --ion-color-contrast: var(--ion-color-new-contrast-dg);
+}
+
+
+:root {
+  --ion-color-new-w:  #ffffff;
+  --ion-color-new-rgb-w: 66,85,99;
+  --ion-color-new-contrast-w: #ffffff;
+}
+
+.ion-color-nhswhite {
+  --ion-color-base: var(--ion-color-new-w);
+  --ion-color-base-rgb: var(--ion-color-new-rgb-w);
+  --ion-color-contrast: var(--ion-color-new-contrast-w);
+}
