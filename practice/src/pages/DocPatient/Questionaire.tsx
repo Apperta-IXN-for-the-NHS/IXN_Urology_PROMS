@@ -20,7 +20,8 @@ import {
   IonContent,
   IonCardTitle,
   IonSlides,
-  IonSlide
+  IonSlide,
+  IonInput
 } from "@ionic/react";
 
 import { arrowForwardCircleSharp } from "ionicons/icons";
@@ -31,6 +32,7 @@ interface TitleCardProps {
   title: string;
   desc: string;
   link: string;
+  link2: string;
   history: any;
 }
 
@@ -38,17 +40,18 @@ const TitleCard: React.FC<TitleCardProps> = ({
   title,
   desc,
   link,
+  link2,
   history
 }) => {
   return (
     <IonCard>
       <IonCardHeader>
-        <IonCardTitle>{title}</IonCardTitle>
+        <IonCardTitle color="nhsblue">{title}</IonCardTitle>
       </IonCardHeader>
       <IonCardContent>
-        {desc}
-        <br />
-        <br />
+        <h2>{desc}</h2>
+        <br></br>
+
         <IonButton
           size="small"
           fill="outline"
@@ -60,6 +63,22 @@ const TitleCard: React.FC<TitleCardProps> = ({
           Take Questionaire
           {/* <IonIcon icon={arrowForwardCircleSharp}></IonIcon> */}
         </IonButton>
+        
+
+        {title === "App Feedback" ? (
+        <IonButton
+          size="small"
+          fill="outline"
+          onClick={e => {
+            e.preventDefault();
+            history.push(link2);
+          }}
+        >
+          Text Feedback
+        </IonButton>
+        ) : null}
+
+
       </IonCardContent>
     </IonCard>
   );
@@ -96,7 +115,7 @@ export const QuestionairePage: React.FC<QuestionnairePageProps> = ({
               <IonSlide>
                 <IonCard>
                   <IonCardHeader>
-                    <IonCardTitle>{question}</IonCardTitle>
+                    <IonCardTitle color="nhsblue">{question}</IonCardTitle>
                   </IonCardHeader>
                   <IonCardContent>
                     <IonRadioGroup>
@@ -118,6 +137,30 @@ export const QuestionairePage: React.FC<QuestionnairePageProps> = ({
     </IonPage>
   );
 };
+
+// Creating feedback text field
+// interface FeedbackProps{
+// }
+
+// export const FeedbackText: React.FC<FeedbackProps> = () =>{
+  
+//   return(
+//     <IonCard className="login">
+//         <IonList lines="full" class="ion-no-margin ion-no-padding">
+//       <IonItem>
+//         <IonLabel position="floating">Email</IonLabel>
+//         <IonInput required type="text"></IonInput>
+//       </IonItem>
+
+//       <IonItem lines="none">
+//           <IonLabel position="stacked">No Account? Register <a href="/register">here</a></IonLabel>
+//       </IonItem>
+//       </IonList>
+//       </IonCard>
+//   );
+// }
+
+
 
 interface QuestionaireProps {
   history: any;
@@ -141,6 +184,7 @@ const Questionaire: React.FC<QuestionaireProps> = ({ history }) => {
             title={cardInfo.cardTitle}
             desc={cardInfo.cardDesc}
             link={cardInfo.link}
+            link2={cardInfo.link2}
           />
         ))}
       </IonContent>
