@@ -7,7 +7,8 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCard, IonCardH
     IonInput,
     IonButtons,
     IonBackButton,
-    IonButton
+    IonButton,
+    IonListHeader
 } from '@ionic/react';
 
 
@@ -16,14 +17,17 @@ export const Register: React.FC = () => {
     <IonPage>
         <IonHeader class="ion-no-border" collapse="condense" translucent>
         <IonToolbar>
-          <IonButtons slot="start">
-            <IonBackButton />
-            </IonButtons>
+        <IonButtons slot="start">
+          <IonBackButton defaultHref="/" />
+        </IonButtons>
             <IonTitle>Register</IonTitle>
             </IonToolbar> 
         </IonHeader>
       <IonContent>
-      <IonList lines="full" class="ion-no-margin ion-no-padding">
+      <IonList>
+        <IonListHeader className="reg">
+          Your Details
+        </IonListHeader>
       <IonItem>
         <IonLabel position="stacked">First Name <IonText color="danger">*</IonText></IonLabel>
         <IonInput required type="text"></IonInput>
@@ -45,6 +49,16 @@ export const Register: React.FC = () => {
       </IonItem>
 
       <IonItem>
+        <IonLabel position="stacked">Identification Number <IonText color="danger">*</IonText></IonLabel>
+        <IonInput required type="text"></IonInput>
+      </IonItem>
+
+      <IonItem>
+        <IonLabel position="stacked">Hospital <IonText color="danger">*</IonText></IonLabel>
+        <IonInput required type="text"></IonInput>
+      </IonItem>
+
+      <IonItem>
         <IonLabel position="stacked">Address</IonLabel>
         <IonInput placeholder="Address Line 1"></IonInput>
         <IonInput placeholder="Address Line 2"></IonInput>
@@ -54,7 +68,7 @@ export const Register: React.FC = () => {
       </IonItem>
     </IonList>
         <br></br>
-      <IonButton expand="block" type="submit" class="ion-no-margin">Create account</IonButton>
+      <IonButton expand="block" type="submit" >Create account</IonButton>
 
       </IonContent>
     </IonPage>

@@ -16,3 +16,10 @@ ion-title.doc {
   font-size: x-large;
 }
 
+
+ion-card.feedback {
+  height: 80%;
+}
+
+
+

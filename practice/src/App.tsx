@@ -25,6 +25,7 @@ import Contacts from './pages/Profile/Contacts';
 import Settings from './pages/Profile/Settings';
 import Login from './pages/Login/Login';
 import Register from './pages/Login/Register';
+import Feedbackform from './pages/DocPatient/Feedback';
 
 
 /* Core CSS required for Ionic components to work properly */
@@ -69,6 +70,7 @@ const App: React.FC = () => (
           <Route path="/dates" component={ItemSlidingExample} />
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
+          <Route path="/feedbackform" component={Feedbackform} />
           <Route path="/ipss" render={() => <QuestionairePage contentArray={IPSS}/>} />
           <Route path="/iief" render={() => <QuestionairePage contentArray={IIEF}/>} />
           <Route path="/feedback" render={() => <QuestionairePage contentArray={Feedback}/>} />
