@@ -4,6 +4,7 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
+  IonList,
   IonButtons,
   IonButton,
   IonBackButton,
@@ -24,34 +25,57 @@ import {
   IonItemSliding,
   IonItemOptions,
   IonItemOption,
-  IonText
+  IonText,
 } from "@ionic/react";
-import { addOutline } from "ionicons/icons";
+import { addOutline, pencil } from "ionicons/icons";
 import "./Symptoms.css";
 import CardList from "../../components/common/CardList";
 
 interface Symptom {
   title: string;
+  dosage: string;
   day: string;
   date: string;
 }
 
-interface SymptomCardProps {
+interface SymptomItemProps {
   day: string;
+  dosage: string;
   date: string;
   title: string;
   cardID: number;
   remove(key: number): any;
+  addSymptom(title: string, dosage: string, day: string, date: string): void;
+  editSymptom(idx: number, title: string, dosage: string, day: string, date: string): void;
 }
 
 interface AddSymptomProps {
   setModal(state: boolean): void;
-  addSymptom(title: string, day: string, date: string): void;
+  addSymptom(title: string, dosage: string, day: string, date: string): void;
+  editSymptom(idx: number, title: string, dosage: string, day: string, date: string): void;
+  modify?: boolean;
+  cardID?: number;
+  currentTitle?: string;
+  currentDosage?: string;
+  currentDate?: string;
 }
 
-const AddSymptom: React.FC<AddSymptomProps> = ({ setModal, addSymptom }) => {
-  const [title, setTitle] = useState("");
-  const [date, setDate] = useState("");
+const AddSymptom: React.FC<AddSymptomProps> = ({
+  setModal,
+  addSymptom,
+  editSymptom,
+  modify,
+  cardID,
+  currentTitle,
+  currentDosage,
+  currentDate,
+}) => {
+  const initialTitle = modify ? currentTitle! : "";
+  const initialDosage = modify ? currentDosage! : "";
+  const initialDate = modify ? currentDate! : "";
+  const [title, setTitle] = useState(initialTitle);
+  const [dosage, setDosage] = useState(initialDosage);
+  const [date, setDate] = useState(initialDate);
   const [day, setDay] = useState("");
 
   const dateToDay = (dateString: string): string => {
@@ -62,7 +86,7 @@ const AddSymptom: React.FC<AddSymptomProps> = ({ setModal, addSymptom }) => {
       "Wednesday",
       "Thursday",
       "Friday",
-      "Saturday"
+      "Saturday",
     }
     const date = new Date(dateString);
     const dayNum = date.getDay();
@@ -75,117 +99,193 @@ const AddSymptom: React.FC<AddSymptomProps> = ({ setModal, addSymptom }) => {
   };
 
   const handleConfirm = () => {
-    addSymptom(title, day, date);
+    if (modify) {
+      editSymptom(cardID!, title, dosage, day, date);
+    } else {
+      addSymptom(title, dosage, day, date);
+    }
     setModal(false);
   };
 
   return (
-    <IonHeader>
-      <IonToolbar>
-        <IonButtons>
-          <IonButton onClick={() => setModal(false)}>Close</IonButton>
-        </IonButtons>
-      </IonToolbar>
-      <h1 className="ion-text-center">Log a new Symptom</h1>
-      <IonItem>
-        <IonLabel position="stacked">
-          <h1>Symptom Title</h1>
-        </IonLabel>
-        <IonInput
-          type="text"
-          autofocus
-          onIonChange={e => setTitle(e.detail.value as string)}
-        ></IonInput>
-      </IonItem>
-      <br />
-      <IonItem>
-        <IonLabel position="stacked">
-          <h1>Date Symptom Occurred</h1>
-        </IonLabel>
-        <IonInput
-          type="date"
-          onIonChange={e => handleDateChange(e.detail.value as string)}
-        ></IonInput>
-      </IonItem>
-      <br />
-      <IonButton
-        expand="block"
-        disabled={date === "" || title === ""}
-        onClick={() => handleConfirm()}
-      >
-        Confirm
-      </IonButton>
-    </IonHeader>
+    <IonPage>
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons>
+            <IonButton onClick={() => setModal(false)}>Close</IonButton>
+          </IonButtons>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent>
+        <IonList lines="full">
+          <h1 className="medication">Add New Medication</h1>
+          <IonItem className="medication" color="primary">
+            <IonLabel position="stacked">
+              <h1>Medication</h1>
+            </IonLabel>
+            <p>The name of the medication you are taking</p>
+            <IonInput
+              type="text"
+              placeholder="Medication Name"
+              autofocus
+              onIonChange={(e) => setTitle(e.detail.value as string)}
+              value={title}
+            ></IonInput>
+          </IonItem>
+          <IonItem className="medication" color="primary">
+            <IonLabel position="stacked">
+              <h1>Dosage</h1>
+            </IonLabel>
+            <p>Frequency or dose of the medicine</p>
+            <IonInput
+              type="text"
+              placeholder="Dosage"
+              onIonChange={(e) => setDosage(e.detail.value as string)}
+              value={dosage}
+            ></IonInput>
+          </IonItem>
+          <IonItem className="medication" color="primary">
+            <IonLabel position="stacked">
+              <h1>Date</h1>
+            </IonLabel>
+            <p>The date you started taking this medication</p>
+            <IonInput
+              type="date"
+              onIonChange={(e) => handleDateChange(e.detail.value as string)}
+              value={date}
+            ></IonInput>
+          </IonItem>
+        </IonList>
+        <br />
+        <IonButton
+          className="medication"
+          color="tertiary"
+          expand="full"
+          disabled={date === "" || title === "" || dosage === ""}
+          onClick={() => handleConfirm()}
+        >
+          Confirm
+        </IonButton>
+      </IonContent>
+      {console.log(date)}
+    </IonPage>
   );
 };
 
-const SymptomCard: React.FC<SymptomCardProps> = ({
+const SymptomItem: React.FC<SymptomItemProps> = ({
   day,
   date,
+  dosage,
+  addSymptom,
+  editSymptom,
   title,
   cardID,
-  remove
+  remove,
 }) => {
+  const [showModal, setModal] = useState(false);
   return (
-    <IonItemSliding>
-      <IonItemOptions side="end">
-        <IonItemOption color="danger" expandable onClick={() => remove(cardID)}>
-          delete
-        </IonItemOption>
-      </IonItemOptions>
-      <IonItem>
-        <IonLabel>
-          <h1>
-            <b>{title}</b>
-          </h1>
-          <h2>
-            {day} {date}
-          </h2>
-        </IonLabel>
-      </IonItem>
-    </IonItemSliding>
+    <React.Fragment>
+      <IonItemSliding>
+        <IonItemOptions side="end">
+          <IonItemOption
+            color="danger"
+            expandable
+            onClick={() => remove(cardID)}
+          >
+            delete
+          </IonItemOption>
+        </IonItemOptions>
+        <IonItem
+          color="primary"
+          lines="full"
+          detail
+          onClick={() => setModal(true)}
+        >
+          <IonLabel>
+            <h1>{title}</h1>
+            <h2>{dosage}</h2>
+            <h2>
+              {day} {date}
+            </h2>
+          </IonLabel>
+        </IonItem>
+      </IonItemSliding>
+      <IonModal isOpen={showModal}>
+        <AddSymptom
+          setModal={setModal}
+          addSymptom={addSymptom}
+          editSymptom={editSymptom}
+          currentTitle={title}
+          currentDosage={dosage}
+          currentDate={date}
+          modify
+          cardID={cardID}
+        />
+      </IonModal>
+    </React.Fragment>
   );
 };
 
 const Symptoms: React.FC = () => {
-  // let initialSymptoms = [
-  //   {
-  //     title: "Headache",
-  //     day: "Monday",
-  //     date: "22/03/20"
-  //   },
-  //   {
-  //     title: "Chest Pain",
-  //     day: "Monday",
-  //     date: "22/03/20"
-  //   },
-  //   {
-  //     title: "Sore Throat",
-  //     day: "Thursday",
-  //     date: "22/03/20"
-  //   },
-  //   {
-  //     title: "Muscle Pain",
-  //     day: "Friday",
-  //     date: "22/03/20"
-  //   }
-  // ];
+  let initialSymptoms = [
+    {
+      title: "Ibuprofen",
+      day: "Monday",
+      date: "2020-04-17",
+      dosage: "100mg a day",
+    },
+    {
+      title: "Paracetamol",
+      day: "Monday",
+      date: "2020-04-17",
+      dosage: "100mg a day",
+    },
+    {
+      title: "Xanax",
+      day: "Thursday",
+      date: "2020-04-17",
+      dosage: "100mg a day",
+    },
+  ];
   const [showModal, setModal] = useState(false);
-  const [symptoms, setSymptoms] = useState<Symptom[]>([]);
+  const [symptoms, setSymptoms] = useState<Symptom[]>(initialSymptoms);
   const [showToast, setToast] = useState(false);
-
-  const addSymptom = (newTitle: string, newDay: string, newDate: string) => {
+  const textStyle = {
+    paddingLeft: "18px",
+  };
+  const addSymptom = (
+    newTitle: string,
+    newDosage: string,
+    newDay: string,
+    newDate: string
+  ) => {
     setSymptoms([
       ...symptoms,
       {
         title: newTitle,
+        dosage: newDosage,
         day: newDay,
-        date: newDate
-      }
+        date: newDate,
+      },
     ]);
     setToast(true);
   };
-
+  const editSymptom = (
+    idx: number,
+    newTitle: string,
+    newDosage: string,
+    newDay: string,
+    newDate: string
+  ) => {
+    let newSymptoms = [...symptoms]
+    newSymptoms[idx] = {
+      title: newTitle,
+      dosage: newDosage,
+      day: newDay,
+      date: newDate,
+    }
+    setSymptoms(newSymptoms)
+  };
   const removeSymptom = (rIdx: number) => {
     const newSymptoms = symptoms.filter((_, index) => index !== rIdx);
     setSymptoms(newSymptoms);
@@ -206,25 +306,34 @@ const Symptoms: React.FC = () => {
           </IonFabButton>
         </IonFab>
         <IonModal isOpen={showModal}>
-          <AddSymptom setModal={setModal} addSymptom={addSymptom} />
+          <AddSymptom setModal={setModal} addSymptom={addSymptom} editSymptom={editSymptom}/>
         </IonModal>
-        <h2 className="ion-text-center">My Symptom Logs</h2>
-        {symptoms.length === 0 ? (
-          <p className="ion-text-center">
-            You haven't logged any symptoms yet, press the button below to add a
-            new symptom
-          </p>
-        ) : null}
+        <h2 style={textStyle}>Current Medication</h2>
         {symptoms.map((s, idx) => (
-          <SymptomCard
+          <SymptomItem
             key={idx}
             cardID={idx}
             day={s.day}
             date={s.date}
             title={s.title}
+            dosage={s.dosage}
+            addSymptom={addSymptom}
+            editSymptom={editSymptom}
             remove={removeSymptom}
           />
         ))}
+        {symptoms.length === 0 ? (
+          <p className="ion-text-center">
+            You haven't logged any symptoms yet, press the button below to add a
+            new symptom
+          </p>
+        ) : (
+          <p className="ion-text-center">
+            Swipe left on an entry to delete it.
+            <br />
+            Tap on an entry to modify it.
+          </p>
+        )}
         <IonToast
           isOpen={showToast}
           onDidDismiss={() => setToast(false)}

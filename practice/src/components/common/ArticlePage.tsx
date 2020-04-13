@@ -14,14 +14,18 @@ import {
 interface OwnProps {
   title: string;
   description: string;
+  imageSrc: string;
   setModal(state: boolean): void;
 }
 
-const InfoPage: React.FC<OwnProps> = ({ title, description, setModal }) => {
+const ArticlePage: React.FC<OwnProps> = ({
+  title,
+  description,
+  setModal,
+  imageSrc,
+}) => {
   const textStyle = {
-    padding: "5px",
-  };
-  const textSize = {
+    padding: "15px",
     fontSize: "large",
   };
   return (
@@ -34,21 +38,16 @@ const InfoPage: React.FC<OwnProps> = ({ title, description, setModal }) => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
+        <img src={imageSrc} alt="" />
         <div style={textStyle}>
-          <IonText class="ion-text-center">
+          <IonText>
             <h1>{title}</h1>
+            <p>{description}</p>
           </IonText>
         </div>
-        <IonCard>
-          <IonCardContent>
-            <IonText color="secondary" style={textSize}>
-              {description}
-            </IonText>
-          </IonCardContent>
-        </IonCard>
       </IonContent>
     </React.Fragment>
   );
 };
 
-export default InfoPage;
+export default ArticlePage;

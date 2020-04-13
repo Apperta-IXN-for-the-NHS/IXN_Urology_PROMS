@@ -7,8 +7,15 @@ import {
   IonSearchbar,
   IonButtons,
   IonBackButton,
-  IonContent
+  IonContent,
+  IonButton,
+  IonFab,
+  IonFabButton,
+  IonIcon,
 } from "@ionic/react";
+
+import { pencil } from "ionicons/icons";
+import { addOutline } from "ionicons/icons";
 
 const Letters: React.FC = () => {
   const [searchText, setSearchText] = useState("");
@@ -28,6 +35,11 @@ const Letters: React.FC = () => {
           placeholder="search letters"
           showCancelButton="focus"
         ></IonSearchbar>
+        <IonFab vertical="bottom" horizontal="end" slot="fixed">
+          <IonFabButton>
+            <IonIcon icon={addOutline} />
+          </IonFabButton>
+        </IonFab>
       </IonContent>
     </IonPage>
   );

@@ -10,9 +10,11 @@ ion-row {
   height: 50%;
 }
 
-
-
 ion-title.doc {
   font-size: x-large;
 }
 
+ion-content.home-background {
+  background: url(../../assets/images/background.png) ;
+  background-size: cover;
+}

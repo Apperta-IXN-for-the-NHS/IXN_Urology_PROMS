@@ -70,39 +70,39 @@ const DocPatient: React.FC<DocPatientProps> = ({ history }) => {
         link: "/letters"
       },
       {
-        title: "Questionaires",
+        title: "Questionnaires",
         image: quesImg,
         description:
-          "Important Questionnaires to help assist your medical treatement.",
+          "Important Questionnaires to help assist your medical treatment.",
         link: "/quest"
       }
     ],
     [
       {
-        title: "Symptom Logs",
+        title: "My Medication",
         image: sympImg,
         description:
           "Log information about your recent symptoms to give doctors more information about your wellbeing.",
         link: "/symptoms"
       },
       {
-        title: "Calendar",
+        title: "Results",
         image: calImg,
         description: "Input and organise all of your upcoming appointments",
-        link: "/calendar"
+        link: "/results"
       }
     ]
   ];
   return (
     <IonPage>
-      <IonContent>
-          <IonHeader class="ion-no-border" collapse="condense" translucent>
+      <IonContent class="home-background">
+          {/* <IonHeader class="ion-no-border" collapse="condense" translucent>
             <IonToolbar>
             <IonTitle class="ion-text-center">
             <IonIcon className="header" color="nhsblue" icon={peopleCircleOutline} />
             </IonTitle>
           </IonToolbar>
-        </IonHeader>
+        </IonHeader> */}
         <IonGrid>
           {cardContent.map((content, idx) => (
             <IonRow key={idx}>
