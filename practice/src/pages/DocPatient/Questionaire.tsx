@@ -36,6 +36,7 @@ interface TitleCardProps {
   title: string;
   desc: string;
   link: string;
+  // link2: string;
   history: any;
 }
 
@@ -56,9 +57,9 @@ const TitleCard: React.FC<TitleCardProps> = ({
         <IonCardSubtitle>Previous Completion: </IonCardSubtitle>
       </IonCardHeader>
       <IonCardContent>
-        {desc}
-        <br />
-        <br />
+        <h2>{desc}</h2>
+        <br></br>
+
         <IonButton
           size="small"
           fill="outline"
@@ -70,6 +71,22 @@ const TitleCard: React.FC<TitleCardProps> = ({
         >
           Take Questionaire
         </IonButton>
+        
+
+        {/* {title === "App Feedback" ? (
+        <IonButton
+          size="small"
+          fill="outline"
+          onClick={e => {
+            e.preventDefault();
+            history.push(link2);
+          }}
+        >
+          Text Feedback
+        </IonButton>
+        ) : null} */}
+
+
       </IonCardContent>
     </IonCard>
   );
@@ -215,6 +232,30 @@ export const QuestionairePage: React.FC<QuestionnairePageProps> = ({
   );
 };
 
+// Creating feedback text field
+// interface FeedbackProps{
+// }
+
+// export const FeedbackText: React.FC<FeedbackProps> = () =>{
+  
+//   return(
+//     <IonCard className="login">
+//         <IonList lines="full" class="ion-no-margin ion-no-padding">
+//       <IonItem>
+//         <IonLabel position="floating">Email</IonLabel>
+//         <IonInput required type="text"></IonInput>
+//       </IonItem>
+
+//       <IonItem lines="none">
+//           <IonLabel position="stacked">No Account? Register <a href="/register">here</a></IonLabel>
+//       </IonItem>
+//       </IonList>
+//       </IonCard>
+//   );
+// }
+
+
+
 interface QuestionaireProps {
   history: any;
 }
@@ -237,6 +278,7 @@ const Questionaire: React.FC<QuestionaireProps> = ({ history }) => {
             title={cardInfo.cardTitle}
             desc={cardInfo.cardDesc}
             link={cardInfo.link}
+            // link2={cardInfo.link2}
           />
         ))}
       </IonContent>
