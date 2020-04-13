@@ -185,7 +185,7 @@ export const QuestionairePage: React.FC<QuestionnairePageProps> = ({
           <IonButtons slot="start">
             <IonBackButton />
           </IonButtons>
-          <IonTitle>Questionaires</IonTitle>
+          <IonTitle>Questionnaires</IonTitle>
         </IonToolbar>
       </IonHeader>
       {contentArray.map((info, index) => (

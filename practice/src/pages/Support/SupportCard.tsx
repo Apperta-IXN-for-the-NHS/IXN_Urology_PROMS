@@ -24,13 +24,17 @@ const SupportCard: React.FC<SupportCardProps> = ({
 }) => {
   const [showModal, setModal] = useState(false);
   const cardContentStyle = {color: "white"}
+  const headerStyle = {
+    paddingTop: "5px",
+    paddingBottom: "5px"
+  }
   return (
     <React.Fragment>
       <IonCard onClick={() => setModal(true)}>
           <div className="container">
             <img src={imageSrc} alt="" />
           </div>
-        <IonCardHeader>
+        <IonCardHeader style={headerStyle}>
           <IonCardTitle color="secondary">{<h2>{title}</h2>}</IonCardTitle>
         </IonCardHeader>
         <IonCardContent style={cardContentStyle}>{preview}</IonCardContent>
