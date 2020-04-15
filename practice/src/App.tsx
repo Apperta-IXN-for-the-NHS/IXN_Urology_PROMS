@@ -79,7 +79,14 @@ const App: React.FC = () => (
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
           <Route path="/demo" component={InputExamples} />
-          <Route path="/ipss-results" component={ResultsData} />
+          <Route
+            path="/ipss-results"
+            render={() => <ResultsData title="IPSS" />}
+          />
+          <Route
+            path="/psa-results"
+            render={() => <ResultsData title="PSA" />}
+          />
           <Route
             path="/ipss"
             render={() => <QuestionairePage contentArray={IPSS} />}

@@ -59,15 +59,15 @@ const ResultsData: React.FC<ResultsDataProps> = ({ title }) => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <h1 style={padLeft}>IPSS</h1>
-        <LineGraph label="IPSS" data={data} />
+        <h1 style={padLeft}>{title} Results</h1>
+        <LineGraph label={title} data={data} />
         <br/>
         <h2 style={padLeft}>History</h2>
         {data.map((d, i) => (
             <IonItem key={i} lines="full">
                 <span style={dot} />
                 <IonLabel style={labelStyle}>
-                    <h2>{`IPSS Score: ${d.y}`}</h2>
+                    <h2>{`${title} Score: ${d.y}`}</h2>
                     {d.t.toDateString()}
                 </IonLabel>
             </IonItem>
