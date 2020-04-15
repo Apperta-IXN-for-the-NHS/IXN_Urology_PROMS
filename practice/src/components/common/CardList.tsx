@@ -41,7 +41,7 @@ export const InfoCard: React.FC<InfoCardProps> = ({ title, description }) => {
 };
 
 export interface Info {
-  icon: string,
+  icon: string;
   title: string;
   description: string;
 }
@@ -109,7 +109,9 @@ interface SupportCardListProps {
   infoArray: SupportInfo[];
 }
 
-export const SupportCardList: React.FC<SupportCardListProps> = ({ infoArray }) => {
+export const SupportCardList: React.FC<SupportCardListProps> = ({
+  infoArray,
+}) => {
   return (
     <React.Fragment>
       {infoArray.map((info, index) => (
@@ -128,13 +130,15 @@ export const SupportCardList: React.FC<SupportCardListProps> = ({ infoArray }) =
 interface InfoListProps {
   infoArray: Info[];
   selected: string;
+  searchText: string;
 }
 
 export const InfoList: React.FC<InfoListProps> = ({
   infoArray,
   selected,
+  searchText,
 }) => {
-  if (infoArray.length === 0) {
+  if (infoArray.length === 0 && searchText === "") {
     return (
       <React.Fragment>
         <br />
@@ -150,16 +154,28 @@ export const InfoList: React.FC<InfoListProps> = ({
   return (
     <IonList>
       <IonListHeader>
-        <h2>{selected}</h2>
+        {searchText === "" ? (
+          <h2>{selected}</h2>
+        ) : (
+          <h2>
+            Search Results for: <i>{searchText}</i>
+          </h2>
+        )}
       </IonListHeader>
-      {infoArray.map((info, index) => (
-        <InfoItem
-          key={index}
-          icon={info.icon}
-          title={info.title}
-          description={info.description}
-        />
-      ))}
+      {infoArray.length === 0 ? (
+        <p className="ion-text-center">
+          There doesn't seem to be any items matching your search query
+        </p>
+      ) : (
+        infoArray.map((info, index) => (
+          <InfoItem
+            key={index}
+            icon={info.icon}
+            title={info.title}
+            description={info.description}
+          />
+        ))
+      )}
     </IonList>
   );
 };

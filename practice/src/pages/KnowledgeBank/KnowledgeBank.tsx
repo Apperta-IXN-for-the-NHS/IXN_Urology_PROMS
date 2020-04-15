@@ -20,6 +20,7 @@ import {
   reader,
   personCircle,
   person,
+  search,
 } from "ionicons/icons";
 import {
   ForYou,
@@ -34,45 +35,68 @@ import { informationCircleOutline } from "ionicons/icons";
 const KnowledgeBank: React.FC = () => {
   const icons = [personCircle, analytics, eyedrop, reader, fitness];
   const tabs = ["For You", "Pathway", "Disease", "Management", "Treatment"];
-  const [tab, setTab] = useState<"For You" | "Pathway" | "Disease" | "Treatment" | "Management">("For You");
-  const tabToInt = (tabName: string): number => {
-    if (tabName === "For You") return 0
-    if (tabName === "Pathway") return 1;
-    if (tabName === "Disease") return 2;
-    if (tabName === "Management") return 3;
-    if (tabName === "Treatment") return 4;
-    return 0;
-  }
+  const [searchText, setSearchText] = useState("");
+  const [tab, setTab] = useState<
+    "For You" | "Pathway" | "Disease" | "Treatment" | "Management"
+  >("For You");
+  const allInfo = [
+    ...PathwayInfo,
+    ...DiseaseInfo,
+    ...TreatmentInfo,
+    ...ManagementInfo,
+  ];
   const tabToInfo = (tabName: string): Info[] => {
-    if (tabName === "For You") return ForYou
+    if (tabName === "For You") return ForYou;
     if (tabName === "Pathway") return PathwayInfo;
     if (tabName === "Disease") return DiseaseInfo;
     if (tabName === "Treatment") return TreatmentInfo;
     if (tabName === "Management") return ManagementInfo;
     return ForYou;
   };
-
+  const generateSearchArray = (query: string) => {
+    query = query.toLowerCase();
+    return allInfo.filter(
+      (value) =>
+        value.title.toLowerCase().includes(query) ||
+        value.description.toLowerCase().includes(query)
+    );
+  };
   return (
     <IonPage>
       <IonHeader class="ion-no-border">
         <IonToolbar>
-          <br/>
+          <br />
           <IonSearchbar
             animated
             placeholder="Search Info Bank"
             showCancelButton="focus"
-            onIonChange={(e) => console.log(e.detail.value)}
+            onIonChange={(e) => setSearchText(e.detail.value as string)}
+            onIonCancel={() => setSearchText("")}
           ></IonSearchbar>
         </IonToolbar>
-        <IonToolbar class="ion-text-center">
+        <div className="ion-text-center">
           {tabs.map((val, idx) => (
-            <Tab key={idx} label={val} icon={icons[idx]} color="primary" tab={tab} setTab={setTab}/>
+            <Tab
+              key={idx}
+              label={val}
+              icon={icons[idx]}
+              color="primary"
+              tab={tab}
+              setTab={setTab}
+            />
           ))}
-        </IonToolbar>
+        </div>
       </IonHeader>
       <IonContent>
-        <InfoList infoArray={tabToInfo(tab)} selected={tab} />
-        {/* <InfoList infoArray={exampleSearch} selected={tab} /> */}
+        {searchText === "" ? (
+          <InfoList infoArray={tabToInfo(tab)} selected={tab} searchText={searchText}/>
+        ) : (
+          <InfoList
+            infoArray={generateSearchArray(searchText)}
+            selected={tab}
+            searchText={searchText}
+          />
+        )}
       </IonContent>
     </IonPage>
   );
