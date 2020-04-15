@@ -27,6 +27,7 @@ import {
   ManagementInfo,
   DiseaseInfo,
   TreatmentInfo,
+  exampleSearch,
 } from "./Info";
 import { informationCircleOutline } from "ionicons/icons";
 
@@ -38,8 +39,8 @@ const KnowledgeBank: React.FC = () => {
     if (tabName === "For You") return 0
     if (tabName === "Pathway") return 1;
     if (tabName === "Disease") return 2;
-    if (tabName === "Treatment") return 3;
-    if (tabName === "Management") return 4;
+    if (tabName === "Management") return 3;
+    if (tabName === "Treatment") return 4;
     return 0;
   }
   const tabToInfo = (tabName: string): Info[] => {
@@ -60,21 +61,18 @@ const KnowledgeBank: React.FC = () => {
             animated
             placeholder="Search Info Bank"
             showCancelButton="focus"
+            onIonChange={(e) => console.log(e.detail.value)}
           ></IonSearchbar>
         </IonToolbar>
         <IonToolbar class="ion-text-center">
           {tabs.map((val, idx) => (
-            <Tab key={idx} label={val} icon={icons[idx]} color="primary" setTab={setTab}/>
+            <Tab key={idx} label={val} icon={icons[idx]} color="primary" tab={tab} setTab={setTab}/>
           ))}
-          {/* <Tab label="Disease" icon={analytics} color="primary" /> */}
-          {/* <IonSegment color="nhsblue" value={tab} onIonChange={e => setTab(e.detail.value as any)}>
-            {tabs.map((val, idx) => <Tab key={idx} label={val} icon={icons[idx]}/>)}
-          </IonSegment> */}
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        {/* <CardList infoArray={tabToInfo(tab)} /> */}
-        <InfoList infoArray={tabToInfo(tab)} selected={tab} icon={icons[tabToInt(tab)]}/>
+        <InfoList infoArray={tabToInfo(tab)} selected={tab} />
+        {/* <InfoList infoArray={exampleSearch} selected={tab} /> */}
       </IonContent>
     </IonPage>
   );

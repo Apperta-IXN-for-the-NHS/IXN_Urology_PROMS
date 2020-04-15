@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   IonHeader,
   IonPage,
-  IonTitle,
   IonToolbar,
   IonList,
   IonButtons,
@@ -10,49 +9,40 @@ import {
   IonBackButton,
   IonContent,
   IonToast,
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
   IonFab,
   IonFabButton,
   IonIcon,
-  IonDatetime,
   IonItem,
   IonLabel,
   IonInput,
-  IonCardContent,
   IonModal,
   IonItemSliding,
   IonItemOptions,
   IonItemOption,
-  IonText,
 } from "@ionic/react";
 import { addOutline, pencil } from "ionicons/icons";
 import "./Symptoms.css";
-import CardList from "../../components/common/CardList";
 
 interface Symptom {
   title: string;
   dosage: string;
-  day: string;
   date: string;
 }
 
 interface SymptomItemProps {
-  day: string;
   dosage: string;
   date: string;
   title: string;
   cardID: number;
   remove(key: number): any;
-  addSymptom(title: string, dosage: string, day: string, date: string): void;
-  editSymptom(idx: number, title: string, dosage: string, day: string, date: string): void;
+  addSymptom(title: string, dosage: string, date: string): void;
+  editSymptom(idx: number, title: string, dosage: string, date: string): void;
 }
 
 interface AddSymptomProps {
   setModal(state: boolean): void;
-  addSymptom(title: string, dosage: string, day: string, date: string): void;
-  editSymptom(idx: number, title: string, dosage: string, day: string, date: string): void;
+  addSymptom(title: string, dosage: string, date: string): void;
+  editSymptom(idx: number, title: string, dosage: string, date: string): void;
   modify?: boolean;
   cardID?: number;
   currentTitle?: string;
@@ -76,33 +66,16 @@ const AddSymptom: React.FC<AddSymptomProps> = ({
   const [title, setTitle] = useState(initialTitle);
   const [dosage, setDosage] = useState(initialDosage);
   const [date, setDate] = useState(initialDate);
-  const [day, setDay] = useState("");
-
-  const dateToDay = (dateString: string): string => {
-    enum weekDays {
-      "Sunday" = 0,
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    }
-    const date = new Date(dateString);
-    const dayNum = date.getDay();
-    return weekDays[dayNum];
-  };
 
   const handleDateChange = (date: string): void => {
     setDate(date);
-    setDay(dateToDay(date));
   };
 
   const handleConfirm = () => {
     if (modify) {
-      editSymptom(cardID!, title, dosage, day, date);
+      editSymptom(cardID!, title, dosage, date);
     } else {
-      addSymptom(title, dosage, day, date);
+      addSymptom(title, dosage, date);
     }
     setModal(false);
   };
@@ -173,7 +146,6 @@ const AddSymptom: React.FC<AddSymptomProps> = ({
 };
 
 const SymptomItem: React.FC<SymptomItemProps> = ({
-  day,
   date,
   dosage,
   addSymptom,
@@ -183,6 +155,7 @@ const SymptomItem: React.FC<SymptomItemProps> = ({
   remove,
 }) => {
   const [showModal, setModal] = useState(false);
+  const trueDate = new Date(date)
   return (
     <React.Fragment>
       <IonItemSliding>
@@ -203,10 +176,8 @@ const SymptomItem: React.FC<SymptomItemProps> = ({
         >
           <IonLabel>
             <h1>{title}</h1>
-            <h2>{dosage}</h2>
-            <h2>
-              {day} {date}
-            </h2>
+            <h2><b>Dosage: </b>{dosage}</h2>
+            <h2><b>Started On: </b> {trueDate.toDateString()}</h2>
           </IonLabel>
         </IonItem>
       </IonItemSliding>
@@ -230,19 +201,16 @@ const Symptoms: React.FC = () => {
   let initialSymptoms = [
     {
       title: "Ibuprofen",
-      day: "Monday",
       date: "2020-04-17",
       dosage: "100mg a day",
     },
     {
       title: "Paracetamol",
-      day: "Monday",
       date: "2020-04-17",
       dosage: "100mg a day",
     },
     {
       title: "Xanax",
-      day: "Thursday",
       date: "2020-04-17",
       dosage: "100mg a day",
     },
@@ -256,7 +224,6 @@ const Symptoms: React.FC = () => {
   const addSymptom = (
     newTitle: string,
     newDosage: string,
-    newDay: string,
     newDate: string
   ) => {
     setSymptoms([
@@ -264,7 +231,6 @@ const Symptoms: React.FC = () => {
       {
         title: newTitle,
         dosage: newDosage,
-        day: newDay,
         date: newDate,
       },
     ]);
@@ -274,14 +240,12 @@ const Symptoms: React.FC = () => {
     idx: number,
     newTitle: string,
     newDosage: string,
-    newDay: string,
     newDate: string
   ) => {
     let newSymptoms = [...symptoms]
     newSymptoms[idx] = {
       title: newTitle,
       dosage: newDosage,
-      day: newDay,
       date: newDate,
     }
     setSymptoms(newSymptoms)
@@ -313,7 +277,6 @@ const Symptoms: React.FC = () => {
           <SymptomItem
             key={idx}
             cardID={idx}
-            day={s.day}
             date={s.date}
             title={s.title}
             dosage={s.dosage}

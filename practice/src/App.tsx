@@ -20,6 +20,7 @@ import KnowledgeBank from "./pages/KnowledgeBank/KnowledgeBank";
 import DocPatient from "./pages/DocPatient/DocPatient";
 import Support from "./pages/Support/Support";
 import Profile from "./pages/Profile/Profile";
+import ResultsData from "./pages/DocPatient/ResultsData";
 import ProfileNew from "./pages/Profile/ProfileNew";
 import InputExamples from "./components/Demo";
 import Letters from "./pages/DocPatient/Letters";
@@ -78,6 +79,7 @@ const App: React.FC = () => (
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
           <Route path="/demo" component={InputExamples} />
+          <Route path="/ipss-results" component={ResultsData} />
           <Route
             path="/ipss"
             render={() => <QuestionairePage contentArray={IPSS} />}

@@ -41,6 +41,7 @@ export const InfoCard: React.FC<InfoCardProps> = ({ title, description }) => {
 };
 
 export interface Info {
+  icon: string,
   title: string;
   description: string;
 }
@@ -127,13 +128,11 @@ export const SupportCardList: React.FC<SupportCardListProps> = ({ infoArray }) =
 interface InfoListProps {
   infoArray: Info[];
   selected: string;
-  icon: string;
 }
 
 export const InfoList: React.FC<InfoListProps> = ({
   infoArray,
   selected,
-  icon,
 }) => {
   if (infoArray.length === 0) {
     return (
@@ -156,7 +155,7 @@ export const InfoList: React.FC<InfoListProps> = ({
       {infoArray.map((info, index) => (
         <InfoItem
           key={index}
-          icon={icon}
+          icon={info.icon}
           title={info.title}
           description={info.description}
         />
