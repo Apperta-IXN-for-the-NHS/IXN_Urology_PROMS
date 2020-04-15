@@ -162,7 +162,6 @@ const SymptomItem: React.FC<SymptomItemProps> = ({
         <IonItemOptions side="end">
           <IonItemOption
             color="danger"
-            expandable
             onClick={() => remove(cardID)}
           >
             delete

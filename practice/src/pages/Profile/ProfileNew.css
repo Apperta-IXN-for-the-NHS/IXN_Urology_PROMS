@@ -1,0 +1,17 @@
+.wrapper {
+  width: 150px;
+  height: 150px;
+  margin: 25px auto;
+  overflow: hidden;
+  border-radius: 50%;
+  position: relative;
+  border:5px solid  #003087;
+}
+
+.wrapper img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+}

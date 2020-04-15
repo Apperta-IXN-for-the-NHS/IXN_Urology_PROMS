@@ -129,7 +129,7 @@ export let Feedback = [
 
 export let IIEF = [
   {
-    title: "Feedback",
+    title: "IIEF",
     questions: [
       {
         heading: "",
