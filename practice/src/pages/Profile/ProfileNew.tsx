@@ -21,8 +21,12 @@ interface InfoListProps {
 }
 
 const InfoList: React.FC<InfoListProps> = ({ infoArray }) => {
+  const cardStyle = {
+    borderRadius: "5px",
+    boxShadow: "none"
+  }
   return (
-    <IonCard>
+    <IonCard style={cardStyle}>
       <IonList>
         {infoArray.map((info, index) => (
           <IonItem color="primary" key={index}>
