@@ -74,7 +74,7 @@ const KnowledgeBank: React.FC = () => {
             onIonCancel={() => setSearchText("")}
           ></IonSearchbar>
         </IonToolbar>
-        <div className="ion-text-center">
+        <IonToolbar className="ion-text-center">
           {tabs.map((val, idx) => (
             <Tab
               key={idx}
@@ -85,11 +85,15 @@ const KnowledgeBank: React.FC = () => {
               setTab={setTab}
             />
           ))}
-        </div>
+        </IonToolbar>
       </IonHeader>
       <IonContent>
         {searchText === "" ? (
-          <InfoList infoArray={tabToInfo(tab)} selected={tab} searchText={searchText}/>
+          <InfoList
+            infoArray={tabToInfo(tab)}
+            selected={tab}
+            searchText={searchText}
+          />
         ) : (
           <InfoList
             infoArray={generateSearchArray(searchText)}
