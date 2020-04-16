@@ -68,13 +68,13 @@ export const InfoItem: React.FC<InfoItemProps> = ({
   return (
     <React.Fragment>
       <IonItem
-        color="primary"
+        // color="primary"
         detail
         lines="full"
         button
         onClick={() => setModal(true)}
       >
-        <IonIcon slot="start" icon={icon} />
+        <IonIcon slot="start" icon={icon} color="primary"/>
         <IonLabel>
           <h2>{title}</h2>
           <p>{description}</p>
