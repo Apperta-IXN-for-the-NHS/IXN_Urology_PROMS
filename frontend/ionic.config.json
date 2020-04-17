@@ -1,0 +1,7 @@
+{
+  "name": "percuro",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
