@@ -1,52 +1,102 @@
 import { Router } from "express";
 import userModel from "../models/users";
+import IUser from "../models/interfaces/user";
+import bcrypt from "bcrypt";
 
 const router = Router();
 
-// get all users
-router.get("/", async (req, res) => {
+async function getAll() {
+  return await userModel.find().select("-password");
+}
+
+async function getById(id: string) {
+  return await userModel.findById(id).select("-password");
+}
+
+async function register(userParams: IUser) {
+  const userExists = await userModel.findOne({ email: userParams.email });
+  if (userExists) {
+    throw "This email address is already registered";
+  }
+  userParams.password = bcrypt.hashSync(userParams.password, 10);
+  const newUser = new userModel(userParams);
+  return await newUser.save();
+}
+
+async function update(userParams: IUser, id: string) {
+  const user = await getById(id);
+  if (!user) throw "User not found";
+  // user is changing password
+  if (userParams.password) {
+    const newHash = bcrypt.hashSync(userParams.password, 10);
+    userParams.password = newHash;
+  }
+  const updatedUser = await userModel.findByIdAndUpdate(
+    id,
+    userParams,
+    {new: true }
+  );
+  return updatedUser;
+}
+
+async function authenticate(userParams: IUser) {
+  const user = await userModel.findOne({ email: userParams.email });
+  if (!user) {
+    throw "User not found"
+  }
+  if (bcrypt.compareSync(userParams.password, user.password)) {
+    return "correct password"
+  } else {
+    throw "incorrect password"
+  }
+}
+
+router.post("/login", async (req, res, next) => {
   try {
-    const allUsers = await userModel.find();
-    res.json({ success: "true", data: allUsers });
+    const authMessage = await authenticate(req.body)
+    res.status(201).json({succes: true, data: authMessage})
   } catch (err) {
-    res.json({ success: "false", message: err });
+    next(err)
+  }
+})
+
+// get all users
+router.get("/", async (req, res, next) => {
+  try {
+    const users = await getAll();
+    res.status(200).json({ succes: true, data: users });
+  } catch (err) {
+    next(err);
   }
 });
 
 // get single user by id
-router.get("/:id", async (req, res) => {
+router.get("/:id", async (req, res, next) => {
   try {
-    const user = await userModel.findById(req.params.id);
-    res.json({ success: "true", data: user });
+    const user = await getById(req.params.id);
+    res.status(200).json({ success: true, data: user });
   } catch (err) {
-    res.json({ success: "false", message: err });
+    next(err);
   }
 });
 
 // update details of existing user
-router.put("/:id", async (req, res) => {
+router.put("/:id", async (req, res, next) => {
   try {
-    const updatedUser = await userModel
-      .findByIdAndUpdate(
-        req.params.id,
-        req.body,
-        {new: true} // return the updated document
-      )
-    res.json({ success: "true", data: updatedUser });
+    const updatedUser = await update(req.body, req.params.id)
+    res.status(202).json({success: true, data: updatedUser})
   } catch (err) {
-    res.json({ success: "false", message: err });
+    next(err);
   }
 });
 
 // create new user and add to db
-router.post("/", async (req, res) => {
-  console.log(req.body);
+router.post("/", async (req, res, next) => {
   try {
-    const user = new userModel(req.body);
-    const savedUser = await user.save();
-    res.json({ success: "true", data: savedUser });
+    const newUser = await register(req.body);
+    res.status(201).json({ succes: true, data: newUser });
   } catch (err) {
-    res.json({ success: "false", message: err });
+    next(err);
   }
 });
 

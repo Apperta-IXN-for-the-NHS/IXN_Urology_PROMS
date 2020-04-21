@@ -3,6 +3,7 @@ import { Document } from "mongoose";
 export default interface IUser extends Document {
   firstName: string;
   lastName: string;
+  password: string; // hashed password
   email: string;
   phone: string;
   address: string;
