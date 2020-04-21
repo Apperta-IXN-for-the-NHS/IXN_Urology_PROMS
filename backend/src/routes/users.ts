@@ -2,6 +2,10 @@ import { Router } from "express";
 import userModel from "../models/users";
 import IUser from "../models/interfaces/user";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import { config } from "dotenv";
+import auth from "../common/auth";
+config();
 
 const router = Router();
 
@@ -9,7 +13,7 @@ async function getAll() {
   return await userModel.find().select("-password");
 }
 
-async function getById(id: string) {
+export async function getById(id: string) {
   return await userModel.findById(id).select("-password");
 }
 
@@ -31,47 +35,47 @@ async function update(userParams: IUser, id: string) {
     const newHash = bcrypt.hashSync(userParams.password, 10);
     userParams.password = newHash;
   }
-  const updatedUser = await userModel.findByIdAndUpdate(
-    id,
-    userParams,
-    {new: true }
-  );
+  const updatedUser = await userModel.findByIdAndUpdate(id, userParams, {
+    new: true,
+  });
   return updatedUser;
 }
 
 async function authenticate(userParams: IUser) {
   const user = await userModel.findOne({ email: userParams.email });
   if (!user) {
-    throw "User not found"
+    throw "No user with this email exists";
   }
   if (bcrypt.compareSync(userParams.password, user.password)) {
-    return "correct password"
+    const {password, ...userWithoutPass} = user.toObject();
+    const token = jwt.sign({sub: user.id}, process.env.SECRET!)
+    return {...userWithoutPass, token};
   } else {
-    throw "incorrect password"
+    throw "incorrect password";
   }
 }
 
 router.post("/login", async (req, res, next) => {
   try {
-    const authMessage = await authenticate(req.body)
-    res.status(201).json({succes: true, data: authMessage})
+    const authMessage = await authenticate(req.body);
+    res.status(202).json({ succes: true, data: authMessage });
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
 // get all users
-router.get("/", async (req, res, next) => {
+router.get("/", auth, async (req, res, next) => {
   try {
     const users = await getAll();
-    res.status(200).json({ succes: true, data: users });
+    res.status(200).json({ succes: true, data: users, caller: res.locals.user});
   } catch (err) {
     next(err);
   }
 });
 
 // get single user by id
-router.get("/:id", async (req, res, next) => {
+router.get("/:id", auth, async (req, res, next) => {
   try {
     const user = await getById(req.params.id);
     res.status(200).json({ success: true, data: user });
@@ -81,10 +85,10 @@ router.get("/:id", async (req, res, next) => {
 });
 
 // update details of existing user
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", auth, async (req, res, next) => {
   try {
-    const updatedUser = await update(req.body, req.params.id)
-    res.status(202).json({success: true, data: updatedUser})
+    const updatedUser = await update(req.body, req.params.id);
+    res.status(202).json({ success: true, data: updatedUser });
   } catch (err) {
     next(err);
   }
