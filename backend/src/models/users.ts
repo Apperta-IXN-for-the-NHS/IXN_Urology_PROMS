@@ -1,7 +1,6 @@
-import mongoose, { Model, model, Schema } from "mongoose";
+import { Model, model, Schema } from "mongoose";
 import Joi from "@hapi/joi";
 import IUser from "./interfaces/user";
-import { lstatSync } from "fs";
 
 const UserSchema = new Schema({
   firstName: { type: String, required: true },

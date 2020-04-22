@@ -1,10 +1,10 @@
 import express from "express";
 import userRoute from "./routes/users";
+import medsRoute from "./routes/medications";
 import { config } from "dotenv";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import handleError from "./common/errorHandler";
-import userModel from "./models/users";
 
 config();
 
@@ -13,6 +13,7 @@ const app = express();
 app.use(bodyParser.json());
 
 app.use("/users", userRoute);
+app.use("/meds", medsRoute);
 
 app.use(handleError);
 

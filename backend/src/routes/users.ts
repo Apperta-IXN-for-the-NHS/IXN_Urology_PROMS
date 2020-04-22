@@ -41,7 +41,7 @@ async function update(userParams: IUser, id: string) {
   return updatedUser;
 }
 
-async function authenticate(userParams: IUser) {
+async function login(userParams: IUser) {
   const user = await userModel.findOne({ email: userParams.email });
   if (!user) {
     throw "No user with this email exists";
@@ -57,7 +57,7 @@ async function authenticate(userParams: IUser) {
 
 router.post("/login", async (req, res, next) => {
   try {
-    const authMessage = await authenticate(req.body);
+    const authMessage = await login(req.body);
     res.status(202).json({ succes: true, data: authMessage });
   } catch (err) {
     next(err);

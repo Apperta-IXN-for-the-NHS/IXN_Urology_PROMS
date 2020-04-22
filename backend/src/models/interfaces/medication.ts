@@ -1,8 +1,15 @@
 import { Document } from "mongoose";
+import IUser from "./user";
 
-interface Medication extends Document {
+export default interface IMedication extends Document {
     name: string;
     dosage: string;
     date: Date;
-    // user: mongoose-autopopulate
+    user: string | IUser;
+}
+
+export interface MedParams {
+    name: string;
+    dosage: string;
+    date: Date;
 }
