@@ -7,6 +7,6 @@ export default interface IUser extends Document {
   email: string;
   phone: string;
   address: string;
-  kind: string; // whether user is patient or doctor
+  kind: 'patient' | 'doctor'; // whether user is patient or doctor
   hospital?: string;
 }

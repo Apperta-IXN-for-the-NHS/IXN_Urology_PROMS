@@ -3,7 +3,11 @@ import { config } from "dotenv";
 import { Request, Response, NextFunction } from "express";
 config();
 
-export default function auth(req: Request, res: Response, next: NextFunction) {
+export default function isAuthenticated(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
   if (!token) {
@@ -17,5 +21,17 @@ export default function auth(req: Request, res: Response, next: NextFunction) {
     next();
   } catch (err) {
     res.status(403).json({ success: false, message: "Invalid token" });
+  }
+}
+
+export function isAdmin(req: Request, res: Response, next: NextFunction) {
+  const user = res.locals.user.sub;
+  if (user.kind === "doctor") {
+    next();
+  } else {
+    res.status(403).json({
+      success: false,
+      message: "Only doctors (admin) has access to this route",
+    });
   }
 }

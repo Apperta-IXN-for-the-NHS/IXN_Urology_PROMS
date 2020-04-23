@@ -1,20 +1,23 @@
 import express from "express";
-import userRoute from "./routes/users";
+import apiRoute from "./routes/patient/patient";
+import userRoute from "./routes/patient/user";
+import adminRoute from "./routes/admin/admin";
+import authRoute from "./routes/auth/auth";
 import medsRoute from "./routes/medications";
 import { config } from "dotenv";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import handleError from "./common/errorHandler";
+import isAuthenticated, { isAdmin } from "./common/auth";
 
 config();
 
 const app = express();
 
 app.use(bodyParser.json());
-
-app.use("/users", userRoute);
-app.use("/meds", medsRoute);
-
+app.use("/auth", authRoute);
+app.use("/api", isAuthenticated, apiRoute);
+app.use("/admin", isAuthenticated, isAdmin, adminRoute);
 app.use(handleError);
 
 mongoose

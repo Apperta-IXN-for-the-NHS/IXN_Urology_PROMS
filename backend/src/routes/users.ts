@@ -48,7 +48,7 @@ async function login(userParams: IUser) {
   }
   if (bcrypt.compareSync(userParams.password, user.password)) {
     const {password, ...userWithoutPass} = user.toObject();
-    const token = jwt.sign({sub: user.id}, process.env.SECRET!)
+    const token = jwt.sign({sub: userWithoutPass}, process.env.SECRET!)
     return {...userWithoutPass, token};
   } else {
     throw "incorrect password";

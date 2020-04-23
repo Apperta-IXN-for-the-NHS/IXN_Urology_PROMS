@@ -59,7 +59,7 @@ router.post("/", auth, async (req, res, next) => {
   }
 });
 
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", auth, async (req, res, next) => {
   try {
     remove(req.params.id);
     res.status(200).json({ success: true });
