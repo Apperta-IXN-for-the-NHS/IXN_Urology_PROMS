@@ -1,15 +1,15 @@
 import React from "react";
+import { logOut } from "../../utils/store";
 import {
   IonContent,
   IonHeader,
   IonPage,
   IonTitle,
   IonToolbar,
-  IonAvatar,
   IonItem,
   IonList,
   IonLabel,
-  IonCard,
+  IonButton,
 } from "@ionic/react";
 
 import NHSlogo from "../../assets/images/NHS.png";
@@ -24,19 +24,19 @@ const InfoList: React.FC<InfoListProps> = ({ infoArray }) => {
   const cardStyle = {
     paddingLeft: "15px",
     paddingRight: "15px",
-  }
+  };
   return (
-      <div style={cardStyle}>
-      <IonList>
+    <div style={cardStyle}>
+      <IonList lines="none" className="rounded">  
         {infoArray.map((info, index) => (
-          <IonItem color="primary" key={index}>
+          <IonItem key={index} lines="none">
             <IonLabel>
               <b>{info.title}</b> : {info.value}
             </IonLabel>
           </IonItem>
         ))}
       </IonList>
-      </div>
+    </div>
   );
 };
 
@@ -56,8 +56,12 @@ const Profile: React.FC = () => {
     paddingLeft: "17px",
   };
   const imageStyle = {
-    borderRadius: "50%"
-  }
+    borderRadius: "50%",
+  };
+  const cardStyle = {
+    paddingLeft: "15px",
+    paddingRight: "15px",
+  };
   return (
     <IonPage>
       <IonHeader>
@@ -76,6 +80,12 @@ const Profile: React.FC = () => {
         <InfoList infoArray={contactDetails} />
         <h2 style={padLeft}>Medical Details</h2>
         <InfoList infoArray={medicalDetials} />
+        <br/>
+        <div style={cardStyle}>
+          <IonButton expand="full" color="tertiary" href="/login" onClick={() => logOut()}>
+            Logout
+          </IonButton>
+        </div>
       </IonContent>
     </IonPage>
   );

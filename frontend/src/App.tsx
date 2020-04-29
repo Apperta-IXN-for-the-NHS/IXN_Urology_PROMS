@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Redirect, Route } from "react-router-dom";
+import UserContext from "./utils/store";
 import {
   IonApp,
   IonIcon,
@@ -33,7 +34,7 @@ import Results from "./pages/DocPatient/Results";
 import History from "./pages/Profile/History";
 import Contacts from "./pages/Profile/Contacts";
 import Settings from "./pages/Profile/Settings";
-import Login from "./pages/Login/Login";
+import Login from "./pages/Login/LoginNew";
 import Register from "./pages/Login/Register";
 
 /* Core CSS required for Ionic components to work properly */
@@ -59,73 +60,82 @@ import "./theme/variables.css";
 import "./global.css";
 import { ItemSlidingExample } from "./pages/DocPatient/Dates";
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonTabs>
-        <IonRouterOutlet>
-          <Route path="/tab1" component={KnowledgeBank} exact={true} />
-          <Route path="/tab2" component={DocPatient} exact={true} />
-          <Route path="/tab3" component={Support} />
-          <Route path="/tab4" component={ProfileNew} />
-          <Route path="/letters" component={Letters} />
-          <Route path="/quest" component={Questionaire} />
-          <Route path="/symptoms" component={Symptoms} />
-          <Route path="/results" component={Results} />
-          <Route path="/history" component={History} />
-          <Route path="/contacts" component={Contacts} />
-          <Route path="/settings" component={Settings} />
-          <Route path="/dates" component={ItemSlidingExample} />
-          <Route path="/register" component={Register} />
-          <Route path="/login" component={Login} />
-          <Route path="/demo" component={InputExamples} />
-          <Route
-            path="/ipss-results"
-            render={() => <ResultsData title="IPSS" />}
-          />
-          <Route
-            path="/psa-results"
-            render={() => <ResultsData title="PSA" />}
-          />
-          <Route
-            path="/ipss"
-            render={() => <QuestionairePage contentArray={IPSS} />}
-          />
-          <Route
-            path="/iief"
-            render={() => <QuestionairePage contentArray={IIEF} />}
-          />
-          <Route
-            path="/feedback"
-            render={() => <QuestionairePage contentArray={Feedback} />}
-          />
-          <Route
-            path="/"
-            render={() => <Redirect to="/login" />}
-            exact={true}
-          />
-        </IonRouterOutlet>
-        <IonTabBar slot="bottom">
-          <IonTabButton tab="tab1" href="/tab1">
-            <IonIcon icon={informationCircleOutline} />
-            <IonLabel>Info Bank</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="tab2" href="/tab2">
-            <IonIcon icon={peopleCircleOutline} />
-            <IonLabel>Doc & Patient</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="tab3" href="/tab3">
-            <IonIcon icon={heartCircleOutline} />
-            <IonLabel>Support</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="tab4" href="/tab4">
-            <IonIcon icon={person} />
-            <IonLabel>Profile</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => {
+  const [userInfo, setUserInfo] = useState({loggedIn: false});
+  return (
+    <UserContext.Provider value={[userInfo, setUserInfo]}>
+      <IonApp>
+        <IonReactRouter>
+          <IonTabs>
+            <IonRouterOutlet>
+              <Route path="/tab1" component={KnowledgeBank} />
+              <Route exact path="/tab2" component={DocPatient} />
+              <Route path="/tab3" component={Support} />
+              <Route path="/tab4" component={ProfileNew} />
+              <Route path="/letters" component={Letters} />
+              <Route path="/quest" component={Questionaire} />
+              <Route path="/symptoms" component={Symptoms} />
+              <Route path="/results" component={Results} />
+              <Route path="/history" component={History} />
+              <Route path="/contacts" component={Contacts} />
+              <Route path="/settings" component={Settings} />
+              <Route path="/dates" component={ItemSlidingExample} />
+              <Route path="/login" component={Login} />
+              <Route path="/demo" component={InputExamples} />
+              {/* <Route path="/login" component={Login} /> */}
 
+              <Route
+                path="/ipss-results"
+                render={() => <ResultsData title="IPSS" />}
+              />
+              <Route
+                path="/psa-results"
+                render={() => <ResultsData title="PSA" />}
+              />
+              <Route
+                path="/ipss"
+                render={() => <QuestionairePage contentArray={IPSS} />}
+              />
+              <Route
+                path="/iief"
+                render={() => <QuestionairePage contentArray={IIEF} />}
+              />
+              <Route
+                path="/feedback"
+                render={() => <QuestionairePage contentArray={Feedback} />}
+              />
+              <Route
+                path="/"
+                render={() => <Redirect to="/login" />}
+                exact={true}
+              />
+            </IonRouterOutlet>
+            <IonTabBar slot="bottom">
+              <IonTabButton tab="tab1" href="/tab1">
+                <IonIcon icon={informationCircleOutline} />
+                <IonLabel>Info Bank</IonLabel>
+              </IonTabButton>
+              <IonTabButton tab="tab2" href="/tab2">
+                <IonIcon icon={peopleCircleOutline} />
+                <IonLabel>Doc & Patient</IonLabel>
+              </IonTabButton>
+              <IonTabButton tab="tab3" href="/tab3">
+                <IonIcon icon={heartCircleOutline} />
+                <IonLabel>Support</IonLabel>
+              </IonTabButton>
+              <IonTabButton tab="tab4" href="/tab4">
+                <IonIcon icon={person} />
+                <IonLabel>Profile</IonLabel>
+              </IonTabButton>
+            </IonTabBar>
+          </IonTabs>
+          <Route exact path="/" render={() => <Redirect to="/login" />} />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          {/* <Route exact path="/" render={props => isLoggedIn() ?  <DocPatient {...props} /> : <Login />} /> */}
+        </IonReactRouter>
+      </IonApp>
+    </UserContext.Provider>
+  );
+};
 export default App;

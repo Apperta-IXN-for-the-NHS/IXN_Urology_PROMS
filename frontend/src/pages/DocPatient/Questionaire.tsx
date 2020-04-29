@@ -139,7 +139,7 @@ const Question: React.FC<QuestionProps> = ({
               onIonChange={(e) => updateScore(index, e.detail.value)}
             >
               {info.answers[index].map((ans, index) => (
-                <IonItem>
+                <IonItem lines="full">
                   <IonLabel>{ans}</IonLabel>
                   <IonRadio value={index} />
                 </IonItem>

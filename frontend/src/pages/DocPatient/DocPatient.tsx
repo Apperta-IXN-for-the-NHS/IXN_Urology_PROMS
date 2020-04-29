@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import UserContext from "../../utils/store";
+import { getCreds } from "../../utils/store";
 import {
   IonHeader,
   IonPage,
-  IonTitle,
   IonToolbar,
   IonCard,
   IonCardHeader,
@@ -11,7 +12,7 @@ import {
   IonRow,
   IonCol,
   IonContent,
-  IonIcon
+  IonIcon,
 } from "@ionic/react";
 
 import "./DocPatient.css";
@@ -20,7 +21,7 @@ import letterImg from "../../assets/images/mail.png";
 import quesImg from "../../assets/images/ques.png";
 import sympImg from "../../assets/images/symptoms.png";
 
-import { peopleCircleOutline } from 'ionicons/icons';
+import { peopleCircleOutline } from "ionicons/icons";
 
 interface QuadProps {
   title: string;
@@ -29,26 +30,23 @@ interface QuadProps {
   history: any;
 }
 
-const QuadCard: React.FC<QuadProps> = ({
-  title,
-  image,
-  history,
-  link
-}) => {
+const QuadCard: React.FC<QuadProps> = ({ title, image, history, link }) => {
   return (
     <IonCol size="6">
       <IonCard
         className="doc"
-        onClick={e => {
+        onClick={(e) => {
           e.preventDefault();
           history.push(link);
         }}
       >
         <IonCardHeader>
-          <br/>
-          <br/>
+          <br />
+          <br />
           <img src={image} alt={title} />
-          <IonCardTitle color="nhswhite" className="ion-text-center">{<h4>{title}</h4>}</IonCardTitle>
+          <IonCardTitle color="nhswhite" className="ion-text-center">
+            {<h4>{title}</h4>}
+          </IonCardTitle>
         </IonCardHeader>
       </IonCard>
     </IonCol>
@@ -67,15 +65,15 @@ const DocPatient: React.FC<DocPatientProps> = ({ history }) => {
         image: letterImg,
         description:
           "Letters, documents and forms you have received regarding your treatment and diagnosis.",
-        link: "/letters"
+        link: "/letters",
       },
       {
         title: "Questionnaires",
         image: quesImg,
         description:
           "Important Questionnaires to help assist your medical treatment.",
-        link: "/quest"
-      }
+        link: "/quest",
+      },
     ],
     [
       {
@@ -83,26 +81,25 @@ const DocPatient: React.FC<DocPatientProps> = ({ history }) => {
         image: sympImg,
         description:
           "Log information about your recent symptoms to give doctors more information about your wellbeing.",
-        link: "/symptoms"
+        link: "/symptoms",
       },
       {
         title: "Results",
         image: calImg,
         description: "Input and organise all of your upcoming appointments",
-        link: "/results"
-      }
-    ]
+        link: "/results",
+      },
+    ],
   ];
+  const [userInfo, setUserInfo] = useContext(UserContext as any);
   return (
     <IonPage>
-      <IonContent class="home-background">
-          {/* <IonHeader class="ion-no-border" collapse="condense" translucent>
-            <IonToolbar>
-            <IonTitle class="ion-text-center">
-            <IonIcon className="header" color="nhsblue" icon={peopleCircleOutline} />
-            </IonTitle>
-          </IonToolbar>
-        </IonHeader> */}
+      <IonHeader class="ion-no-border">
+        <IonToolbar></IonToolbar>
+      </IonHeader>
+      <IonContent>
+        <h2 className="ion-padding-left">Welcome {userInfo.firstName}</h2>
+        {/* {console.log(userInfo)} */}
         <IonGrid>
           {cardContent.map((content, idx) => (
             <IonRow key={idx}>

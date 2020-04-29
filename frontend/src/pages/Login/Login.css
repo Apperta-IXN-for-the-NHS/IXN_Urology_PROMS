@@ -1,5 +1,16 @@
+ion-item.highlight {
+  --border-color: #425563;
+}
 
-  ion-item.highlight{
-    --border-color: #425563;
-  }
+.rounded {
+  --border-color: #767676;
+  --color-activated: #428cff;
+  --color-focused: #428cff;
+  --border-width: "thin";
+  /* border-radius: 10px; */
+  margin-bottom: 1rem;
+}
 
+/* ion-content.background {
+  --background: url(../../assets/images/cool-background.png) 0 0/100% 100% no-repeat !important;
+} */

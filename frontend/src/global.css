@@ -213,8 +213,11 @@ ion-segment {
   width: 100%;
 }
 
-ion-item.highlight {
-  --border-color: #425563;
+ion-item {
+  border-color: rgba(0, 0, 0, 0);
+	background-color: rgba(0, 0, 0, 0);
+	/* color: white; */
+  /* --border-color: #425563; */
 }
 
 h1.options {
