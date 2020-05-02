@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect, Route } from "react-router-dom";
-import UserContext from "./utils/store";
+import UserContext, { getCreds, getCredsSync } from "./utils/store";
 import {
   IonApp,
   IonIcon,
@@ -23,18 +23,20 @@ import Support from "./pages/Support/Support";
 import Profile from "./pages/Profile/Profile";
 import ResultsData from "./pages/DocPatient/ResultsData";
 import ProfileNew from "./pages/Profile/ProfileNew";
-import InputExamples from "./components/Demo";
+// import Tab2 from "./components/Demo";
 import Letters from "./pages/DocPatient/Letters";
 import Questionaire, {
   QuestionairePage,
 } from "./pages/DocPatient/Questionaire";
-import { IPSS, IIEF, Feedback } from "./pages/DocPatient/QuestionnaireInfo";
-import Symptoms from "./pages/DocPatient/Symptoms";
+import { IPSS, IIEF } from "./pages/DocPatient/QuestionnaireInfo";
+import Symptoms from "./pages/DocPatient/Medications";
 import Results from "./pages/DocPatient/Results";
+import Feedback from "./pages/Profile/Feedback";
 import History from "./pages/Profile/History";
 import Contacts from "./pages/Profile/Contacts";
 import Settings from "./pages/Profile/Settings";
 import Login from "./pages/Login/LoginNew";
+import Auth from "./pages/Login/Auth";
 import Register from "./pages/Login/Register";
 
 /* Core CSS required for Ionic components to work properly */
@@ -61,7 +63,7 @@ import "./global.css";
 import { ItemSlidingExample } from "./pages/DocPatient/Dates";
 
 const App: React.FC = () => {
-  const [userInfo, setUserInfo] = useState({loggedIn: false});
+  const [userInfo, setUserInfo] = useState({ loggedIn: false });
   return (
     <UserContext.Provider value={[userInfo, setUserInfo]}>
       <IonApp>
@@ -80,10 +82,7 @@ const App: React.FC = () => {
               <Route path="/contacts" component={Contacts} />
               <Route path="/settings" component={Settings} />
               <Route path="/dates" component={ItemSlidingExample} />
-              <Route path="/login" component={Login} />
-              <Route path="/demo" component={InputExamples} />
-              {/* <Route path="/login" component={Login} /> */}
-
+              <Route path="/feedback" component={Feedback} />
               <Route
                 path="/ipss-results"
                 render={() => <ResultsData title="IPSS" />}
@@ -93,6 +92,10 @@ const App: React.FC = () => {
                 render={() => <ResultsData title="PSA" />}
               />
               <Route
+                path="/iief-results"
+                render={() => <ResultsData title="IIEF" />}
+              />
+              <Route
                 path="/ipss"
                 render={() => <QuestionairePage contentArray={IPSS} />}
               />
@@ -100,15 +103,10 @@ const App: React.FC = () => {
                 path="/iief"
                 render={() => <QuestionairePage contentArray={IIEF} />}
               />
-              <Route
+              {/* <Route
                 path="/feedback"
                 render={() => <QuestionairePage contentArray={Feedback} />}
-              />
-              <Route
-                path="/"
-                render={() => <Redirect to="/login" />}
-                exact={true}
-              />
+              /> */}
             </IonRouterOutlet>
             <IonTabBar slot="bottom">
               <IonTabButton tab="tab1" href="/tab1">
@@ -129,10 +127,11 @@ const App: React.FC = () => {
               </IonTabButton>
             </IonTabBar>
           </IonTabs>
-          <Route exact path="/" render={() => <Redirect to="/login" />} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
-          {/* <Route exact path="/" render={props => isLoggedIn() ?  <DocPatient {...props} /> : <Login />} /> */}
+          <Route path="/auth" component={Auth} />
+          <Route exact path="/" render={() => <Redirect to="/auth" />} />
+          {/* <Route exact path="/" render={() => <Redirect to="/login" />} /> */}
         </IonReactRouter>
       </IonApp>
     </UserContext.Provider>

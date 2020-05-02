@@ -31,6 +31,7 @@ import { arrowForwardCircleSharp } from "ionicons/icons";
 import { Cards } from "./QuestionnaireInfo";
 import { ReactComponent } from "*.svg";
 import { Redirect } from "react-router";
+import axios from "../../axios";
 
 interface TitleCardProps {
   title: string;
@@ -53,8 +54,7 @@ const TitleCard: React.FC<TitleCardProps> = ({
     <IonCard color="primary" style={style}>
       <IonCardHeader>
         <IonCardTitle>{title}</IonCardTitle>
-        <br/>
-        <IonCardSubtitle>Previous Completion: </IonCardSubtitle>
+        <br />
       </IonCardHeader>
       <IonCardContent>
         <h2>{desc}</h2>
@@ -71,7 +71,6 @@ const TitleCard: React.FC<TitleCardProps> = ({
         >
           Take Questionaire
         </IonButton>
-        
 
         {/* {title === "App Feedback" ? (
         <IonButton
@@ -85,8 +84,6 @@ const TitleCard: React.FC<TitleCardProps> = ({
           Text Feedback
         </IonButton>
         ) : null} */}
-
-
       </IonCardContent>
     </IonCard>
   );
@@ -171,12 +168,30 @@ export const QuestionairePage: React.FC<QuestionnairePageProps> = ({
   const [final, setFinal] = useState(false);
   const [showToast, setToast] = useState(false);
   const { navigate } = useContext(NavContext);
-  const redirect = useCallback(() => navigate("/quest", "back"), [
-    navigate,
-  ]);
-  const handleComplete = () => {
-    setToast(true);
-    redirect();
+  const redirect = useCallback(() => navigate("/quest", "back"), [navigate]);
+
+  const saveQuest = async () => {
+    const title = contentArray[0].title;
+    const questions = contentArray[0].questions.map((q) => q.question);
+    const potentialAnswers = contentArray[0].answers;
+    const responses = [];
+    const finalScore = answers.reduce((a, b) => a + b, 0);
+    for (let i = 0; i < answers.length; i++) {
+      const answerIndex = answers[i];
+      responses.push({
+        question: questions[i],
+        answer: potentialAnswers[i][answerIndex],
+        answerScore: answerIndex,
+      });
+    }
+    const questParams = { title: title, responses: responses };
+    const resultsParams = { name: title.toUpperCase(), score: finalScore };
+    try {
+      await axios.post("/api/questionnaires", questParams);
+      await axios.post(`/api/results/${title.toUpperCase()}`, resultsParams);
+    } finally {
+      setToast(true);
+    }
   };
   return (
     <IonPage>
@@ -211,7 +226,7 @@ export const QuestionairePage: React.FC<QuestionnairePageProps> = ({
           <IonButton
             style={buttonStyle}
             color="tertiary"
-            onClick={() => setToast(true)}
+            onClick={() => saveQuest()}
             expand="full"
             disabled={!final}
           >
@@ -237,7 +252,7 @@ export const QuestionairePage: React.FC<QuestionnairePageProps> = ({
 // }
 
 // export const FeedbackText: React.FC<FeedbackProps> = () =>{
-  
+
 //   return(
 //     <IonCard className="login">
 //         <IonList lines="full" class="ion-no-margin ion-no-padding">
@@ -253,8 +268,6 @@ export const QuestionairePage: React.FC<QuestionnairePageProps> = ({
 //       </IonCard>
 //   );
 // }
-
-
 
 interface QuestionaireProps {
   history: any;

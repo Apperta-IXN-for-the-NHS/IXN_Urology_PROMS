@@ -1,5 +1,6 @@
 import React, { useState, useContext, useCallback } from "react";
-import UserContext, { storeCreds } from "../../utils/store";
+import UserContext, { storeCreds, attachToken } from "../../utils/store";
+import { Plugins } from "@capacitor/core";
 import {
   IonContent,
   IonHeader,
@@ -15,7 +16,8 @@ import "./Login.css";
 import axios from "../../axios";
 
 const Login: React.FC = () => {
-  const [userInfo, setUserInfo] = useContext(UserContext as any); 
+  const { Storage } = Plugins;
+  const [userInfo, setUserInfo] = useContext(UserContext as any);
   const [email, setEmail] = useState("elon@gmail.com");
   const [password, setPassword] = useState("elon");
   const [loginError, setLoginError] = useState("");
@@ -25,10 +27,6 @@ const Login: React.FC = () => {
   };
   const { navigate } = useContext(NavContext);
   const redirect = useCallback(() => navigate("/tab2", "root"), [navigate]);
-  const attachToken = (token: string) => {
-    // add the user's newly created jwt token to all future axios request
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  };
   const login = async () => {
     try {
       const response = await axios.post("/auth/login", {
@@ -38,8 +36,9 @@ const Login: React.FC = () => {
       storeCreds(response.data.data);
       attachToken(response.data.data.token);
       setLoginError("");
-      setUserInfo({...response.data.data, loggedIn: true})
-      redirect()
+      setUserInfo({ ...response.data.data, loggedIn: true });
+      console.log(await Storage.keys())
+      redirect();
     } catch (err) {
       const response = err.response.data;
       setLoginError(response.message);

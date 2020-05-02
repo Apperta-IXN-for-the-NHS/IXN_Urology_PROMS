@@ -19,14 +19,14 @@ async function register(userParams: IUser) {
 async function login(userParams: IUser) {
   const user = await userModel.findOne({ email: userParams.email });
   if (!user) {
-    throw "No user with this email exists";
+    throw "Invalid email or password";
   }
   if (bcrypt.compareSync(userParams.password, user.password)) {
     const { password, ...userWithoutPass } = user.toObject();
     const token = jwt.sign({ sub: userWithoutPass }, process.env.SECRET!);
     return { ...userWithoutPass, token };
   } else {
-    throw "incorrect password";
+    throw "Invalid email or password";
   }
 }
 

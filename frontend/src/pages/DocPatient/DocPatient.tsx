@@ -6,6 +6,7 @@ import {
   IonPage,
   IonToolbar,
   IonItem,
+  IonButton,
   IonLabel,
   IonList,
   IonCard,
@@ -131,12 +132,19 @@ const DocPatient: React.FC<DocPatientProps> = ({ history }) => {
     paddingLeft: "20px",
   };
   const [userInfo, setUserInfo] = useContext(UserContext as any);
+  // const checkCreds = async () => {
+  //   const creds = await getCreds()
+  //   console.log(creds);
+  // }
+  console.log(userInfo)
   return (
     <IonPage>
       <IonHeader class="ion-no-border">
         <IonToolbar></IonToolbar>
       </IonHeader>
       <IonContent>
+        {/* <IonButton onClick={() => checkCreds()}> */}
+        {/* </IonButton> */}
         <h2 style={padLeft}>
           Hello {userInfo.firstName}. <br /> How can we help?
         </h2>

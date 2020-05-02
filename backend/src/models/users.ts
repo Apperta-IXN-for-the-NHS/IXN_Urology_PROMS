@@ -2,13 +2,24 @@ import { Model, model, Schema } from "mongoose";
 import Joi from "@hapi/joi";
 import IUser from "./interfaces/user";
 
+const AddressSubSchema = new Schema(
+  {
+    addressOne: { type: String, required: true },
+    addressTwo: { type: String, required: false },
+    city: { type: String, required: true },
+    county: { type: String, required: true },
+    postcode: { type: String, required: true },
+  },
+  { _id: false }
+);
+
 const UserSchema = new Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   email: { type: String, required: true },
-  password: {type: String, required: true},
+  password: { type: String, required: true },
   phone: { type: String, required: true },
-  address: { type: String, required: true },
+  address: AddressSubSchema,
   kind: { type: String, required: true },
   hospital: { type: String },
 });
@@ -18,9 +29,8 @@ export const userValidationSchema = Joi.object({
   lastName: Joi.string().required(),
   password: Joi.string().required(),
   email: Joi.string().email(),
-  phone: Joi.string()
-})
-
+  phone: Joi.string(),
+});
 
 const userModel: Model<IUser> = model<IUser>("User", UserSchema);
 

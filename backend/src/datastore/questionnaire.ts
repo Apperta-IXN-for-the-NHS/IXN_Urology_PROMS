@@ -1,4 +1,3 @@
-import QuestModel from "../models/questionnaire";
 import questModel from "../models/questionnaire";
 import IQuestionnaire from "../models/interfaces/questionnaire";
 
@@ -23,6 +22,6 @@ export async function createQuestResponse(
   questParams: IQuestionnaire
 ) {
   const fullParams = { user: userId, ...questParams };
-  const newQuestResponse = new QuestModel(fullParams);
+  const newQuestResponse = new questModel(fullParams);
   return await newQuestResponse.save();
 }

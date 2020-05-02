@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import UserContext from "../../utils/store";
 import {
   IonContent,
   IonHeader,
@@ -70,6 +71,7 @@ const Support: React.FC = () => {
         "Whatever cancer throws your way, we're right there with you. We provide physical, emotional and financial support to help you live life as fully as you can.",
     },
   ];
+  const [userInfo, setUserInfo] = useContext(UserContext as any)
   return (
     <IonPage>
       <IonHeader>

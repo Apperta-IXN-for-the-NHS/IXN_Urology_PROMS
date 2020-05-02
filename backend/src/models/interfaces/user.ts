@@ -6,7 +6,14 @@ export default interface IUser extends Document {
   password: string; // hashed password
   email: string;
   phone: string;
-  address: string;
-  kind: 'patient' | 'doctor'; // whether user is patient or doctor
+  address: {
+    addressOne: string;
+    addressTwo: string;
+    city: string;
+    county: string;
+    postcode: string;
+  };
+  kind: "patient" | "doctor"; // whether user is patient or doctor
   hospital?: string;
+  nhsId?: string;
 }

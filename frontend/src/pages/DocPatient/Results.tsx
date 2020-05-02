@@ -26,24 +26,29 @@ const Results: React.FC<ResultsProps> = ({ history }) => {
   const cards = [
     {
       graph: true,
-      title: "IPSS Results",
+      title: "IPSS",
       link: "/ipss-results",
     },
     {
       graph: true,
-      title: "PSA Results",
+      title: "PSA",
       link: "/psa-results",
     },
     {
-      graph: false,
-      title: "MRI Results",
-      link: "/mri-results",
+      graph: true,
+      title: "IIEF",
+      link: "/iief-results",
     },
-    {
-      graph: false,
-      title: "Biopsy Results",
-      link: "/biopsy-results",
-    },
+    // {
+    //   graph: false,
+    //   title: "MRI",
+    //   link: "/mri-results",
+    // },
+    // {
+    //   graph: false,
+    //   title: "Biopsy Results",
+    //   link: "/biopsy-results",
+    // },
   ];
   return (
     <IonPage>
@@ -56,15 +61,15 @@ const Results: React.FC<ResultsProps> = ({ history }) => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        {cards.map((info, index) =>
-            <GraphCard
-              title={info.title}
-              graph={info.graph}
-              link={info.link}
-              history={history}
-              key={index}
-            />
-        )}
+        {cards.map((info, index) => (
+          <GraphCard
+            title={info.title}
+            graph={info.graph}
+            link={info.link}
+            history={history}
+            key={index}
+          />
+        ))}
       </IonContent>
     </IonPage>
   );
@@ -82,24 +87,24 @@ const GraphCard: React.FC<GraphCardProps> = ({
   history,
   link,
 }) => {
-  const data = [
-    {
-      t: new Date("2020-04-25"),
-      y: 24,
-    },
-    {
-      t: new Date("2020-04-29"),
-      y: 28,
-    },
-    {
-      t: new Date("2020-05-6"),
-      y: 22,
-    },
-    {
-      t: new Date("2020-05-10"),
-      y: 30,
-    },
-  ];
+  // const data = [
+  //   {
+  //     t: new Date("2020-04-25"),
+  //     y: 24,
+  //   },
+  //   {
+  //     t: new Date("2020-04-29"),
+  //     y: 28,
+  //   },
+  //   {
+  //     t: new Date("2020-05-6"),
+  //     y: 22,
+  //   },
+  //   {
+  //     t: new Date("2020-05-10"),
+  //     y: 30,
+  //   },
+  // ];
   const headerStyle = {
     paddingTop: "5px",
     paddingBottom: "5px",
@@ -115,11 +120,11 @@ const GraphCard: React.FC<GraphCardProps> = ({
       <IonCard>
         <IonCardHeader style={headerStyle}>
           <IonCardTitle color="secondary">
-            <h3>{title}</h3>
+            <h3>{title} Results</h3>
           </IonCardTitle>
         </IonCardHeader>
         <IonCardContent style={contentStyle}>
-          {graph ? <LineGraph label={title} data={data} /> : null}
+          {graph ? <LineGraph label={title} /> : null}
         </IonCardContent>
         <IonButton
           expand="full"

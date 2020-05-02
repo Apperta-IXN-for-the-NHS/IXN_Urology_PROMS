@@ -1,15 +1,17 @@
-import React from "react";
-import { logOut } from "../../utils/store";
+import React, { useState, useEffect, useContext } from "react";
+import UserContext, { logOut } from "../../utils/store";
 import {
   IonContent,
   IonHeader,
   IonPage,
   IonTitle,
+  IonCard,
   IonToolbar,
   IonItem,
   IonList,
   IonLabel,
   IonButton,
+  IonCardContent,
 } from "@ionic/react";
 
 import NHSlogo from "../../assets/images/NHS.png";
@@ -18,39 +20,40 @@ import "./ProfileNew.css";
 
 interface InfoListProps {
   infoArray: { title: string; value: string }[];
+  infoTitle: string;
 }
 
-const InfoList: React.FC<InfoListProps> = ({ infoArray }) => {
-  const cardStyle = {
+const InfoList: React.FC<InfoListProps> = ({ infoArray, infoTitle }) => {
+  const padLeft = {
     paddingLeft: "15px",
-    paddingRight: "15px",
   };
   return (
-    <div style={cardStyle}>
-      <IonList lines="none" className="rounded">  
+    <IonCard color="primary">
+      <IonItem lines="full">
+        <h5>{infoTitle}</h5>
+      </IonItem>
+      <IonCardContent>
         {infoArray.map((info, index) => (
-          <IonItem key={index} lines="none">
-            <IonLabel>
-              <b>{info.title}</b> : {info.value}
-            </IonLabel>
-          </IonItem>
+          <IonLabel>
+            <b>{info.title}</b> : {info.value} <br />
+          </IonLabel>
         ))}
-      </IonList>
-    </div>
+      </IonCardContent>
+    </IonCard>
   );
 };
 
-const Profile: React.FC = () => {
+const Profile: React.FC<{ history: any }> = ({ history }) => {
+  const [userInfo, setUserInfo] = useContext(UserContext as any);
+  const fullName = userInfo.firstName + '' + userInfo.lastName
   const contactDetails = [
     { title: "Address", value: "1 Milky Way, EJZ 2FA" },
-    { title: "Phone Number", value: "+4477992384" },
-    { title: "email", value: "elon@gmail.com" },
+    { title: "Phone Number", value: userInfo.phone },
+    { title: "email", value: userInfo.email },
   ];
-  const nameDetials = [{ title: "Name", value: "Elon Musk" }];
+  const nameDetials = [{ title: "Name", value: fullName }];
   const medicalDetials = [
-    { title: "Hospital", value: "Royal Marsden Hosptial" },
-    { title: "Medical History", value: "Diabetes, High Blood Pressure" },
-    { title: "Current Status", value: "On surrveilance" },
+    { title: "Hospital", value: userInfo.hospital ?? "Hopsital not registered" },
   ];
   const padLeft = {
     paddingLeft: "17px",
@@ -73,16 +76,28 @@ const Profile: React.FC = () => {
         <div className="ion-text-center ion-padding-top wrapper">
           <img src={elonImage} />
         </div>
-        <h3 className="ion-text-center">Elon Musk</h3>
-        <h2 style={padLeft}>Name</h2>
-        <InfoList infoArray={nameDetials} />
-        <h2 style={padLeft}>Contact Details</h2>
-        <InfoList infoArray={contactDetails} />
-        <h2 style={padLeft}>Medical Details</h2>
-        <InfoList infoArray={medicalDetials} />
-        <br/>
+        <h3 className="ion-text-center">{fullName}</h3>
+        <InfoList infoArray={nameDetials} infoTitle={"Name"} />
+        <InfoList infoArray={contactDetails} infoTitle={"Contact Details"} />
+        <InfoList infoArray={medicalDetials} infoTitle={"Medical Detials"} />
         <div style={cardStyle}>
-          <IonButton expand="full" color="tertiary" href="/login" onClick={() => logOut()}>
+          <IonButton
+            expand="full"
+            color="medium"
+            onClick={(e) => {
+              e.preventDefault();
+              history.push("/feedback");
+            }}
+          >
+            Give Feedback
+          </IonButton>
+          <br />
+          <IonButton
+            expand="full"
+            color="tertiary"
+            href="/login"
+            onClick={() => logOut()}
+          >
             Logout
           </IonButton>
         </div>

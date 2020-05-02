@@ -27,7 +27,7 @@ import {
   IonText
 } from "@ionic/react";
 import { addOutline } from "ionicons/icons";
-import "../DocPatient/Symptoms.css";
+import "../DocPatient/Medications.css";
 import CardList from "../../components/common/CardList";
 
 interface History {

@@ -108,16 +108,16 @@ export let Feedback = [
     questions: [
       {
         heading: "",
-        question: "Question one goes here"
+        question: "Question one goes here",
       },
       {
         heading: "",
-        question: "Question two goes here"
+        question: "Question two goes here",
       },
       {
         heading: "",
-        question: "Question three goes here"
-      }
+        question: "Question three goes here",
+      },
     ],
     answers: [
       ["Answer one", "Answer two", "Answer three", "Answer four"],
@@ -202,7 +202,7 @@ export let IIEF = [
         "Very Difficult",
         "Difficult",
         "Slightly Difficult",
-        "Not Difficult"
+        "Not Difficult",
       ],
     ],
   },
@@ -220,11 +220,5 @@ export let Cards = [
     cardDesc:
       "This questionnaire asks about your erection problems as a potential diagnostic tool for prostate cancer",
     link: "/iief",
-  },
-  {
-    cardTitle: "App Feedback",
-    cardDesc:
-      "This questionnaire asks for feebdack on various features in this app, so we can better understand whats good and what need improving!",
-    link: "/feedback",
   },
 ];

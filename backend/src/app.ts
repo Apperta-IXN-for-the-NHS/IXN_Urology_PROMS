@@ -6,6 +6,7 @@ import authRoute from "./routes/auth/auth";
 import medsRoute from "./routes/medications";
 import { config } from "dotenv";
 import bodyParser from "body-parser";
+import cors from "cors";
 import mongoose from "mongoose";
 import handleError from "./common/errorHandler";
 import isAuthenticated, { isAdmin } from "./common/auth";
@@ -14,6 +15,7 @@ config();
 
 const app = express();
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use("/auth", authRoute);
 app.use("/api", isAuthenticated, apiRoute);

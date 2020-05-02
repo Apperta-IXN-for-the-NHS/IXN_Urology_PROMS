@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "../../axios";
 import {
   IonCardContent,
   IonPage,
@@ -24,31 +25,30 @@ const ResultsData: React.FC<ResultsDataProps> = ({ title }) => {
     backgroundColor: "#003087",
     borderRadius: "50%",
     display: "inline-block",
-  }
+  };
   const labelStyle = {
-      marginLeft: "15px"
-  }
+    marginLeft: "15px",
+  };
   const padLeft = {
-      paddingLeft: "15px"
-  }
-  const data = [
-    {
-      t: new Date("2020-04-25"),
-      y: 24,
-    },
-    {
-      t: new Date("2020-04-29"),
-      y: 28,
-    },
-    {
-      t: new Date("2020-05-6"),
-      y: 22,
-    },
-    {
-      t: new Date("2020-05-10"),
-      y: 30,
-    },
-  ];
+    paddingLeft: "15px",
+  };
+  const [graphData, setGraphData] = useState<any[]>([]);
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await axios.get(`/api/results/${title}`);
+        const data = response.data.data;
+        const formattedData = data.map((item: any) => ({
+          t: new Date(item.date.split("T")[0]),
+          y: item.score,
+        }));
+        setGraphData(formattedData);
+      } catch {
+        return;
+      }
+    };
+    getData();
+  }, []);
   return (
     <IonPage>
       <IonHeader>
@@ -60,17 +60,17 @@ const ResultsData: React.FC<ResultsDataProps> = ({ title }) => {
       </IonHeader>
       <IonContent>
         <h1 style={padLeft}>{title} Results</h1>
-        <LineGraph label={title} data={data} />
-        <br/>
+        <LineGraph label={title} />
+        <br />
         <h2 style={padLeft}>History</h2>
-        {data.map((d, i) => (
-            <IonItem key={i} lines="full">
-                <span style={dot} />
-                <IonLabel style={labelStyle}>
-                    <h2>{`${title} Score: ${d.y}`}</h2>
-                    {d.t.toDateString()}
-                </IonLabel>
-            </IonItem>
+        {graphData.map((d, i) => (
+          <IonItem key={i} lines="full">
+            <span style={dot} />
+            <IonLabel style={labelStyle}>
+              <h2>{`${title} Score: ${d.y}`}</h2>
+              {d.t.toDateString()}
+            </IonLabel>
+          </IonItem>
         ))}
       </IonContent>
     </IonPage>

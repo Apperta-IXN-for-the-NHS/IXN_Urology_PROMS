@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "../../axios";
 import {
   IonHeader,
   IonPage,
@@ -20,42 +21,69 @@ import {
   IonItemOptions,
   IonItemOption,
 } from "@ionic/react";
-import { addOutline, pencil } from "ionicons/icons";
-import "./Symptoms.css";
+import { addOutline, pencil, trophy } from "ionicons/icons";
+import "./Medications.css";
+import { stringify } from "querystring";
 
-interface Symptom {
+interface Medication {
+  _id: string;
   title: string;
   dosage: string;
   date: string;
 }
 
-interface SymptomItemProps {
+interface MedicationItemProps {
   dosage: string;
   date: string;
   title: string;
   cardID: number;
-  remove(key: number): any;
-  addSymptom(title: string, dosage: string, date: string): void;
-  editSymptom(idx: number, title: string, dosage: string, date: string): void;
+  _id: string;
+  remove(key: number, _id: string): Promise<void>;
+  addMedication(
+    title: string,
+    dosage: string,
+    date: string,
+    _id: string
+  ): Promise<void>;
+  editMedication(
+    idx: number,
+    _id: string,
+    title: string,
+    dosage: string,
+    date: string
+  ): void;
 }
 
-interface AddSymptomProps {
+interface AddMedicationProps {
   setModal(state: boolean): void;
-  addSymptom(title: string, dosage: string, date: string): void;
-  editSymptom(idx: number, title: string, dosage: string, date: string): void;
+  addMedication(
+    title: string,
+    dosage: string,
+    date: string,
+    _id: string
+  ): Promise<void>;
+  editMedication(
+    idx: number,
+    _id: string,
+    title: string,
+    dosage: string,
+    date: string
+  ): void;
   modify?: boolean;
   cardID?: number;
+  _id?: string;
   currentTitle?: string;
   currentDosage?: string;
   currentDate?: string;
 }
 
-const AddSymptom: React.FC<AddSymptomProps> = ({
+const AddMedication: React.FC<AddMedicationProps> = ({
   setModal,
-  addSymptom,
-  editSymptom,
+  addMedication,
+  editMedication,
   modify,
   cardID,
+  _id,
   currentTitle,
   currentDosage,
   currentDate,
@@ -66,22 +94,24 @@ const AddSymptom: React.FC<AddSymptomProps> = ({
   const [title, setTitle] = useState(initialTitle);
   const [dosage, setDosage] = useState(initialDosage);
   const [date, setDate] = useState(initialDate);
+  console.log(_id);
 
   const handleDateChange = (date: string): void => {
     setDate(date);
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (modify) {
-      editSymptom(cardID!, title, dosage, date);
+      editMedication(cardID!, _id!, title, dosage, date);
     } else {
-      addSymptom(title, dosage, date);
+      addMedication(title, dosage, date, _id!);
     }
     setModal(false);
   };
 
   return (
-    <IonPage>
+    // <IonPage>
+    <React.Fragment>
       <IonHeader>
         <IonToolbar>
           <IonButtons>
@@ -100,7 +130,7 @@ const AddSymptom: React.FC<AddSymptomProps> = ({
             <IonInput
               type="text"
               placeholder="Medication Name"
-              autofocus
+              // autofocus
               onIonChange={(e) => setTitle(e.detail.value as string)}
               value={title}
             ></IonInput>
@@ -140,30 +170,29 @@ const AddSymptom: React.FC<AddSymptomProps> = ({
           Confirm
         </IonButton>
       </IonContent>
-      {console.log(date)}
-    </IonPage>
+      {/* // {console.log(date)} */}
+    </React.Fragment>
+    // {/* // </IonPage> */}
   );
 };
 
-const SymptomItem: React.FC<SymptomItemProps> = ({
+const MedicationItem: React.FC<MedicationItemProps> = ({
   date,
   dosage,
-  addSymptom,
-  editSymptom,
+  addMedication,
+  editMedication,
   title,
   cardID,
+  _id,
   remove,
 }) => {
   const [showModal, setModal] = useState(false);
-  const trueDate = new Date(date)
+  const trueDate = new Date(date);
   return (
     <React.Fragment>
       <IonItemSliding>
         <IonItemOptions side="end">
-          <IonItemOption
-            color="danger"
-            onClick={() => remove(cardID)}
-          >
+          <IonItemOption color="danger" onClick={() => remove(cardID, _id)}>
             delete
           </IonItemOption>
         </IonItemOptions>
@@ -175,83 +204,110 @@ const SymptomItem: React.FC<SymptomItemProps> = ({
         >
           <IonLabel>
             <h1>{title}</h1>
-            <h2><b>Dosage: </b>{dosage}</h2>
-            <h2><b>Started On: </b> {trueDate.toDateString()}</h2>
+            <h2>
+              <b>Dosage: </b>
+              {dosage}
+            </h2>
+            <h2>
+              <b>Started On: </b> {trueDate.toDateString()}
+            </h2>
           </IonLabel>
         </IonItem>
       </IonItemSliding>
       <IonModal isOpen={showModal}>
-        <AddSymptom
+        <AddMedication
           setModal={setModal}
-          addSymptom={addSymptom}
-          editSymptom={editSymptom}
+          addMedication={addMedication}
+          editMedication={editMedication}
           currentTitle={title}
           currentDosage={dosage}
           currentDate={date}
           modify
           cardID={cardID}
+          _id={_id}
         />
       </IonModal>
     </React.Fragment>
   );
 };
 
-const Symptoms: React.FC = () => {
-  let initialSymptoms = [
-    {
-      title: "Ibuprofen",
-      date: "2020-04-17",
-      dosage: "100mg a day",
-    },
-    {
-      title: "Paracetamol",
-      date: "2020-04-17",
-      dosage: "100mg a day",
-    },
-    {
-      title: "Xanax",
-      date: "2020-04-17",
-      dosage: "100mg a day",
-    },
-  ];
+const Medications: React.FC = () => {
+  // let initialMedications = [
+  //   {
+  //     _id: "1",
+  //     title: "Ibuprofen",
+  //     date: "2020-04-17",
+  //     dosage: "100mg a day",
+  //   },
+  //   {
+  //     _id: "2",
+  //     title: "Paracetamol",
+  //     date: "2020-04-17",
+  //     dosage: "100mg a day",
+  //   },
+  //   {
+  //     _id: "3",
+  //     title: "Xanax",
+  //     date: "2020-04-17",
+  //     dosage: "100mg a day",
+  //   },
+  // ];
   const [showModal, setModal] = useState(false);
-  const [symptoms, setSymptoms] = useState<Symptom[]>(initialSymptoms);
+  const [medications, setMedications] = useState<Medication[]>([]);
+  useEffect(() => {
+    const getData = async () => {
+      const response = await axios.get("/api/medications");
+      const data = response.data.data;
+      setMedications(data);
+      console.log(data);
+    };
+    getData();
+  }, []);
   const [showToast, setToast] = useState(false);
   const textStyle = {
     paddingLeft: "18px",
   };
-  const addSymptom = (
+  const addMedication = async (
     newTitle: string,
     newDosage: string,
-    newDate: string
+    newDate: string,
+    _id: string
   ) => {
-    setSymptoms([
-      ...symptoms,
+    setMedications([
+      ...medications,
       {
+        _id: _id,
         title: newTitle,
         dosage: newDosage,
         date: newDate,
       },
     ]);
+    const medDetails = { title: newTitle, dosage: newDosage, date: newDate };
+    await axios.post("/api/medications", medDetails);
     setToast(true);
   };
-  const editSymptom = (
+  const editMedication = async (
     idx: number,
+    _id: string,
     newTitle: string,
     newDosage: string,
-    newDate: string
+    newDate: string,
   ) => {
-    let newSymptoms = [...symptoms]
-    newSymptoms[idx] = {
+    let newMedications = [...medications];
+    newMedications[idx] = {
+      _id: _id,
       title: newTitle,
       dosage: newDosage,
       date: newDate,
-    }
-    setSymptoms(newSymptoms)
+    };
+    setMedications(newMedications);
+    const medDetails = { title: newTitle, dosage: newDosage, date: newDate };
+    await axios.put(`api/medications/${_id}`, medDetails);
   };
-  const removeSymptom = (rIdx: number) => {
-    const newSymptoms = symptoms.filter((_, index) => index !== rIdx);
-    setSymptoms(newSymptoms);
+  const removeMedication = async (rIdx: number, _id: string) => {
+    const newMedications = medications.filter((_, index) => index !== rIdx);
+    setMedications(newMedications);
+    await axios.delete(`api/medications/${_id}`);
   };
   return (
     <IonPage>
@@ -269,25 +325,30 @@ const Symptoms: React.FC = () => {
           </IonFabButton>
         </IonFab>
         <IonModal isOpen={showModal}>
-          <AddSymptom setModal={setModal} addSymptom={addSymptom} editSymptom={editSymptom}/>
+          <AddMedication
+            setModal={setModal}
+            addMedication={addMedication}
+            editMedication={editMedication}
+          />
         </IonModal>
         <h2 style={textStyle}>Current Medication</h2>
-        {symptoms.map((s, idx) => (
-          <SymptomItem
+        {medications.map((s, idx) => (
+          <MedicationItem
             key={idx}
             cardID={idx}
+            _id={s._id}
             date={s.date}
             title={s.title}
             dosage={s.dosage}
-            addSymptom={addSymptom}
-            editSymptom={editSymptom}
-            remove={removeSymptom}
+            addMedication={addMedication}
+            editMedication={editMedication}
+            remove={removeMedication}
           />
         ))}
-        {symptoms.length === 0 ? (
+        {medications.length === 0 ? (
           <p className="ion-text-center">
-            You haven't logged any symptoms yet, press the button below to add a
-            new symptom
+            You haven't logged any medications yet, press the button below to
+            add a new medication
           </p>
         ) : (
           <p className="ion-text-center">
@@ -299,13 +360,13 @@ const Symptoms: React.FC = () => {
         <IonToast
           isOpen={showToast}
           onDidDismiss={() => setToast(false)}
-          message="New symptom added"
-          color="primary"
-          duration={400}
+          message="New medication added"
+          color="medium"
+          duration={500}
         />
       </IonContent>
     </IonPage>
   );
 };
 
-export default Symptoms;
+export default Medications;

@@ -1,4 +1,5 @@
 import { createContext } from "react";
+import axios from "../axios";
 import { Plugins } from "@capacitor/core";
 const { Storage } = Plugins;
 
@@ -18,13 +19,25 @@ export const getCreds = async () => {
   return userInfo;
 };
 
+export const getCredsSync = (): any => {
+  Storage.get({ key: "user" }).then((ret) => {
+    return JSON.parse(ret.value as any);
+  });
+};
+
+export const attachToken = (token: string) => {
+  // add the user's newly created jwt token to all future axios request
+  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+};
+
 export const isLoggedIn = async () => {
   const userInfo = await getCreds();
   return userInfo !== null;
 };
 
 export const logOut = async () => {
-  await Storage.clear();
+  // console.log("Log out called")
+  await Storage.remove({ key: "user" });
 };
 
 export default UserContext;
