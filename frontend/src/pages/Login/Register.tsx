@@ -95,10 +95,9 @@ export const Register: React.FC = () => {
       kind: "patient",
       hospital: hospital,
     };
-    console.log(details)
+    console.log(details);
     try {
-      const registerResponse = await axios.post("/auth/register", details);
-      // const { email, password } = registerResponse.data.data;
+      await axios.post("/auth/register", details);
       const loginResponse = await axios.post("/auth/login", {
         email: email,
         password: password,
@@ -109,9 +108,16 @@ export const Register: React.FC = () => {
       setUserInfo({ ...loginResponse.data.data, loggedIn: true });
       redirect();
     } catch (err) {
-      const response = err.response.data;
-      console.log(response)
-      setLoginError(response.message);
+      if (err.response) {
+        const response = err.response.data;
+        setLoginError(response.message);
+      } else if (err.request) {
+        console.log(err.request);
+        setLoginError("Please make sure you are connected to Wifi");
+      } else {
+        console.log(err.message);
+        setLoginError(err.message);
+      }
     }
   };
   const registerDetails = [

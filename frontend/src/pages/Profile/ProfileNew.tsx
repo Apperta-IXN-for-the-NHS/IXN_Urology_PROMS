@@ -15,7 +15,6 @@ import {
 } from "@ionic/react";
 
 import NHSlogo from "../../assets/images/NHS.png";
-import elonImage from "../../assets/images/elon.jpg";
 import "./ProfileNew.css";
 
 interface InfoListProps {
@@ -45,20 +44,37 @@ const InfoList: React.FC<InfoListProps> = ({ infoArray, infoTitle }) => {
 
 const Profile: React.FC<{ history: any }> = ({ history }) => {
   const [userInfo, setUserInfo] = useContext(UserContext as any);
-  const fullName = userInfo.firstName + ' ' + userInfo.lastName
-  // const fullAddress = userInfo.address.maps((info, index) => {info})
+  const fullName = userInfo.firstName + " " + userInfo.lastName;
   const contactDetails = [
     { title: "email", value: userInfo.email },
     { title: "Phone Number", value: userInfo.phone },
-    { title: "Address Line One", value: userInfo.address ? userInfo.address.addressOne : "not available" },
-    { title: "Address Line Two", value: userInfo.address ? userInfo.address.addressTwo : "not available" },
-    { title: "City", value: userInfo.address ? userInfo.address.city : "not available" },
-    { title: "County", value: userInfo.address ? userInfo.address.county : "not available" },
-    { title: "Postcode", value: userInfo.address ? userInfo.address.postcode : "not available" },
+    {
+      title: "Address Line One",
+      value: userInfo.address ? userInfo.address.addressOne : "not available",
+    },
+    {
+      title: "Address Line Two",
+      value: userInfo.address ? userInfo.address.addressTwo : "not available",
+    },
+    {
+      title: "City",
+      value: userInfo.address ? userInfo.address.city : "not available",
+    },
+    {
+      title: "County",
+      value: userInfo.address ? userInfo.address.county : "not available",
+    },
+    {
+      title: "Postcode",
+      value: userInfo.address ? userInfo.address.postcode : "not available",
+    },
   ];
   const nameDetials = [{ title: "Name", value: fullName }];
   const medicalDetials = [
-    { title: "Hospital", value: userInfo.hospital ?? "Hopsital not registered" },
+    {
+      title: "Hospital",
+      value: userInfo.hospital ?? "Hopsital not registered",
+    },
   ];
   const padLeft = {
     paddingLeft: "17px",

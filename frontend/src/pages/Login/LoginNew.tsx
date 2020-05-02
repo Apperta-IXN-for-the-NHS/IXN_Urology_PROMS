@@ -37,11 +37,18 @@ const Login: React.FC = () => {
       attachToken(response.data.data.token);
       setLoginError("");
       setUserInfo({ ...response.data.data, loggedIn: true });
-      console.log(await Storage.keys())
+      console.log(await Storage.keys());
       redirect();
     } catch (err) {
-      const response = err.response.data;
-      setLoginError(response.message);
+      if (err.response) {
+        const response = err.response.data;
+        setLoginError(response.message);
+      } else if (err.request) {
+        console.log(err.request);
+        setLoginError("Please make sure you are connected to Wifi");
+      } else {
+        setLoginError(err.message);
+      }
     }
   };
 

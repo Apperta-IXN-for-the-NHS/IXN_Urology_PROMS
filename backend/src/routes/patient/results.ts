@@ -7,7 +7,6 @@ const router = Router();
 
 router.get("/:resultKind", async (req, res, next) => {
   type selection = "PSA" | "IPSS" | "IIEF";
-  console.log(req.params.resultKind);
   try {
     const userId = res.locals.user.sub._id;
     const results = await getUserResultsByKind(

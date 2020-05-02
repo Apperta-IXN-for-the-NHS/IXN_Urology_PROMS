@@ -165,6 +165,7 @@ export const QuestionairePage: React.FC<QuestionnairePageProps> = ({
   const initialAnswers = contentArray[0].questions.map(() => 0);
   const [score, setScore] = useState<number>(0);
   const [answers, setAnswers] = useState<number[]>(initialAnswers);
+  const [responseMessage, setResponseMessage] = useState("");
   const [final, setFinal] = useState(false);
   const [showToast, setToast] = useState(false);
   const { navigate } = useContext(NavContext);
@@ -189,6 +190,15 @@ export const QuestionairePage: React.FC<QuestionnairePageProps> = ({
     try {
       await axios.post("/api/questionnaires", questParams);
       await axios.post(`/api/results/${title.toUpperCase()}`, resultsParams);
+      setResponseMessage("Questionnaire Completed Successfully");
+    } catch (err) {
+      if (err.response) {
+        setResponseMessage(err.response.data.message);
+      } else if (err.request) {
+        setResponseMessage(
+          "No network connection, please make sure you are connected to wifi."
+        );
+      }
     } finally {
       setToast(true);
     }
@@ -237,8 +247,8 @@ export const QuestionairePage: React.FC<QuestionnairePageProps> = ({
             onDidDismiss={() => redirect()}
             color="medium"
             position="middle"
-            message="Questionnaire Completed Successfully"
-            duration={500}
+            message={responseMessage}
+            duration={700}
           />
         </IonContent>
       ))}

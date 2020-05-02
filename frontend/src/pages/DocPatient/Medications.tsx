@@ -20,10 +20,11 @@ import {
   IonItemSliding,
   IonItemOptions,
   IonItemOption,
+  IonText,
 } from "@ionic/react";
 import { addOutline, pencil, trophy } from "ionicons/icons";
 import "./Medications.css";
-import { stringify } from "querystring";
+import networkImage from "../../assets/images/network.png";
 
 interface Medication {
   _id: string;
@@ -254,12 +255,22 @@ const Medications: React.FC = () => {
   // ];
   const [showModal, setModal] = useState(false);
   const [medications, setMedications] = useState<Medication[]>([]);
+  const [errorMessage, setErrorMessage] = useState("");
   useEffect(() => {
     const getData = async () => {
-      const response = await axios.get("/api/medications");
-      const data = response.data.data;
-      setMedications(data);
-      console.log(data);
+      try {
+        const response = await axios.get("/api/medications");
+        const data = response.data.data;
+        setMedications(data);
+        setErrorMessage("");
+      } catch (err) {
+        if (err.response) {
+          const response = err.response.data;
+          setErrorMessage(response.message);
+        } else if (err.request) {
+          setErrorMessage("Please make sure you are connected to Wifi");
+        }
+      }
     };
     getData();
   }, []);
@@ -291,7 +302,7 @@ const Medications: React.FC = () => {
     _id: string,
     newTitle: string,
     newDosage: string,
-    newDate: string,
+    newDate: string
   ) => {
     let newMedications = [...medications];
     newMedications[idx] = {
@@ -345,18 +356,34 @@ const Medications: React.FC = () => {
             remove={removeMedication}
           />
         ))}
-        {medications.length === 0 ? (
-          <p className="ion-text-center">
-            You haven't logged any medications yet, press the button below to
-            add a new medication
-          </p>
-        ) : (
-          <p className="ion-text-center">
-            Swipe left on an entry to delete it.
-            <br />
-            Tap on an entry to modify it.
-          </p>
-        )}
+        {(() => {
+          if (medications.length === 0 && !errorMessage) {
+            return (
+              <p className="ion-text-center">
+                You haven't logged any medications yet, press the button below
+                to add a new medication
+              </p>
+            );
+          } else if (errorMessage) {
+            return (
+              <React.Fragment>
+                <br />
+                <img src={networkImage} width="75%" />
+                <IonText color="danger">
+                  <p className="ion-text-center">{errorMessage}</p>
+                </IonText>
+              </React.Fragment>
+            );
+          } else {
+            return (
+              <p className="ion-text-center">
+                Swipe left on an entry to delete it.
+                <br />
+                Tap on an entry to modify it.
+              </p>
+            );
+          }
+        })()}
         <IonToast
           isOpen={showToast}
           onDidDismiss={() => setToast(false)}
