@@ -45,11 +45,16 @@ const InfoList: React.FC<InfoListProps> = ({ infoArray, infoTitle }) => {
 
 const Profile: React.FC<{ history: any }> = ({ history }) => {
   const [userInfo, setUserInfo] = useContext(UserContext as any);
-  const fullName = userInfo.firstName + '' + userInfo.lastName
+  const fullName = userInfo.firstName + ' ' + userInfo.lastName
+  // const fullAddress = userInfo.address.maps((info, index) => {info})
   const contactDetails = [
-    { title: "Address", value: "1 Milky Way, EJZ 2FA" },
-    { title: "Phone Number", value: userInfo.phone },
     { title: "email", value: userInfo.email },
+    { title: "Phone Number", value: userInfo.phone },
+    { title: "Address Line One", value: userInfo.address ? userInfo.address.addressOne : "not available" },
+    { title: "Address Line Two", value: userInfo.address ? userInfo.address.addressTwo : "not available" },
+    { title: "City", value: userInfo.address ? userInfo.address.city : "not available" },
+    { title: "County", value: userInfo.address ? userInfo.address.county : "not available" },
+    { title: "Postcode", value: userInfo.address ? userInfo.address.postcode : "not available" },
   ];
   const nameDetials = [{ title: "Name", value: fullName }];
   const medicalDetials = [
@@ -74,7 +79,7 @@ const Profile: React.FC<{ history: any }> = ({ history }) => {
       </IonHeader>
       <IonContent>
         <div className="ion-text-center ion-padding-top wrapper">
-          <img src={elonImage} />
+          <img src={NHSlogo} />
         </div>
         <h3 className="ion-text-center">{fullName}</h3>
         <InfoList infoArray={nameDetials} infoTitle={"Name"} />
