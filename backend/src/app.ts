@@ -1,9 +1,7 @@
 import express from "express";
 import apiRoute from "./routes/patient/patient";
-import userRoute from "./routes/patient/user";
 import adminRoute from "./routes/admin/admin";
 import authRoute from "./routes/auth/auth";
-import medsRoute from "./routes/medications";
 import { config } from "dotenv";
 import bodyParser from "body-parser";
 import cors from "cors";
@@ -31,4 +29,4 @@ mongoose
   .then(() => console.log("connected to db"))
   .catch((err) => console.log(err));
 
-app.listen(5000, () => console.log("Started server on port 5000"));
+app.listen(process.env.PORT || 5000, () => console.log("Started server on port 5000"));
