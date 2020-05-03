@@ -73,7 +73,7 @@ export const InfoItem: React.FC<InfoItemProps> = ({
         button
         onClick={() => setModal(true)}
       >
-        <IonIcon slot="start" icon={icon} color="primary"/>
+        <IonIcon slot="start" icon={icon} color="primary" />
         <IonLabel>
           <h2>{title}</h2>
           <p>{description}</p>
@@ -141,11 +141,11 @@ export const InfoList: React.FC<InfoListProps> = ({
     return (
       <React.Fragment>
         <br />
-        <img src={doctor} width="50%" alt="doctor"/>
+        <img src={doctor} width="50%" alt="doctor" />
         <br />
-        <p className="ion-text-center">
-          Your doctor will add some recommended cards to read here in this
-          section based on your current circumstances
+        <p className="ion-text-center ion-padding">
+          Welcome to the knowledge bank, use the search bar or categorised tabs
+          to find the information you're after!
         </p>
       </React.Fragment>
     );

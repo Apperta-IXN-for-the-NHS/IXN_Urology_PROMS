@@ -186,10 +186,7 @@ export const QuestionairePage: React.FC<QuestionnairePageProps> = ({
       {contentArray.map((info, index) => (
         <IonContent key={index}>
           <h2 className="ion-text-center">{info.title}</h2>
-          <IonSlides
-            pager={false}
-            onIonSlideReachEnd={() => setFinal(true)}
-          >
+          <IonSlides pager={false} onIonSlideReachEnd={() => setFinal(true)}>
             {info.questions.map((question, index) => (
               <React.Fragment>
                 <Question
@@ -203,6 +200,9 @@ export const QuestionairePage: React.FC<QuestionnairePageProps> = ({
               </React.Fragment>
             ))}
           </IonSlides>
+          <p className="ion-text-center">
+            Swipe left or right to navigate between questions
+          </p>
           <IonButton
             style={buttonStyle}
             color="tertiary"
