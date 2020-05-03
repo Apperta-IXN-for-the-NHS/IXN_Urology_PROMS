@@ -19,6 +19,7 @@ import {
   IonButton,
   IonList,
   IonInput,
+  IonToast,
 } from "@ionic/react";
 import { add } from "ionicons/icons";
 import networkImage from "../../assets/images/network.png";
@@ -44,23 +45,39 @@ const ResultsData: React.FC<ResultsDataProps> = ({ title }) => {
   const [graphData, setGraphData] = useState<any[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [modal, showModal] = useState(false);
+  const [toast, showToast] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   const [psaScore, setPsaScore] = useState<number>(0);
   const [psaDate, setPsaDate] = useState("");
   const submitPSA = async () => {
     try {
-      await axios.post(`/api/results/${title}`, {
+      const response = await axios.post(`/api/results/${title}`, {
         name: title,
         score: psaScore,
         date: psaDate,
         unit: "ng/mL",
       });
+      const { date, score, unit } = response.data.data;
+      const newDataPoint = {
+        t: new Date(date.split("T")[0]),
+        y: score,
+        unit: unit,
+      };
       // update state here
-      // const newData = {...graphData, {t: psaDate, y: psaScore}}
-      // setGraphData()
+      const newData = [...graphData, newDataPoint as any];
+      setGraphData(newData);
+      setRefresh(true);
+      // console.log("New graph data");
+      // console.log(graphData);
     } catch (err) {
+      console.log(err);
       console.log(err.response);
+    } finally {
+      showModal(false);
+      showToast(true);
+      setPsaDate("");
+      setPsaScore(0);
     }
-    showModal(false);
   };
   useEffect(() => {
     const getData = async () => {
@@ -70,7 +87,7 @@ const ResultsData: React.FC<ResultsDataProps> = ({ title }) => {
         const formattedData = data.map((item: any) => ({
           t: new Date(item.date.split("T")[0]),
           y: item.score,
-          unit: item.unit ?? ''
+          unit: item.unit ?? "",
         }));
         setGraphData(formattedData);
         setErrorMessage("");
@@ -128,15 +145,14 @@ const ResultsData: React.FC<ResultsDataProps> = ({ title }) => {
               <React.Fragment>
                 {graphData.map((d, i) => (
                   <IonItem key={i} lines="full">
-                    {console.log(d)}
                     <span style={dot} />
                     <IonLabel style={labelStyle}>
-                      <h2>{`${title} Score: ${d.y} ${d.unit ?? ''}`}</h2>
-                      {d.t.toDateString()}
+                      <h2>{`${title} Score: ${d.y} ${d.unit ?? ""}`}</h2>
+                      {/* {d.t.toDateString()} */}
                     </IonLabel>
                   </IonItem>
                 ))}
-                <IonFab vertical="bottom" horizontal="end">
+                <IonFab vertical="bottom" horizontal="end" slot="fixed">
                   <IonFabButton onClick={() => showModal(true)}>
                     <IonIcon icon={add} />
                   </IonFabButton>
@@ -152,8 +168,6 @@ const ResultsData: React.FC<ResultsDataProps> = ({ title }) => {
                     </IonToolbar>
                   </IonHeader>
                   <IonContent>
-                    {console.log("psascore")}
-                    {console.log(psaScore)}
                     <IonList lines="full">
                       <h1 className="medication">Add New PSA Result</h1>
                       <IonItem className="medication" color="primary">
@@ -192,13 +206,20 @@ const ResultsData: React.FC<ResultsDataProps> = ({ title }) => {
                       className="medication"
                       color="tertiary"
                       expand="full"
-                      disabled={psaScore === 0 || psaDate === ""}
+                      // disabled={psaScore === 0 || psaDate === ""}
                       onClick={() => submitPSA()}
                     >
                       Confirm
                     </IonButton>
                   </IonContent>
                 </IonModal>
+                <IonToast
+                  isOpen={toast}
+                  color="primary"
+                  position="middle"
+                  message="Successfully added new result"
+                  duration={700}
+                />
                 ;
               </React.Fragment>
             );

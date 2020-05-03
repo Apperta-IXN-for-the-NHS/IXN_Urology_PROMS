@@ -51,8 +51,15 @@ const Letters: React.FC = () => {
               </IonCol>
             ))}
           </IonRow>
+          {photos.length === 0 ? (
+            <p className="ion-padding">
+              Use the camera icon below to take photos of any medical documents
+              or letters.
+            </p>
+          ) : (
+            <p className="ion-padding">Tap on an image to view or delete it</p>
+          )}
         </IonGrid>
-
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
           <IonFabButton onClick={() => takePhoto()}>
             <IonIcon icon={camera}></IonIcon>

@@ -4,33 +4,38 @@ import axios from "../../axios";
 
 export default class LineGraph extends Component {
   constructor(props) {
-    super(props)
+    super(props);
+    this.state = {
+      data: [],
+    };
   }
   chartRef = React.createRef();
   async getData() {
-    try{
+    try {
       const response = await axios.get(`/api/results/${this.props.label}`);
       const data = response.data.data;
-      const formattedData = data.map((item) => ({t: new Date(item.date.split("T")[0]), y: item.score}))
+      const formattedData = data.map((item) => ({
+        t: new Date(item.date.split("T")[0]),
+        y: item.score,
+      }));
       return formattedData;
-      console.log(data);
-      console.log(formattedData);
     } catch (err) {
-      return
+      return;
     }
   }
   async componentDidMount() {
     let data = await this.getData();
     data = data ? data : [];
+    this.setState({ data: data });
     const myChartRef = this.chartRef.current.getContext("2d");
     new Chart(myChartRef, {
       type: "line",
       data: {
-        labels: data.map((d) => d.t),
+        labels: this.state.data.map((d) => d.t),
         datasets: [
           {
             label: `${this.props.label} Results`,
-            data: data,
+            data: this.state.data,
             backgroundColor: "#003087",
             borderColor: "#003087",
             fill: false,
@@ -44,7 +49,7 @@ export default class LineGraph extends Component {
               type: "time",
               time: {
                 unit: "day",
-                tooltipFormat: 'DD/MM/YYYY',
+                tooltipFormat: "DD/MM/YYYY",
               },
               distribution: "linear",
             },

@@ -1,5 +1,6 @@
 import React, { useState, useContext, useCallback } from "react";
 import UserContext, { storeCreds } from "../../utils/store";
+import Joi from "@hapi/joi";
 import {
   IonContent,
   IonHeader,
@@ -18,6 +19,8 @@ import {
   NavContext,
 } from "@ionic/react";
 import axios from "../../axios";
+import { journal } from "ionicons/icons";
+import { join } from "path";
 
 interface RegisterItemProps {
   title: string;
@@ -36,13 +39,11 @@ const RegisterItem: React.FC<RegisterItemProps> = ({
 }) => {
   return (
     <IonItem>
-      <IonLabel position="stacked">
-        {title} {required ? <IonText color="danger">*</IonText> : null}
-      </IonLabel>
       <IonInput
         required={required}
         type={inputType}
         value={inputValue}
+        placeholder={title + ' *'}
         onIonChange={(e) => setFunc(e.detail.value as any)}
       />
     </IonItem>
@@ -62,7 +63,6 @@ export const Register: React.FC = () => {
   const [email, setEmail] = useState("bill2@gmail.com");
   const [password, setPassword] = useState("bill123");
   const [phoneNumber, setPhoneNumber] = useState("07799123");
-  const [id, setId] = useState("");
   const [hospital, setHospital] = useState("");
   const [addressOne, setAddressOne] = useState("bills mansion");
   const [addressTwo, setAddressTwo] = useState("");
@@ -77,6 +77,22 @@ export const Register: React.FC = () => {
     // add the user's newly created jwt token to all future axios request
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   };
+
+  const validationSchema = Joi.object({
+    firstName: Joi.string().required(),
+    lastName: Joi.string().required(),
+    email: Joi.string()
+      .email({ tlds: { allow: false } })
+      .required(),
+    password: Joi.string().min(6).required(),
+    phone: Joi.string().required(),
+    addressOne: Joi.string().required(),
+    addressTwo: Joi.string().allow("").optional(),
+    city: Joi.string().required(),
+    county: Joi.string().required(),
+    postcode: Joi.string().required(),
+    hospital: Joi.string().allow("").optional(),
+  });
 
   const register = async () => {
     const details = {
@@ -95,8 +111,22 @@ export const Register: React.FC = () => {
       kind: "patient",
       hospital: hospital,
     };
+    const formDetails = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: password,
+      phone: phoneNumber,
+      addressOne: addressOne,
+      addressTwo: addressTwo,
+      city: city,
+      county: county,
+      postcode: postcode,
+      hospital: hospital,
+    };
     console.log(details);
     try {
+      const validation = await validationSchema.validateAsync(formDetails);
       await axios.post("/auth/register", details);
       const loginResponse = await axios.post("/auth/login", {
         email: email,
@@ -115,8 +145,10 @@ export const Register: React.FC = () => {
         console.log(err.request);
         setLoginError("Please make sure you are connected to Wifi");
       } else {
-        console.log(err.message);
+        console.log(err);
         setLoginError(err.message);
+        // console.log(err.message);
+        // setLoginError(err.message);
       }
     }
   };
@@ -155,13 +187,6 @@ export const Register: React.FC = () => {
       inputType: "tel",
       inputValue: phoneNumber,
       setFunc: setPhoneNumber,
-    },
-    {
-      title: "Identification Number (if known)",
-      required: false,
-      inputType: "text",
-      inputValue: id,
-      setFunc: setId,
     },
     {
       title: "Hospital",
@@ -221,6 +246,7 @@ export const Register: React.FC = () => {
       <IonContent>
         <IonList>
           <IonListHeader className="reg">Your Details</IonListHeader>
+          <br/>
           {registerDetails.map((details, index) => (
             <RegisterItem
               key={index}

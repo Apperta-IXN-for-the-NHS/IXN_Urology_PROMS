@@ -17,7 +17,7 @@ async function register(userParams: IUser) {
 }
 
 async function login(userParams: IUser) {
-  const user = await userModel.findOne({ email: userParams.email });
+  const user = await userModel.findOne({ email: userParams.email }).select("+password");
   if (!user) {
     throw "Invalid email or password";
   }

@@ -39,16 +39,6 @@ const Results: React.FC<ResultsProps> = ({ history }) => {
       title: "IIEF",
       link: "/iief-results",
     },
-    // {
-    //   graph: false,
-    //   title: "MRI",
-    //   link: "/mri-results",
-    // },
-    // {
-    //   graph: false,
-    //   title: "Biopsy Results",
-    //   link: "/biopsy-results",
-    // },
   ];
   return (
     <IonPage>

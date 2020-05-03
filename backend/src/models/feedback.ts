@@ -5,7 +5,7 @@ import IFeedback from "./interfaces/feedback";
 const FeedbackSchema = new Schema({
   feedback: { type: String, required: true },
   date: { type: Date, default: Date.now() },
-  user: { type: Schema.Types.ObjectId, ref: "User", autopopulate: true },
+  user: { type: Schema.Types.ObjectId, ref: "User", autopopulate: true},
 });
 
 FeedbackSchema.plugin(mongooseAutopopulate);

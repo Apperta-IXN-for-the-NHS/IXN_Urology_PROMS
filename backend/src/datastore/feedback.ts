@@ -3,7 +3,7 @@ import IFeedback from "../models/interfaces/feedback";
 
 // gets all feedback from all users
 export async function getAllFeedback() {
-  return await feedbackModel.find();
+  return await feedbackModel.find()
 }
 
 // get feedback from a particular user
