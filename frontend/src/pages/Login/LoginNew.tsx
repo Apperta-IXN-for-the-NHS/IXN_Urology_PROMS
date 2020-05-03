@@ -57,7 +57,9 @@ const Login: React.FC = () => {
       <IonHeader class="ion-no-border"></IonHeader>
       <IonContent className="ion-padding login background">
         <h1 className="ion-text-center">Percuro</h1>
-        <img src={logo} width="100px" alt="" />
+        <div className="ion-text-center">
+          <img src={logo} width="100px" alt="" />
+        </div>
         <br />
         <h2 style={{ paddingLeft: "5px" }}>Welcome Back</h2>
         <br />
