@@ -3,24 +3,18 @@ import {
   IonContent,
   IonHeader,
   IonPage,
-  IonTitle,
   IonToolbar,
-  IonSegment,
-  IonIcon,
   IonSearchbar,
 } from "@ionic/react";
 import "./KnowledgeBank.css";
-// import Tab from "./Tab";
 import Tab from "./TabNew";
-import CardList, { Info, InfoList } from "../../components/common/CardList";
+import { Info, InfoList } from "../../components/common/CardList";
 import {
   analytics,
   fitness,
   eyedrop,
   reader,
   personCircle,
-  person,
-  search,
 } from "ionicons/icons";
 import {
   ForYou,
@@ -28,9 +22,7 @@ import {
   ManagementInfo,
   DiseaseInfo,
   TreatmentInfo,
-  exampleSearch,
 } from "./Info";
-import { informationCircleOutline } from "ionicons/icons";
 
 const KnowledgeBank: React.FC = () => {
   const icons = [personCircle, analytics, eyedrop, reader, fitness];

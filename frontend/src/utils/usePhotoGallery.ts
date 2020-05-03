@@ -1,6 +1,5 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useCamera } from "@ionic/react-hooks/camera";
-import UserContext from "../utils/store";
 import { useFilesystem, base64FromPath } from "@ionic/react-hooks/filesystem";
 import { useStorage } from "@ionic/react-hooks/storage";
 import { isPlatform } from "@ionic/react";
@@ -133,4 +132,6 @@ export interface Photo {
   base64?: string;
 }
 
-// This code is authored by
+// This code is authored by a member of the ionic team and
+// made available for use as part of a tutoril post on the ionic website
+// https://ionicframework.com/docs/react/your-first-app/2-taking-photos

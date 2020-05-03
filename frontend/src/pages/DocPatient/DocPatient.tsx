@@ -1,21 +1,12 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import UserContext from "../../utils/store";
-import { getCreds } from "../../utils/store";
 import {
   IonHeader,
   IonPage,
   IonToolbar,
   IonItem,
-  IonButton,
-  IonLabel,
   IonList,
   IonCard,
-  IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle,
-  IonGrid,
-  IonRow,
-  IonCol,
   IonContent,
   IonIcon,
   IonCardContent,
@@ -23,12 +14,6 @@ import {
 import { mail, flask, barChart, reader } from "ionicons/icons";
 
 import "./DocPatient.css";
-import calImg from "../../assets/images/calendar.png";
-import letterImg from "../../assets/images/mail.png";
-import quesImg from "../../assets/images/ques.png";
-import sympImg from "../../assets/images/symptoms.png";
-
-import { peopleCircleOutline } from "ionicons/icons";
 
 interface QuadProps {
   title: string;
@@ -56,38 +41,13 @@ const QuadCard: React.FC<QuadProps> = ({
           history.push(link);
         }}
       >
-        {/* <IonLabel className="ion-text-center">view</IonLabel> */}
-        <h2 className='ion-text-center'>{title}</h2>
+        <h2 className="ion-text-center">{title}</h2>
         <IonIcon slot="end" icon={image} color="white" />
       </IonItem>
-      {/* <IonCardHeader>
-        <IonCardTitle>
-          {title}
-        </IonCardTitle>
-      </IonCardHeader> */}
       <IonCardContent>
         <p>{description}</p>
       </IonCardContent>
-      {/* </IonItem> */}
     </IonCard>
-    // <IonCol size="6">
-    //   <IonCard
-    //     className="doc"
-    //     onClick={(e) => {
-    //       e.preventDefault();
-    //       history.push(link);
-    //     }}
-    //   >
-    //     <IonCardHeader>
-    //       <br />
-    //       <br />
-    //       <img src={image} alt={title} />
-    //       <IonCardTitle color="nhswhite" className="ion-text-center">
-    //         {<h4>{title}</h4>}
-    //       </IonCardTitle>
-    //     </IonCardHeader>
-    //   </IonCard>
-    // </IonCol>
   );
 };
 
@@ -132,24 +92,17 @@ const DocPatient: React.FC<DocPatientProps> = ({ history }) => {
     paddingLeft: "20px",
   };
   const [userInfo, setUserInfo] = useContext(UserContext as any);
-  // const checkCreds = async () => {
-  //   const creds = await getCreds()
-  //   console.log(creds);
-  // }
-  console.log(userInfo)
   return (
     <IonPage>
       <IonHeader class="ion-no-border">
         <IonToolbar></IonToolbar>
       </IonHeader>
       <IonContent>
-        {/* <IonButton onClick={() => checkCreds()}> */}
-        {/* </IonButton> */}
         <h2 style={padLeft}>
           Hello {userInfo.firstName}. <br /> How can we help?
         </h2>
         {cardContent.map((content, index) => (
-          <IonList>
+          <IonList key={index}>
             {content.map((c, idx) => (
               <QuadCard
                 key={idx}
@@ -162,21 +115,6 @@ const DocPatient: React.FC<DocPatientProps> = ({ history }) => {
             ))}
           </IonList>
         ))}
-        {/* <IonGrid>
-          {cardContent.map((content, idx) => (
-            <IonRow key={idx}>
-              {content.map((c, idx) => (
-                <QuadCard
-                  key={idx}
-                  title={c.title}
-                  image={c.image}
-                  link={c.link}
-                  history={history}
-                />
-              ))}
-            </IonRow>
-          ))}
-        </IonGrid> */}
       </IonContent>
     </IonPage>
   );

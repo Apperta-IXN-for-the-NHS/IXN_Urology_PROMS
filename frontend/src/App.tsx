@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Redirect, Route } from "react-router-dom";
-import UserContext, { getCreds, getCredsSync } from "./utils/store";
+import UserContext from "./utils/store";
 import {
   IonApp,
   IonIcon,
@@ -20,10 +20,8 @@ import {
 import KnowledgeBank from "./pages/KnowledgeBank/KnowledgeBank";
 import DocPatient from "./pages/DocPatient/DocPatient";
 import Support from "./pages/Support/Support";
-import Profile from "./pages/Profile/Profile";
 import ResultsData from "./pages/DocPatient/ResultsData";
 import ProfileNew from "./pages/Profile/ProfileNew";
-// import Tab2 from "./components/Demo";
 import Letters from "./pages/DocPatient/Letters";
 import Questionaire, {
   QuestionairePage,
@@ -32,9 +30,6 @@ import { IPSS, IIEF } from "./pages/DocPatient/QuestionnaireInfo";
 import Symptoms from "./pages/DocPatient/Medications";
 import Results from "./pages/DocPatient/Results";
 import Feedback from "./pages/Profile/Feedback";
-import History from "./pages/Profile/History";
-import Contacts from "./pages/Profile/Contacts";
-import Settings from "./pages/Profile/Settings";
 import Login from "./pages/Login/LoginNew";
 import Auth from "./pages/Login/Auth";
 import Register from "./pages/Login/Register";
@@ -60,7 +55,6 @@ import "./theme/variables.css";
 
 /* Global CSS */
 import "./global.css";
-import { ItemSlidingExample } from "./pages/DocPatient/Dates";
 
 const App: React.FC = () => {
   const [userInfo, setUserInfo] = useState({ loggedIn: false });
@@ -78,10 +72,6 @@ const App: React.FC = () => {
               <Route path="/quest" component={Questionaire} />
               <Route path="/symptoms" component={Symptoms} />
               <Route path="/results" component={Results} />
-              <Route path="/history" component={History} />
-              <Route path="/contacts" component={Contacts} />
-              <Route path="/settings" component={Settings} />
-              <Route path="/dates" component={ItemSlidingExample} />
               <Route path="/feedback" component={Feedback} />
               <Route
                 path="/ipss-results"
@@ -103,10 +93,6 @@ const App: React.FC = () => {
                 path="/iief"
                 render={() => <QuestionairePage contentArray={IIEF} />}
               />
-              {/* <Route
-                path="/feedback"
-                render={() => <QuestionairePage contentArray={Feedback} />}
-              /> */}
             </IonRouterOutlet>
             <IonTabBar slot="bottom">
               <IonTabButton tab="tab1" href="/tab1">
@@ -131,7 +117,6 @@ const App: React.FC = () => {
           <Route path="/register" component={Register} />
           <Route path="/auth" component={Auth} />
           <Route exact path="/" render={() => <Redirect to="/auth" />} />
-          {/* <Route exact path="/" render={() => <Redirect to="/login" />} /> */}
         </IonReactRouter>
       </IonApp>
     </UserContext.Provider>

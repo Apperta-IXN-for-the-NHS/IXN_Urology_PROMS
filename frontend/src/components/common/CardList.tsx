@@ -9,7 +9,6 @@ import {
   IonLabel,
   IonList,
   IonListHeader,
-  IonText,
 } from "@ionic/react";
 import InfoPage from "./InfoPage";
 import SupportCard from "../../pages/Support/SupportCard";
@@ -142,7 +141,7 @@ export const InfoList: React.FC<InfoListProps> = ({
     return (
       <React.Fragment>
         <br />
-        <img src={doctor} width="50%" />
+        <img src={doctor} width="50%" alt="doctor"/>
         <br />
         <p className="ion-text-center">
           Your doctor will add some recommended cards to read here in this

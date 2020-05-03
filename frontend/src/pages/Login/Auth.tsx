@@ -1,16 +1,9 @@
-import React, {
-  Component,
-  useState,
-  useContext,
-  useEffect,
-  useCallback,
-} from "react";
+import React, { useContext, useEffect, useCallback } from "react";
 import UserContext, { getCreds, attachToken } from "../../utils/store";
-import { IonContent, IonHeader, IonPage, NavContext } from "@ionic/react";
+import { IonContent, IonPage, NavContext } from "@ionic/react";
 
 const Auth: React.FC = () => {
   const [userInfo, setUserInfo] = useContext(UserContext as any);
-  //   const [credsExist, setCredsExist] = useState(false);
   const { navigate } = useContext(NavContext);
   const toLogin = useCallback(() => navigate("/login", "root"), [navigate]);
   const toHome = useCallback(() => navigate("/tab2", "root"), [navigate]);

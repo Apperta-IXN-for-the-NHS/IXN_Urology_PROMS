@@ -22,7 +22,7 @@ import {
   IonItemOption,
   IonText,
 } from "@ionic/react";
-import { addOutline, pencil, trophy } from "ionicons/icons";
+import { addOutline } from "ionicons/icons";
 import "./Medications.css";
 import networkImage from "../../assets/images/network.png";
 
@@ -95,7 +95,6 @@ const AddMedication: React.FC<AddMedicationProps> = ({
   const [title, setTitle] = useState(initialTitle);
   const [dosage, setDosage] = useState(initialDosage);
   const [date, setDate] = useState(initialDate);
-  console.log(_id);
 
   const handleDateChange = (date: string): void => {
     setDate(date);
@@ -111,7 +110,6 @@ const AddMedication: React.FC<AddMedicationProps> = ({
   };
 
   return (
-    // <IonPage>
     <React.Fragment>
       <IonHeader>
         <IonToolbar>
@@ -131,7 +129,6 @@ const AddMedication: React.FC<AddMedicationProps> = ({
             <IonInput
               type="text"
               placeholder="Medication Name"
-              // autofocus
               onIonChange={(e) => setTitle(e.detail.value as string)}
               value={title}
             ></IonInput>
@@ -171,9 +168,7 @@ const AddMedication: React.FC<AddMedicationProps> = ({
           Confirm
         </IonButton>
       </IonContent>
-      {/* // {console.log(date)} */}
     </React.Fragment>
-    // {/* // </IonPage> */}
   );
 };
 
@@ -233,26 +228,6 @@ const MedicationItem: React.FC<MedicationItemProps> = ({
 };
 
 const Medications: React.FC = () => {
-  // let initialMedications = [
-  //   {
-  //     _id: "1",
-  //     title: "Ibuprofen",
-  //     date: "2020-04-17",
-  //     dosage: "100mg a day",
-  //   },
-  //   {
-  //     _id: "2",
-  //     title: "Paracetamol",
-  //     date: "2020-04-17",
-  //     dosage: "100mg a day",
-  //   },
-  //   {
-  //     _id: "3",
-  //     title: "Xanax",
-  //     date: "2020-04-17",
-  //     dosage: "100mg a day",
-  //   },
-  // ];
   const [showModal, setModal] = useState(false);
   const [medications, setMedications] = useState<Medication[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
@@ -368,7 +343,7 @@ const Medications: React.FC = () => {
             return (
               <React.Fragment>
                 <br />
-                <img src={networkImage} width="75%" />
+                <img src={networkImage} width="75%" alt="network error" />
                 <IonText color="danger">
                   <p className="ion-text-center">{errorMessage}</p>
                 </IonText>

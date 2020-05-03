@@ -1,5 +1,4 @@
 import React, { useState, useContext, useCallback } from "react";
-import UserContext from "../../utils/store";
 import axios from "../../axios";
 
 import {
@@ -18,11 +17,10 @@ import {
   IonTextarea,
   IonButtons,
   IonToast,
-  NavContext
+  NavContext,
 } from "@ionic/react";
 
 const Feedback: React.FC = () => {
-  const [userInfo, setUserInfo] = useState(UserContext as any);
   const [feedbackText, setFeedbackText] = useState("");
   const [showToast, setToast] = useState(false);
   const { navigate } = useContext(NavContext);
@@ -79,13 +77,13 @@ const Feedback: React.FC = () => {
           Submit
         </IonButton>
         <IonToast
-            isOpen={showToast}
-            onDidDismiss={() => redirect()}
-            color="medium"
-            position="middle"
-            message="Feedback Received Successfully, Thank you!"
-            duration={500}
-          />
+          isOpen={showToast}
+          onDidDismiss={() => redirect()}
+          color="medium"
+          position="middle"
+          message="Feedback Received Successfully, Thank you!"
+          duration={500}
+        />
       </IonContent>
     </IonPage>
   );

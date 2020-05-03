@@ -14,30 +14,20 @@ import {
   IonItem,
   IonRadioGroup,
   IonRadio,
-  IonListHeader,
-  IonList,
   IonLabel,
-  IonIcon,
   IonContent,
   IonCardTitle,
   IonSlides,
   IonSlide,
-  IonCardSubtitle,
-  IonText,
-  IonFooter,
   NavContext,
 } from "@ionic/react";
-import { arrowForwardCircleSharp } from "ionicons/icons";
 import { Cards } from "./QuestionnaireInfo";
-import { ReactComponent } from "*.svg";
-import { Redirect } from "react-router";
 import axios from "../../axios";
 
 interface TitleCardProps {
   title: string;
   desc: string;
   link: string;
-  // link2: string;
   history: any;
 }
 
@@ -71,19 +61,6 @@ const TitleCard: React.FC<TitleCardProps> = ({
         >
           Take Questionaire
         </IonButton>
-
-        {/* {title === "App Feedback" ? (
-        <IonButton
-          size="small"
-          fill="outline"
-          onClick={e => {
-            e.preventDefault();
-            history.push(link2);
-          }}
-        >
-          Text Feedback
-        </IonButton>
-        ) : null} */}
       </IonCardContent>
     </IonCard>
   );
@@ -114,10 +91,8 @@ const Question: React.FC<QuestionProps> = ({
   answers,
   setAnswers,
 }) => {
-  const numQuestions = info.questions.length;
   const [selected, setSelected] = useState<number>();
   const updateScore = (index: number, detailValue: number) => {
-    console.log(detailValue);
     answers[index] = detailValue;
     setSelected(detailValue);
     setAnswers(answers);
@@ -136,7 +111,7 @@ const Question: React.FC<QuestionProps> = ({
               onIonChange={(e) => updateScore(index, e.detail.value)}
             >
               {info.answers[index].map((ans, index) => (
-                <IonItem lines="full">
+                <IonItem lines="full" key={index}>
                   <IonLabel>{ans}</IonLabel>
                   <IonRadio value={index} />
                 </IonItem>
@@ -144,12 +119,8 @@ const Question: React.FC<QuestionProps> = ({
             </IonRadioGroup>
           </IonCardContent>
         </IonCard>
-        {/* {/* {`Selected: ${selected}`} */}
         <br />
-        {/* {`Current Index ${index}`} */}
-        {/* {`Current answers ${answers}`} */}
       </IonSlide>
-      {/* {index === numQuestions - 1 ? "final question" : "still got left"} */}
     </React.Fragment>
   );
 };
@@ -163,7 +134,6 @@ export const QuestionairePage: React.FC<QuestionnairePageProps> = ({
     paddingRight: "14px",
   };
   const initialAnswers = contentArray[0].questions.map(() => 0);
-  const [score, setScore] = useState<number>(0);
   const [answers, setAnswers] = useState<number[]>(initialAnswers);
   const [responseMessage, setResponseMessage] = useState("");
   const [final, setFinal] = useState(false);
@@ -214,16 +184,16 @@ export const QuestionairePage: React.FC<QuestionnairePageProps> = ({
         </IonToolbar>
       </IonHeader>
       {contentArray.map((info, index) => (
-        <IonContent>
+        <IonContent key={index}>
           <h2 className="ion-text-center">{info.title}</h2>
           <IonSlides
             pager={false}
             onIonSlideReachEnd={() => setFinal(true)}
-            onClick={() => console.log(answers)}
           >
             {info.questions.map((question, index) => (
               <React.Fragment>
                 <Question
+                  key={index}
                   question={question}
                   info={info}
                   index={index}
@@ -252,32 +222,9 @@ export const QuestionairePage: React.FC<QuestionnairePageProps> = ({
           />
         </IonContent>
       ))}
-      {/* {console.log(answers)} */}
     </IonPage>
   );
 };
-
-// Creating feedback text field
-// interface FeedbackProps{
-// }
-
-// export const FeedbackText: React.FC<FeedbackProps> = () =>{
-
-//   return(
-//     <IonCard className="login">
-//         <IonList lines="full" class="ion-no-margin ion-no-padding">
-//       <IonItem>
-//         <IonLabel position="floating">Email</IonLabel>
-//         <IonInput required type="text"></IonInput>
-//       </IonItem>
-
-//       <IonItem lines="none">
-//           <IonLabel position="stacked">No Account? Register <a href="/register">here</a></IonLabel>
-//       </IonItem>
-//       </IonList>
-//       </IonCard>
-//   );
-// }
 
 interface QuestionaireProps {
   history: any;
@@ -297,11 +244,11 @@ const Questionaire: React.FC<QuestionaireProps> = ({ history }) => {
       <IonContent>
         {Cards.map((cardInfo, index) => (
           <TitleCard
+            key={index}
             history={history}
             title={cardInfo.cardTitle}
             desc={cardInfo.cardDesc}
             link={cardInfo.link}
-            // link2={cardInfo.link2}
           />
         ))}
       </IonContent>

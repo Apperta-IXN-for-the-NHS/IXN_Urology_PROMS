@@ -7,7 +7,6 @@ import {
   IonCard,
   IonCardHeader,
   IonButton,
-  IonCardSubtitle,
   IonCardContent,
   IonCardTitle,
   IonToolbar,
@@ -17,7 +16,6 @@ import {
 } from "@ionic/react";
 import { chevronForwardOutline } from "ionicons/icons";
 import LineGraph from "../../components/common/Graph";
-import counsellingImg from "../../assets/images/counselling.png";
 interface ResultsProps {
   history: any;
 }
@@ -77,24 +75,6 @@ const GraphCard: React.FC<GraphCardProps> = ({
   history,
   link,
 }) => {
-  // const data = [
-  //   {
-  //     t: new Date("2020-04-25"),
-  //     y: 24,
-  //   },
-  //   {
-  //     t: new Date("2020-04-29"),
-  //     y: 28,
-  //   },
-  //   {
-  //     t: new Date("2020-05-6"),
-  //     y: 22,
-  //   },
-  //   {
-  //     t: new Date("2020-05-10"),
-  //     y: 30,
-  //   },
-  // ];
   const headerStyle = {
     paddingTop: "5px",
     paddingBottom: "5px",

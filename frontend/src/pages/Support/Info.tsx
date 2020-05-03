@@ -3,7 +3,6 @@ import counsellingImg from "../../assets/images/counselling.png";
 import dietImg from "../../assets/images/diet.jpg";
 import exerciseImg from "../../assets/images/exercise.png";
 import charityImg from "../../assets/images/charity.jpg";
-import { people } from "ionicons/icons";
 
 export let SupportInfo = [
   {
@@ -29,14 +28,16 @@ export let SupportInfo = [
   },
   {
     title: "Support Charities",
-    preview: "Discover the many great charities helping in the fight against cancer",
+    preview:
+      "Discover the many great charities helping in the fight against cancer",
     description:
       "Charites such as Prostate Cancer UK are on the forefront of leading the fight against prostate cancer. They provide advice and support to those diagnosed with prostate cancer and their families, as well as directing and funding research into treatments and improved diagnostic tools.",
     image: charityImg,
   },
   {
     title: "Diet & Nutrition",
-    preview: "Learn how to lead an effective lifestyle with good diet and nutirtion",
+    preview:
+      "Learn how to lead an effective lifestyle with good diet and nutirtion",
     description:
       "Differences in diet and lifestyle may account for the variability of prostate cancer rates in different countries. Good nutrition may help reduce the risk of developing prostate cancer, slow progression of the disease and prevent aggressive disease. The links below discuss a healthy diet for good prostate health and guidelines for a healthy diet while in treatment for prostate cancer. Diet and nutirtion should never be used as a replacement for treatment. If in doubt, discuss dietary changes with your doctor.",
     image: dietImg,

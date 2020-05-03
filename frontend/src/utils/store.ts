@@ -36,7 +36,6 @@ export const isLoggedIn = async () => {
 };
 
 export const logOut = async () => {
-  // console.log("Log out called")
   await Storage.remove({ key: "user" });
 };
 

@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../axios";
 import {
-  IonCardContent,
   IonPage,
   IonHeader,
   IonContent,
-  IonTitle,
   IonItem,
   IonLabel,
   IonToolbar,
@@ -46,7 +44,6 @@ const ResultsData: React.FC<ResultsDataProps> = ({ title }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [modal, showModal] = useState(false);
   const [toast, showToast] = useState(false);
-  const [refresh, setRefresh] = useState(false);
   const [psaScore, setPsaScore] = useState<number>(0);
   const [psaDate, setPsaDate] = useState("");
   const submitPSA = async () => {
@@ -66,9 +63,6 @@ const ResultsData: React.FC<ResultsDataProps> = ({ title }) => {
       // update state here
       const newData = [...graphData, newDataPoint as any];
       setGraphData(newData);
-      setRefresh(true);
-      // console.log("New graph data");
-      // console.log(graphData);
     } catch (err) {
       console.log(err);
       console.log(err.response);
@@ -124,7 +118,7 @@ const ResultsData: React.FC<ResultsDataProps> = ({ title }) => {
             return (
               <React.Fragment>
                 <br />
-                <img src={networkImage} width="75%" />
+                <img src={networkImage} width="75%" alt="network error"/>
                 <IonText color="danger">
                   <p className="ion-text-center">{errorMessage}</p>
                 </IonText>
@@ -148,15 +142,17 @@ const ResultsData: React.FC<ResultsDataProps> = ({ title }) => {
                     <span style={dot} />
                     <IonLabel style={labelStyle}>
                       <h2>{`${title} Score: ${d.y} ${d.unit ?? ""}`}</h2>
-                      {/* {d.t.toDateString()} */}
+                      {d.t.toDateString()}
                     </IonLabel>
                   </IonItem>
                 ))}
-                <IonFab vertical="bottom" horizontal="end" slot="fixed">
-                  <IonFabButton onClick={() => showModal(true)}>
-                    <IonIcon icon={add} />
-                  </IonFabButton>
-                </IonFab>
+                {title === "PSA" ? (
+                  <IonFab vertical="bottom" horizontal="end" slot="fixed">
+                    <IonFabButton onClick={() => showModal(true)}>
+                      <IonIcon icon={add} />
+                    </IonFabButton>
+                  </IonFab>
+                ) : null}
                 <IonModal isOpen={modal}>
                   <IonHeader>
                     <IonToolbar>
@@ -225,25 +221,6 @@ const ResultsData: React.FC<ResultsDataProps> = ({ title }) => {
             );
           }
         })()}
-        {/* {errorMessage ? (
-          <React.Fragment>
-            <br />
-            <img src={networkImage} width="75%" />
-            <IonText color="warning">
-              <p className="ion-text-center">{errorMessage}</p>
-            </IonText>
-          </React.Fragment>
-        ) : (
-          graphData.map((d, i) => (
-            <IonItem key={i} lines="full">
-              <span style={dot} />
-              <IonLabel style={labelStyle}>
-                <h2>{`${title} Score: ${d.y}`}</h2>
-                {d.t.toDateString()}
-              </IonLabel>
-            </IonItem>
-          ))
-        )} */}
       </IonContent>
     </IonPage>
   );

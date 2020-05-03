@@ -9,7 +9,6 @@ import {
   IonButton,
   IonTitle,
   IonToolbar,
-  IonText,
   IonFab,
   IonFabButton,
   IonIcon,

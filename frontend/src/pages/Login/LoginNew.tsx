@@ -18,8 +18,8 @@ import axios from "../../axios";
 const Login: React.FC = () => {
   const { Storage } = Plugins;
   const [userInfo, setUserInfo] = useContext(UserContext as any);
-  const [email, setEmail] = useState("elon@gmail.com");
-  const [password, setPassword] = useState("elon");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
   const buttonStyle = {
     fontSize: "large",
@@ -37,14 +37,12 @@ const Login: React.FC = () => {
       attachToken(response.data.data.token);
       setLoginError("");
       setUserInfo({ ...response.data.data, loggedIn: true });
-      console.log(await Storage.keys());
       redirect();
     } catch (err) {
       if (err.response) {
         const response = err.response.data;
         setLoginError(response.message);
       } else if (err.request) {
-        console.log(err.request);
         setLoginError("Please make sure you are connected to Wifi");
       } else {
         setLoginError(err.message);

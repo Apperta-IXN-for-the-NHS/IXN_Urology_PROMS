@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import UserContext, { logOut } from "../../utils/store";
 import {
   IonContent,
@@ -8,7 +8,6 @@ import {
   IonCard,
   IonToolbar,
   IonItem,
-  IonList,
   IonLabel,
   IonButton,
   IonCardContent,
@@ -23,9 +22,6 @@ interface InfoListProps {
 }
 
 const InfoList: React.FC<InfoListProps> = ({ infoArray, infoTitle }) => {
-  const padLeft = {
-    paddingLeft: "15px",
-  };
   return (
     <IonCard color="primary">
       <IonItem lines="full">
@@ -33,7 +29,7 @@ const InfoList: React.FC<InfoListProps> = ({ infoArray, infoTitle }) => {
       </IonItem>
       <IonCardContent>
         {infoArray.map((info, index) => (
-          <IonLabel>
+          <IonLabel key={index}>
             <b>{info.title}</b> : {info.value} <br />
           </IonLabel>
         ))}
@@ -76,12 +72,6 @@ const Profile: React.FC<{ history: any }> = ({ history }) => {
       value: userInfo.hospital ?? "Hopsital not registered",
     },
   ];
-  const padLeft = {
-    paddingLeft: "17px",
-  };
-  const imageStyle = {
-    borderRadius: "50%",
-  };
   const cardStyle = {
     paddingLeft: "15px",
     paddingRight: "15px",
@@ -95,7 +85,7 @@ const Profile: React.FC<{ history: any }> = ({ history }) => {
       </IonHeader>
       <IonContent>
         <div className="ion-text-center ion-padding-top wrapper">
-          <img src={NHSlogo} />
+          <img src={NHSlogo} alt="nhs logo" />
         </div>
         <h3 className="ion-text-center">{fullName}</h3>
         <InfoList infoArray={nameDetials} infoTitle={"Name"} />

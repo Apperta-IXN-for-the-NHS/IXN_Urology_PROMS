@@ -19,8 +19,6 @@ import {
   NavContext,
 } from "@ionic/react";
 import axios from "../../axios";
-import { journal } from "ionicons/icons";
-import { join } from "path";
 
 interface RegisterItemProps {
   title: string;
@@ -43,7 +41,7 @@ const RegisterItem: React.FC<RegisterItemProps> = ({
         required={required}
         type={inputType}
         value={inputValue}
-        placeholder={title + ' *'}
+        placeholder={title + " *"}
         onIonChange={(e) => setFunc(e.detail.value as any)}
       />
     </IonItem>
@@ -58,17 +56,17 @@ export const Register: React.FC = () => {
   // all states
   const [userInfo, setUserInfo] = useContext(UserContext as any);
   const [loginError, setLoginError] = useState("");
-  const [firstName, setFirstName] = useState("Bill");
-  const [lastName, setLastName] = useState("Gates");
-  const [email, setEmail] = useState("bill2@gmail.com");
-  const [password, setPassword] = useState("bill123");
-  const [phoneNumber, setPhoneNumber] = useState("07799123");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [hospital, setHospital] = useState("");
-  const [addressOne, setAddressOne] = useState("bills mansion");
+  const [addressOne, setAddressOne] = useState("");
   const [addressTwo, setAddressTwo] = useState("");
-  const [city, setCity] = useState("seattle");
-  const [county, setCounty] = useState("washington");
-  const [postcode, setPostCode] = useState("dt12fq");
+  const [city, setCity] = useState("");
+  const [county, setCounty] = useState("");
+  const [postcode, setPostCode] = useState("");
 
   // helper functions
   const { navigate } = useContext(NavContext);
@@ -124,7 +122,6 @@ export const Register: React.FC = () => {
       postcode: postcode,
       hospital: hospital,
     };
-    console.log(details);
     try {
       const validation = await validationSchema.validateAsync(formDetails);
       await axios.post("/auth/register", details);
@@ -142,13 +139,9 @@ export const Register: React.FC = () => {
         const response = err.response.data;
         setLoginError(response.message);
       } else if (err.request) {
-        console.log(err.request);
         setLoginError("Please make sure you are connected to Wifi");
       } else {
-        console.log(err);
         setLoginError(err.message);
-        // console.log(err.message);
-        // setLoginError(err.message);
       }
     }
   };
@@ -246,7 +239,7 @@ export const Register: React.FC = () => {
       <IonContent>
         <IonList>
           <IonListHeader className="reg">Your Details</IonListHeader>
-          <br/>
+          <br />
           {registerDetails.map((details, index) => (
             <RegisterItem
               key={index}
@@ -257,13 +250,13 @@ export const Register: React.FC = () => {
               setFunc={details.setFunc}
             />
           ))}
-          {console.log(hospital)}
           <IonItem>
             <IonLabel position="stacked">
               Address <IonText color="danger">*</IonText>
             </IonLabel>
             {addressDetails.map((details, index) => (
               <IonInput
+                key={index}
                 placeholder={details.title}
                 required={details.required}
                 type={details.inputType as any}
