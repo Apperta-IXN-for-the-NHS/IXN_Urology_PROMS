@@ -24,6 +24,7 @@ import { usePhotoGallery, Photo } from "../../utils/usePhotoGallery";
 
 const Letters: React.FC = () => {
   const [photoToDelete, setPhotoToDelete] = useState<Photo>();
+  const [currentSrc, setCurrentSrc] = useState("");
   const [userInfo, setUserInfo] = useContext(UserContext as any);
   const storageKey = `photos ${userInfo._id}`;
   const { deletePhoto, photos, takePhoto } = usePhotoGallery(storageKey);
@@ -39,25 +40,30 @@ const Letters: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
+        {photos.length === 0 ? (
+          <p className="ion-padding ion-text-center">
+            Use the camera icon to take photos of any medical documents or
+            letters.
+          </p>
+        ) : (
+          <p className="ion-padding ion-text-center">
+            Tap on an image to view or delete it
+          </p>
+        )}
         <IonGrid>
           <IonRow>
             {photos.map((photo, index) => (
               <IonCol size="6" key={index}>
                 <IonImg
-                  onClick={() => setPhotoToDelete(photo)}
+                  onClick={() => {
+                    setPhotoToDelete(photo);
+                    setCurrentSrc(photo.base64! ?? photo.webviewPath);
+                  }}
                   src={photo.base64 ?? photo.webviewPath}
                 />
               </IonCol>
             ))}
           </IonRow>
-          {photos.length === 0 ? (
-            <p className="ion-padding">
-              Use the camera icon below to take photos of any medical documents
-              or letters.
-            </p>
-          ) : (
-            <p className="ion-padding">Tap on an image to view or delete it</p>
-          )}
         </IonGrid>
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
           <IonFabButton onClick={() => takePhoto()}>
@@ -65,13 +71,15 @@ const Letters: React.FC = () => {
           </IonFabButton>
         </IonFab>
         <IonModal isOpen={modal}>
-          <IonToolbar>
-            <IonButtons slot="start">
-              <IonButton onClick={() => setModal(false)}>close</IonButton>
-            </IonButtons>
-          </IonToolbar>
+          <IonHeader>
+            <IonToolbar>
+              <IonButtons slot="start">
+                <IonButton onClick={() => setModal(false)}>close</IonButton>
+              </IonButtons>
+            </IonToolbar>
+          </IonHeader>
           <IonContent>
-            <IonImg src={photoToDelete?.base64 ?? photoToDelete?.webviewPath} />
+            <IonImg src={currentSrc} />
           </IonContent>
         </IonModal>
 
@@ -94,6 +102,7 @@ const Letters: React.FC = () => {
               icon: eye,
               handler: () => {
                 setModal(true);
+                setPhotoToDelete(undefined);
               },
             },
             {

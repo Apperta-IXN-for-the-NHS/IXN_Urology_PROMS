@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import UserContext from "./utils/store";
 import {
   IonApp,
@@ -56,67 +56,72 @@ import "./theme/variables.css";
 /* Global CSS */
 import "./global.css";
 
+const Tabs: React.FC = () => {
+  return (
+    <IonTabs>
+      <IonRouterOutlet>
+        <Route path="/tab1" component={KnowledgeBank} />
+        <Route exact path="/tab2" component={DocPatient} />
+        <Route path="/tab3" component={Support} />
+        <Route path="/tab4" component={ProfileNew} />
+        <Route path="/letters" component={Letters} />
+        <Route path="/quest" component={Questionaire} />
+        <Route path="/symptoms" component={Symptoms} />
+        <Route path="/results" component={Results} />
+        <Route path="/feedback" component={Feedback} />
+        <Route
+          path="/ipss-results"
+          render={() => <ResultsData title="IPSS" />}
+        />
+        <Route path="/psa-results" render={() => <ResultsData title="PSA" />} />
+        <Route
+          path="/iief-results"
+          render={() => <ResultsData title="IIEF" />}
+        />
+        <Route
+          path="/ipss"
+          render={() => <QuestionairePage contentArray={IPSS} />}
+        />
+        <Route
+          path="/iief"
+          render={() => <QuestionairePage contentArray={IIEF} />}
+        />
+      </IonRouterOutlet>
+      <IonTabBar slot="bottom">
+        <IonTabButton tab="tab1" href="/tab1">
+          <IonIcon icon={informationCircleOutline} />
+          <IonLabel>Info Bank</IonLabel>
+        </IonTabButton>
+        <IonTabButton tab="tab2" href="/tab2">
+          <IonIcon icon={peopleCircleOutline} />
+          <IonLabel>Doc & Patient</IonLabel>
+        </IonTabButton>
+        <IonTabButton tab="tab3" href="/tab3">
+          <IonIcon icon={heartCircleOutline} />
+          <IonLabel>Support</IonLabel>
+        </IonTabButton>
+        <IonTabButton tab="tab4" href="/tab4">
+          <IonIcon icon={person} />
+          <IonLabel>Profile</IonLabel>
+        </IonTabButton>
+      </IonTabBar>
+    </IonTabs>
+  );
+};
+
 const App: React.FC = () => {
   const [userInfo, setUserInfo] = useState({ loggedIn: false });
   return (
     <UserContext.Provider value={[userInfo, setUserInfo]}>
       <IonApp>
         <IonReactRouter>
-          <IonTabs>
-            <IonRouterOutlet>
-              <Route path="/tab1" component={KnowledgeBank} />
-              <Route exact path="/tab2" component={DocPatient} />
-              <Route path="/tab3" component={Support} />
-              <Route path="/tab4" component={ProfileNew} />
-              <Route path="/letters" component={Letters} />
-              <Route path="/quest" component={Questionaire} />
-              <Route path="/symptoms" component={Symptoms} />
-              <Route path="/results" component={Results} />
-              <Route path="/feedback" component={Feedback} />
-              <Route
-                path="/ipss-results"
-                render={() => <ResultsData title="IPSS" />}
-              />
-              <Route
-                path="/psa-results"
-                render={() => <ResultsData title="PSA" />}
-              />
-              <Route
-                path="/iief-results"
-                render={() => <ResultsData title="IIEF" />}
-              />
-              <Route
-                path="/ipss"
-                render={() => <QuestionairePage contentArray={IPSS} />}
-              />
-              <Route
-                path="/iief"
-                render={() => <QuestionairePage contentArray={IIEF} />}
-              />
-            </IonRouterOutlet>
-            <IonTabBar slot="bottom">
-              <IonTabButton tab="tab1" href="/tab1">
-                <IonIcon icon={informationCircleOutline} />
-                <IonLabel>Info Bank</IonLabel>
-              </IonTabButton>
-              <IonTabButton tab="tab2" href="/tab2">
-                <IonIcon icon={peopleCircleOutline} />
-                <IonLabel>Doc & Patient</IonLabel>
-              </IonTabButton>
-              <IonTabButton tab="tab3" href="/tab3">
-                <IonIcon icon={heartCircleOutline} />
-                <IonLabel>Support</IonLabel>
-              </IonTabButton>
-              <IonTabButton tab="tab4" href="/tab4">
-                <IonIcon icon={person} />
-                <IonLabel>Profile</IonLabel>
-              </IonTabButton>
-            </IonTabBar>
-          </IonTabs>
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/auth" component={Auth} />
-          <Route exact path="/" render={() => <Redirect to="/auth" />} />
+          <Switch>
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+            <Route path="/auth" component={Auth} />
+            <Route exact path="/" render={() => <Redirect to="/auth" />} />
+            <Route component={Tabs} />
+          </Switch>
         </IonReactRouter>
       </IonApp>
     </UserContext.Provider>
